@@ -37,7 +37,7 @@ Cloudflare는 clean URL을 사용하므로 `/hub.html`이 `/hub`로 리다이렉
 
 게임 HTML은 JS/CSS에 `?v=YYYYMMDDx` 형식의 캐시 버전을 붙인다. 게임 소스나 스타일을 수정해 Cloudflare에 배포할 때는 이 값을 올려 브라우저가 오래된 파일을 잡지 않게 한다.
 
-현재 버전: `20260710b`
+현재 버전: `20260710c`
 
 ## 검증
 

@@ -27,7 +27,7 @@ def test_game_keeps_separate_local_assets_and_language_bridge() -> None:
         assert asset_path(scripts[0]) == "src/streamlit_bridge.js"
         assert styles
         assert all((GAME_DIR / asset_path(path)).is_file() for path in scripts + styles)
-        assert "?v=20260710b" in html
+        assert "?v=20260710c" in html
         assert "??/option" not in html
         assert "??/button" not in html
 
@@ -102,7 +102,7 @@ def test_game_korean_ui_strings_are_not_left_as_english_defaults() -> None:
 
     for relative_html in HTML_FILES:
         html = (GAME_DIR / relative_html).read_text(encoding="utf-8")
-        assert "src/text_fixes.js?v=20260710b" in html
+        assert "src/text_fixes.js?v=20260710c" in html
 
     assert 'chapter: "거울 작전"' in i18n
     assert 'language: "언어"' in i18n

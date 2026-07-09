@@ -14,7 +14,7 @@
     continue: "계속하기",
     replay: "다시 플레이",
     locked: "잠김",
-    planned: "개발 예정",
+    planned: "준비 중",
     complete: "필수 작전 완료",
     requirement: "잠금 조건",
     requiredClear: "필수 작전 클리어",

@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 2rem;
-  padding: clamp(28px, 5vw, 58px);
+  padding: clamp(24px, 4vw, 44px);
   border: 1px solid var(--line);
   border-radius: 34px;
   background:
@@ -22,12 +22,12 @@
 .hub-hero h1 {
   max-width: 700px;
   margin: 0.25rem 0 0.7rem;
-  font-size: clamp(2.4rem, 6vw, 5.2rem);
-  line-height: 0.98;
-  letter-spacing: -0.055em;
+  font-size: clamp(1.75rem, 3.2vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: 0;
 }
 
-.hub-hero > div > p:last-child { max-width: 650px; margin: 0; color: var(--muted); font-size: 1.05rem; }
+.hub-hero > div > p:last-child { max-width: 650px; margin: 0; color: var(--muted); font-size: 0.98rem; }
 .hub-language { flex: 0 0 auto; }
 
 .hub-summary {
@@ -49,7 +49,7 @@
 }
 
 .hub-summary span { color: var(--muted); font-size: 0.8rem; }
-.hub-summary strong { font-size: clamp(1.15rem, 2.2vw, 1.7rem); }
+.hub-summary strong { font-size: clamp(1.05rem, 2vw, 1.45rem); }
 
 .hub-section-heading {
   display: flex;
@@ -59,7 +59,7 @@
   margin-bottom: 18px;
 }
 
-.hub-section-heading h2 { margin: 0.15rem 0 0; font-size: 2rem; }
+.hub-section-heading h2 { margin: 0.15rem 0 0; font-size: 1.65rem; }
 .hub-section-heading > p { max-width: 560px; margin: 0; color: var(--muted); text-align: right; }
 
 .chapter-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -81,7 +81,7 @@
 .chapter-card-top { display: flex; justify-content: space-between; align-items: center; }
 .chapter-number { color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.16em; }
 .chapter-icon { color: var(--chapter-accent); font-size: 2.6rem; line-height: 1; filter: drop-shadow(0 0 12px var(--chapter-accent)); }
-.chapter-card h3 { margin: 1.1rem 0 0.25rem; font-size: 1.75rem; }
+.chapter-card h3 { margin: 1.1rem 0 0.25rem; font-size: 1.48rem; line-height: 1.22; }
 .chapter-concept { color: var(--chapter-accent); font-size: 0.92rem; }
 .chapter-card > p { min-height: 3.3em; color: var(--muted); line-height: 1.65; }
 
@@ -117,7 +117,7 @@
 
 @media (max-width: 480px) {
   .hub-hero { padding: 26px 20px; }
-  .hub-hero h1 { font-size: 2.7rem; }
+  .hub-hero h1 { font-size: 1.95rem; }
   .chapter-card { min-height: 340px; padding: 20px; }
   .chapter-card-footer { align-items: stretch; flex-direction: column; }
 }

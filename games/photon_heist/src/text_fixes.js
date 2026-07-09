@@ -18,7 +18,7 @@
       completed: "완료 작전",
       stars: "획득 별",
       next: "다음 목표",
-      route: "CAMPAIGN ROUTE",
+      route: "캠페인 경로",
       chapters: "챕터 선택",
       unlockRule: "필수 작전을 클리어하면 다음 챕터가 열린다. 별은 숙련 기록이며 진행을 막지 않는다.",
       enter: "작전 시작",

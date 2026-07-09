@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Photon Heist Optics Tests</title>
+  <style>
+    body { margin: 0; padding: 32px; color: #eef7ff; background: #0d1020; font: 16px/1.55 system-ui; }
+    main { max-width: 760px; margin: auto; padding: 28px; border: 1px solid #38506c; border-radius: 20px; background: #171d31; }
+    h1 { margin-top: 0; }
+    li { margin: 8px 0; }
+    .pass { color: #58f0a5; }
+    .fail { color: #ff7087; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="result">Running optics tests…</h1>
+    <ol id="results"></ol>
+  </main>
+  <script src="../src/optics.js"></script>
+  <script src="../src/glass_levels.js"></script>
+  <script>
+    const output = document.getElementById("results");
+    let passed = 0;
+
+    function assert(condition, message) {
+      if (!condition) throw new Error(message);
+      const item = document.createElement("li");
+      item.className = "pass";
+      item.textContent = `PASS — ${message}`;
+      output.appendChild(item);
+      passed += 1;
+    }
+
+    function near(actual, expected, tolerance = 0.05) {
+      return Math.abs(actual - expected) <= tolerance;
+    }
+
+    function segmentIntersectsAABB(p1, p2, rect) {
+      const dx = p2.x - p1.x, dy = p2.y - p1.y;
+      let tmin = 0, tmax = 1;
+      for (const [p, q] of [
+        [-dx, p1.x - rect.x1], [dx, rect.x2 - p1.x],
+        [-dy, p1.y - rect.y1], [dy, rect.y2 - p1.y]
+      ]) {
+        if (Math.abs(p) < 1e-9) {
+          if (q < 0) return false;
+          continue;
+        }
+        const t = q / p;
+        if (p < 0) tmin = Math.max(tmin, t);
+        else tmax = Math.min(tmax, t);
+        if (tmin > tmax) return false;
+      }
+      return true;
+    }
+
+    function isSafe(trace, level) {
+      return !(level.dangerZones || []).some(zone =>
+        trace.segments.some(seg => segmentIntersectsAABB(seg.start, seg.end, zone))
+      );
+    }
+
+    try {
+      const airToGlass = Optics.refract(
+        { x: Math.cos(Math.PI / 6), y: Math.sin(Math.PI / 6) },
+        { x: 1, y: 0 },
+        1,
+        1.5
+      );
+      assert(!airToGlass.tir && near(airToGlass.refractionAngle, 19.47), "30° air-to-glass refraction is 19.47°");
+
+      const glassToAir = Optics.refract(
+        { x: Math.cos(Math.PI / 6), y: Math.sin(Math.PI / 6) },
+        { x: 1, y: 0 },
+        1.5,
+        1
+      );
+      assert(!glassToAir.tir && near(glassToAir.refractionAngle, 48.59), "30° glass-to-air refraction is 48.59°");
+
+      const totalInternalReflection = Optics.refract(
+        { x: Math.cos(50 * Math.PI / 180), y: Math.sin(50 * Math.PI / 180) },
+        { x: 1, y: 0 },
+        1.5,
+        1
+      );
+      assert(totalInternalReflection.tir, "50° glass-to-air incidence triggers total internal reflection");
+
+      GLASS_LEVELS.forEach(level => {
+        // Build sensor using the game's sensorFromSolution logic (handles laser vs glass mode)
+        let solSource, solGlass;
+        if (level.rotateMode === "laser") {
+          solSource = { ...level.source, angle: level.solutionAngle };
+          solGlass  = { ...level.glass, angle: level.glass.initialAngle };
+        } else {
+          solSource = level.source;
+          solGlass  = { ...level.glass, angle: level.solutionAngle };
+        }
+        const solTrace = Optics.traceRay({
+          source: solSource,
+          glass: solGlass,
+          mirrors: level.mirrors || []
+        });
+        const solSeg = solTrace.segments[solTrace.segments.length - 1];
+        const sensorT = level.sensorT || 0.68;
+        const sensor = {
+          x: solSeg.start.x + (solSeg.end.x - solSeg.start.x) * sensorT,
+          y: solSeg.start.y + (solSeg.end.y - solSeg.start.y) * sensorT,
+          radius: level.sensorRadius || 0.026
+        };
+
+        if (level.fineStepDeg) {
+          const coarseStep = level.stepDeg || 5;
+          const offset = level.solutionAngle - level.source.angle;
+          assert(Math.abs(offset / coarseStep - Math.round(offset / coarseStep)) > 1e-6,
+            `${level.id} target intentionally lies between coarse-angle marks`);
+          assert(Optics.traceHitsSensor(solTrace, sensor) && isSafe(solTrace, level),
+            `${level.id} fine-angle solution (${level.solutionAngle}°) reaches the sensor safely`);
+          const lowerAngle = level.source.angle + Math.floor(offset / coarseStep) * coarseStep;
+          const upperAngle = level.source.angle + Math.ceil(offset / coarseStep) * coarseStep;
+          const coarseNeighborsMiss = [lowerAngle, upperAngle].every(angle => {
+            const trace = Optics.traceRay({
+              source: { ...level.source, angle },
+              glass: { ...level.glass, angle: level.glass.initialAngle },
+              mirrors: level.mirrors || []
+            });
+            return !Optics.traceHitsSensor(trace, sensor);
+          });
+          assert(coarseNeighborsMiss,
+            `${level.id} adjacent coarse angles (${lowerAngle}°, ${upperAngle}°) miss the sensor`);
+        }
+
+        if (level.shardAngle !== undefined) {
+          const shardTrace = Optics.traceRay({
+            source: { ...level.source, angle: level.shardAngle },
+            glass: { ...level.glass, angle: level.glass.initialAngle },
+            mirrors: level.mirrors || []
+          });
+          const shardSeg = shardTrace.segments[shardTrace.segments.length - 1];
+          const shardT = level.shardT || 0.72;
+          const shard = {
+            x: shardSeg.start.x + (shardSeg.end.x - shardSeg.start.x) * shardT,
+            y: shardSeg.start.y + (shardSeg.end.y - shardSeg.start.y) * shardT,
+            radius: level.shardRadius || 0.018
+          };
+          assert(Optics.traceHitsSensor(shardTrace, shard) && isSafe(shardTrace, level),
+            `${level.id} data-shard route is reachable and safe`);
+          assert(!Optics.traceHitsSensor(solTrace, shard),
+            `${level.id} one-shot solution does not collect the optional data shard`);
+          if (level.requiresShard) {
+            const shardTypes = shardTrace.events.map(event => event.type);
+            const solutionTypes = solTrace.events.map(event => event.type);
+            assert(shardTypes[0] === "mirror" && shardTypes.includes("refraction"),
+              `${level.id} first route uses mirror then glass`);
+            assert(solutionTypes[0] === "refraction" && solutionTypes.includes("mirror"),
+              `${level.id} second route uses glass then mirror`);
+            const sequenceMoves = Math.abs(level.shardAngle - level.source.angle) / (level.stepDeg || 5)
+              + Math.abs(level.solutionAngle - level.shardAngle) / (level.stepDeg || 5);
+            assert(sequenceMoves === level.targetRotations,
+              `${level.id} ordered two-shot route matches ${level.targetRotations} total moves`);
+          }
+        }
+
+        // Observation stages: should auto-clear at the initial state
+        if (!level.rotatable) {
+          const trace = Optics.traceRay({
+            source: level.source,
+            glass: { ...level.glass, angle: level.glass.initialAngle },
+            mirrors: level.mirrors || []
+          });
+          assert(Optics.traceHitsSensor(trace, sensor), level.prediction
+            ? `${level.id} optical target is ready after a correct prediction`
+            : `${level.id} observation stage auto-clears at initial state`);
+          if (level.prediction) {
+            assert(level.prediction.options.some(option => option.id === level.prediction.correct),
+              `${level.id} prediction has a valid correct option`);
+          }
+          return;
+        }
+
+        // Laser rotation: search both directions and require a danger-zone-safe hit.
+        if (level.rotateMode === "laser") {
+          const startAngle = level.source.angle;
+          const expectedRotations = level.firstSolutionRotations ?? level.targetRotations;
+          const maxChecks = expectedRotations + 5;
+          const successfulRotations = [];
+          const steps = [level.stepDeg || 5];
+          if (level.fineStepDeg) steps.push(level.fineStepDeg);
+          let frontier = new Set([startAngle]);
+          for (let moves = 0; moves <= maxChecks; moves++) {
+            const hitAtThisCost = [...frontier].some(angle => {
+              const trace = Optics.traceRay({
+                source: { ...level.source, angle },
+                glass:  { ...level.glass, angle: level.glass.initialAngle },
+                mirrors: level.mirrors || []
+              });
+              return Optics.traceHitsSensor(trace, sensor) && isSafe(trace, level);
+            });
+            if (hitAtThisCost) successfulRotations.push(moves);
+            const next = new Set(frontier);
+            frontier.forEach(angle => steps.forEach(step => {
+              next.add(angle - step);
+              next.add(angle + step);
+            }));
+            frontier = next;
+          }
+          assert(successfulRotations.length > 0 && successfulRotations[0] === expectedRotations,
+            `${level.id} first safe solution at ${expectedRotations} laser move(s); found [${successfulRotations.join(", ")}]`);
+          if (level.mirrors?.length) {
+            assert(solTrace.events.some(event => event.type === "mirror"),
+              `${level.id} solution uses the mirror after refraction`);
+          }
+          return;
+        }
+
+        // Glass rotation: verify solution hits sensor and initial state does not
+        const solGlassTrace = Optics.traceRay({
+          source: level.source,
+          glass: { ...level.glass, angle: level.solutionAngle },
+          mirrors: level.mirrors || []
+        });
+        assert(Optics.traceHitsSensor(solGlassTrace, sensor),
+          `${level.id} solution glass angle (${level.solutionAngle}°) hits sensor`);
+        const initGlassTrace = Optics.traceRay({
+          source: level.source,
+          glass: { ...level.glass, angle: level.glass.initialAngle },
+          mirrors: level.mirrors || []
+        });
+        assert(!Optics.traceHitsSensor(initGlassTrace, sensor),
+          `${level.id} initial glass angle misses sensor`);
+      });
+
+      document.getElementById("result").className = "pass";
+      document.getElementById("result").textContent = `All ${passed} optics tests passed`;
+      document.body.dataset.testStatus = "passed";
+    } catch (error) {
+      const item = document.createElement("li");
+      item.className = "fail";
+      item.textContent = `FAIL — ${error.stack || error.message}`;
+      output.appendChild(item);
+      document.getElementById("result").className = "fail";
+      document.getElementById("result").textContent = "Optics tests failed";
+      document.body.dataset.testStatus = "failed";
+    }
+  </script>
+</body>
+</html>

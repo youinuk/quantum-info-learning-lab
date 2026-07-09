@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Photon Heist Mirror Tests</title>
+  <style>
+    body { margin: 0; padding: 32px; color: #eef7ff; background: #0d1020; font: 16px/1.55 system-ui; }
+    main { max-width: 760px; margin: auto; padding: 28px; border: 1px solid #38506c; border-radius: 20px; background: #171d31; }
+    h1 { margin-top: 0; }
+    li { margin: 8px 0; }
+    .pass { color: #58f0a5; }
+    .fail { color: #ff7087; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="result">Running mirror tests...</h1>
+    <ol id="results"></ol>
+  </main>
+  <script src="../src/levels.js"></script>
+  <script src="../src/raycaster.js"></script>
+  <script>
+    const output = document.getElementById("results");
+    let passed = 0;
+
+    function assert(condition, message) {
+      if (!condition) throw new Error(message);
+      const item = document.createElement("li");
+      item.className = "pass";
+      item.textContent = `PASS - ${message}`;
+      output.appendChild(item);
+      passed += 1;
+    }
+
+    function minimumSolution(level) {
+      const baseGrid = level.grid.map(row => row.split(""));
+      const mirrors = [];
+      baseGrid.forEach((row, y) => row.forEach((cell, x) => {
+        if (cell === "/" || cell === "\\" || cell === "m") {
+          const options = cell === "m"
+            ? [{ cell: "m", cost: 0 }, { cell: "/", cost: 1 }, { cell: "\\", cost: 2 }]
+            : [{ cell, cost: 0 }, { cell: cell === "/" ? "\\" : "/", cost: 1 }];
+          mirrors.push({ x, y, options });
+        }
+      }));
+      const directions = level.rotatableLaser ? ["R", "D", "L", "U"] : [level.laser.dir];
+      const initialDirectionIndex = ["R", "D", "L", "U"].indexOf(level.laser.dir);
+      let best = null;
+
+      const combinations = mirrors.reduce((total, mirror) => total * mirror.options.length, 1);
+      for (let combination = 0; combination < combinations; combination += 1) {
+        const grid = baseGrid.map(row => [...row]);
+        let mirrorTurns = 0;
+        let deployed = 0;
+        let cursor = combination;
+        mirrors.forEach(mirror => {
+          const option = mirror.options[cursor % mirror.options.length];
+          cursor = Math.floor(cursor / mirror.options.length);
+          grid[mirror.y][mirror.x] = option.cell;
+          mirrorTurns += option.cost;
+          if (option.cell === "/" || option.cell === "\\") deployed += 1;
+        });
+        directions.forEach(direction => {
+          const directionIndex = ["R", "D", "L", "U"].indexOf(direction);
+          const laserTurns = level.rotatableLaser ? (directionIndex - initialDirectionIndex + 4) % 4 : 0;
+          const cost = mirrorTurns + laserTurns;
+          if (best && cost >= best.cost) return;
+          const ray = castRay(grid, { ...level.laser, dir: direction });
+          if (ray.activeSensors.size && !ray.alarmSensors.size) {
+            best = {
+              cost,
+              combination,
+              direction,
+              deployed,
+              grid: grid.map(row => row.join("")),
+              route: ray.path.filter(step => step.cell === "/" || step.cell === "\\" || step.cell === "S")
+                .map(step => `${step.x},${step.y}:${step.cell}`).join(" > ")
+            };
+          }
+        });
+      }
+      return best;
+    }
+
+    function minimumSequentialSolution(level) {
+      const baseGrid = level.grid.map(row => row.split(""));
+      const sequence = level.objectiveSequence || ["K", "S"];
+      const mirrors = [];
+      baseGrid.forEach((row, y) => row.forEach((cell, x) => {
+        if (cell === "m") mirrors.push({ x, y });
+      }));
+      const mirrorStates = 3 ** mirrors.length;
+      const totalStates = mirrorStates * 4;
+      const directions = ["R", "D", "L", "U"];
+      const initialLaser = directions.indexOf(level.laser.dir);
+      const distances = new Float64Array(totalStates);
+      distances.fill(Infinity);
+      const valid = sequence.map(() => new Uint8Array(totalStates));
+      let heap = [];
+
+      function push(item) {
+        heap.push(item);
+        let index = heap.length - 1;
+        while (index > 0) {
+          const parent = Math.floor((index - 1) / 2);
+          if (heap[parent][0] <= item[0]) break;
+          heap[index] = heap[parent];
+          index = parent;
+        }
+        heap[index] = item;
+      }
+
+      function pop() {
+        const first = heap[0];
+        const last = heap.pop();
+        if (heap.length) {
+          let index = 0;
+          while (true) {
+            const left = index * 2 + 1;
+            const right = left + 1;
+            if (left >= heap.length) break;
+            const child = right < heap.length && heap[right][0] < heap[left][0] ? right : left;
+            if (heap[child][0] >= last[0]) break;
+            heap[index] = heap[child];
+            index = child;
+          }
+          heap[index] = last;
+        }
+        return first;
+      }
+
+      for (let stateIndex = 0; stateIndex < totalStates; stateIndex += 1) {
+        const grid = baseGrid.map(row => [...row]);
+        let cursor = stateIndex % mirrorStates;
+        let initialCost = 0;
+        mirrors.forEach(mirror => {
+          const digit = cursor % 3;
+          cursor = Math.floor(cursor / 3);
+          const cell = ["m", "/", "\\"][digit];
+          grid[mirror.y][mirror.x] = cell;
+          initialCost += digit;
+        });
+        const laserDigit = Math.floor(stateIndex / mirrorStates);
+        initialCost += (laserDigit - initialLaser + 4) % 4;
+        const laser = { ...level.laser, dir: directions[laserDigit] };
+        sequence.forEach((objective, phase) => {
+          const ray = castRay(grid, laser);
+          const hit = objective === "K"
+            ? ray.keySensors.size
+            : objective === "Q"
+              ? ray.secondaryKeySensors.size
+              : ray.activeSensors.size;
+          if (hit && !ray.alarmSensors.size) valid[phase][stateIndex] = 1;
+          if (phase < sequence.length - 1) {
+            grid.forEach(row => row.forEach((cell, x) => {
+              if (cell === objective) row[x] = ".";
+            }));
+          }
+        });
+        if (valid[0][stateIndex]) {
+          distances[stateIndex] = initialCost;
+          push([initialCost, stateIndex]);
+        }
+      }
+
+      const factors = mirrors.map((_, index) => 3 ** index);
+      factors.push(mirrorStates);
+      for (let phase = 1; phase < sequence.length; phase += 1) {
+        while (heap.length) {
+          const [distance, stateIndex] = pop();
+          if (distance !== distances[stateIndex]) continue;
+          factors.forEach((factor, index) => {
+            const radix = index === mirrors.length ? 4 : 3;
+            const digit = Math.floor(stateIndex / factor) % radix;
+            const next = digit < radix - 1 ? stateIndex + factor : stateIndex - factor * (radix - 1);
+            const nextDistance = distance + 1;
+            if (nextDistance < distances[next]) {
+              distances[next] = nextDistance;
+              push([nextDistance, next]);
+            }
+          });
+        }
+        if (phase === sequence.length - 1) {
+          let best = Infinity;
+          for (let index = 0; index < totalStates; index += 1) {
+            if (valid[phase][index] && distances[index] < best) best = distances[index];
+          }
+          return Number.isFinite(best)
+            ? { cost: best, direction: `${sequence.length}-phase`, route: sequence.join(" > ") }
+            : null;
+        }
+        const nextDistances = new Float64Array(totalStates);
+        nextDistances.fill(Infinity);
+        heap = [];
+        for (let index = 0; index < totalStates; index += 1) {
+          if (valid[phase][index] && Number.isFinite(distances[index])) {
+            nextDistances[index] = distances[index];
+            push([distances[index], index]);
+          }
+        }
+        distances.set(nextDistances);
+      }
+      return null;
+    }
+
+    try {
+      const solvedLevels = new Map();
+      LEVELS.forEach(level => {
+        const solution = (level.sequentialKey || level.objectiveSequence) ? minimumSequentialSolution(level) : minimumSolution(level);
+        solvedLevels.set(level.id, solution);
+        assert(solution, `Stage ${level.id} has a valid route`);
+        assert(solution.cost === level.targetRotations,
+          `Stage ${level.id} minimum is ${level.targetRotations} turn(s) (found ${solution.cost}, laser ${solution.direction}, route ${solution.route})`);
+      });
+      const pilot = LEVELS.find(level => level.id === "2-2");
+      assert(pilot.commitMode === true, "Stage 2-2 uses plan-fire-result mode");
+      assert(pilot.shotBudget === 3, "Stage 2-2 allows three shots");
+      assert(pilot.targetShots === 1 && pilot.challenge.maxShots === 1, "Stage 2-2 rewards a one-shot clear");
+      const pilotSolution = solvedLevels.get("2-2");
+      assert(pilot.stowableMirrors && pilotSolution.deployed === 4, "Stage 2-2 minimum route deploys four mirrors");
+      const pilotGrid = pilot.grid.map(row => row.split(""));
+      const candidateInEveryDirection = Object.values({ R: [1, 0], D: [0, 1], L: [-1, 0], U: [0, -1] }).every(([dx, dy]) => {
+        let x = pilot.laser.x + dx;
+        let y = pilot.laser.y + dy;
+        while (y >= 0 && y < pilotGrid.length && x >= 0 && x < pilotGrid[0].length) {
+          if (pilotGrid[y][x] === "m") return true;
+          x += dx;
+          y += dy;
+        }
+        return false;
+      });
+      assert(candidateInEveryDirection, "Stage 2-2 shows a candidate mirror in every laser direction");
+      const network = LEVELS.find(level => level.id === "2-3");
+      const networkSolution = solvedLevels.get("2-3");
+      assert(network.commitMode && network.stowableMirrors, "Stage 2-3 uses the stowable plan-fire network");
+      assert(networkSolution.deployed === 5, "Stage 2-3 minimum route deploys five mirrors");
+      const keyHeist = LEVELS.find(level => level.id === "3-1");
+      assert(keyHeist.sequentialKey && keyHeist.targetShots === 2, "Stage 3-1 requires key then exit in two shots");
+      assert(keyHeist.grid.join("").includes("K") && keyHeist.grid.join("").includes("S"), "Stage 3-1 includes distinct key and exit sensors");
+      assert(solvedLevels.get("3-1").cost === 7, "Stage 3-1 two-phase minimum is seven actions");
+      const finalVault = LEVELS.find(level => level.id === "3-2");
+      assert(finalVault.objectiveSequence.join("") === "KQS" && finalVault.targetShots === 3, "Stage 3-2 requires yellow key, cyan key, then exit");
+      assert(finalVault.grid.join("").includes("K") && finalVault.grid.join("").includes("Q") && finalVault.grid.join("").includes("S"), "Stage 3-2 includes three distinct objectives");
+      assert(solvedLevels.get("3-2").cost === 7, "Stage 3-2 three-phase minimum is seven actions");
+      document.getElementById("result").textContent = `${passed} mirror tests passed`;
+    } catch (error) {
+      const item = document.createElement("li");
+      item.className = "fail";
+      item.textContent = `FAIL - ${error.stack || error.message}`;
+      output.appendChild(item);
+      document.getElementById("result").textContent = `${passed} passed, 1 failed`;
+    }
+  </script>
+</body>
+</html>

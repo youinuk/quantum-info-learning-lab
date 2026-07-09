@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glass Route · Photon Heist</title>
+  <link rel="stylesheet" href="styles/style.css?v=20260708a" />
+  <link rel="stylesheet" href="styles/glass.css?v=20260708a" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar glass-topbar">
+      <div>
+        <p class="eyebrow" id="glassChapter">Prototype 2 · Glass Route</p>
+        <h1 id="glassGameTitle">유리 작전: 굴절 경로</h1>
+      </div>
+      <div class="header-controls">
+        <button id="glassStageSelectBtn" class="stage-select-trigger" type="button" aria-label="스테이지 선택">스테이지</button>
+        <button id="glassSoundBtn" class="sound-btn" type="button" aria-pressed="true">소리 켬</button>
+        <a class="back-link" id="backToMirrors" href="hub.html">← 작전 허브</a>
+        <label class="language-control">
+          <span id="glassLanguageLabel">언어</span>
+          <select id="glassLanguageSelect" aria-label="Language">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <section class="mission-card">
+      <div class="mission-header">
+        <div>
+          <p class="stage-id" id="glassStageId">Glass G0-1</p>
+          <h2 id="glassStageTitle">정면 입사</h2>
+        </div>
+        <div class="mission-score">
+          <span class="score-caption" id="glassStarsLabel">이번 실험</span>
+          <div class="stars" id="glassStars">☆☆☆</div>
+          <div class="campaign-progress" id="glassProgress">굴절 ★ 0/30</div>
+        </div>
+      </div>
+      <p class="mission-intro" id="glassStageIntro"></p>
+    </section>
+
+    <section class="challenge-strip" id="glassChallengeStrip" hidden>
+      <span class="challenge-icon">◇</span>
+      <span class="challenge-label" id="glassChallengeLabel">추가 도전</span>
+      <span id="glassChallengeText"></span>
+      <span class="challenge-status" id="glassChallengeStatus"></span>
+    </section>
+
+    <section class="glass-layout">
+      <div class="glass-board-wrap">
+        <svg id="glassBoard" class="glass-board" viewBox="0 0 800 800" role="img" aria-label="Refraction experiment board"></svg>
+      </div>
+
+      <aside class="panel glass-panel">
+        <div class="status-box" id="glassStatusBox">
+          <strong id="glassStatusTitle">경로 관찰</strong>
+          <p id="glassStatusText">법선과 굴절 경로를 비교한다.</p>
+        </div>
+
+        <div class="prediction-control" id="glassPredictionControl" hidden>
+          <strong id="glassPredictionQuestion">어느 쪽으로 꺾일까?</strong>
+          <div id="glassPredictionOptions" class="prediction-options"></div>
+          <small id="glassPredictionFeedback"></small>
+        </div>
+
+        <div class="glass-angle-grid">
+          <div><span id="incidenceLabel">입사각</span><strong id="incidenceValue">0°</strong></div>
+          <div><span id="refractionLabel">굴절각</span><strong id="refractionValue">0°</strong></div>
+          <div><span id="glassAngleLabel">레이저 각도</span><strong id="glassAngleValue">0°</strong></div>
+        </div>
+
+        <div class="stats-grid">
+          <div><span id="glassRotationsLabel">조작 횟수</span><strong id="glassRotationsValue">0</strong></div>
+          <div><span id="glassTargetLabel">목표</span><strong id="glassTargetValue">0</strong></div>
+          <div><span id="glassIndexLabel">굴절률</span><strong id="glassIndexValue">1.50</strong></div>
+        </div>
+
+        <div class="shot-control" id="glassShotControl" hidden>
+          <div>
+            <span id="glassShotsLabel">발사 횟수</span>
+            <strong id="glassShotsValue">0 / 3</strong>
+          </div>
+          <button id="fireGlassBtn" class="fire-button" type="button">▶ 레이저 발사</button>
+        </div>
+
+        <div class="glass-objective-tracker" id="glassObjectiveTracker" hidden>
+          <span id="glassObjectiveTrackerLabel">작전 순서</span>
+          <div class="glass-objective-steps">
+            <div class="glass-objective-step" id="glassShardStep"><b>◆</b><span id="glassShardStepLabel">정보 조각</span></div>
+            <span aria-hidden="true">→</span>
+            <div class="glass-objective-step" id="glassExitStep"><b>✓</b><span id="glassExitStepLabel">탈출</span></div>
+          </div>
+        </div>
+
+        <div class="controls glass-controls">
+          <div class="rotate-pair">
+            <button id="rotateMinusBtn" type="button">−5°</button>
+            <button id="rotatePlusBtn" class="primary" type="button">+5°</button>
+          </div>
+          <div class="rotate-pair fine-rotate-pair" id="fineRotatePair" hidden>
+            <button id="fineRotateMinusBtn" type="button">−1° 미세</button>
+            <button id="fineRotatePlusBtn" type="button">+1° 미세</button>
+          </div>
+          <button id="resetGlassBtn" type="button">초기화</button>
+          <button id="glassHintBtn" type="button">힌트</button>
+        </div>
+
+        <div class="level-controls">
+          <button id="prevGlassBtn" type="button">이전</button>
+          <button id="nextGlassBtn" type="button">다음</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="note-card">
+      <h3 id="glassNoteTitle">굴절 연구 노트</h3>
+      <p id="glassNoteText">실험을 완료하면 굴절 설명이 표시된다.</p>
+    </section>
+  </main>
+
+  <div id="glassStageModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="glassModalTitle" hidden>
+    <div class="stage-select-card">
+      <div class="stage-select-header">
+        <div>
+          <h2 id="glassModalTitle">굴절 스테이지</h2>
+          <p class="progress-summary" id="glassProgressSummary"></p>
+        </div>
+        <button id="closeGlassModalBtn" class="modal-close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div id="glassStageGrid" class="stage-select-grid"></div>
+      <div style="margin-top:14px;text-align:right">
+        <button id="resetGlassProgressBtn" type="button" style="font-size:0.8rem;opacity:0.6">기록 초기화</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="src/streamlit_bridge.js?v=20260708a"></script>
+  <script src="src/optics.js?v=20260708a"></script>
+  <script src="src/glass_levels.js?v=20260708a"></script>
+  <script src="src/text_fixes.js?v=20260708a"></script>
+  <script src="src/glass_game.js?v=20260708a"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photon Heist: 빛의 도둑</title>
+  <link rel="stylesheet" href="styles/style.css?v=20260708a" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="chapterLabel">Mirror Mission · 거울 작전</p>
+        <h1 id="gameTitle">Photon Heist: 빛의 도둑</h1>
+      </div>
+      <div class="header-controls">
+        <a id="hubLink" class="glass-route-link" href="hub.html">⌂ 작전 허브</a>
+        <label class="language-control">
+          <span id="languageLabel">언어</span>
+          <select id="languageSelect" aria-label="Language">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <button id="stageSelectBtn" class="stage-select-toggle" type="button">🗺 스테이지</button>
+        <a id="glassRouteLink" class="glass-route-link" href="glass.html">◆ 굴절 실험</a>
+        <button id="soundBtn" class="sound-toggle" type="button" aria-pressed="true">🔊 소리 켬</button>
+      </div>
+    </header>
+
+    <section class="mission-card">
+      <div class="mission-header">
+        <div>
+          <p class="stage-id" id="stageId">Stage 0-1</p>
+          <h2 id="stageTitle">첫 번째 빛</h2>
+        </div>
+        <div class="mission-score">
+          <span class="score-caption" id="currentStarsLabel">이번 미션</span>
+          <div class="stars" id="stars" aria-label="stars">☆☆☆</div>
+          <div class="campaign-progress" id="campaignProgress">누적 ★ 0/30 · ◆ 0/10</div>
+        </div>
+      </div>
+      <p class="mission-intro" id="stageIntro">빛이 어디로 가는지 관찰한다.</p>
+      <div class="challenge-strip" id="challengeStrip">
+        <span class="challenge-icon" aria-hidden="true">◆</span>
+        <div>
+          <strong id="challengeLabel">추가 도전</strong>
+          <p id="challengeText"></p>
+        </div>
+        <span id="challengeStatus" class="challenge-status"></span>
+      </div>
+    </section>
+
+    <section class="game-area">
+      <div class="board-wrap">
+        <div id="board" class="board" role="grid" aria-label="Laser puzzle board"></div>
+        <div id="effectLayer" class="effect-layer" aria-live="polite"></div>
+      </div>
+
+      <aside class="panel">
+        <div class="status-box" id="statusBox">
+          <strong id="statusTitle">미션 대기</strong>
+          <p id="statusText">거울을 선택하고 회전해 본다.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div>
+            <span id="rotationsLabel">회전 횟수</span>
+            <strong id="rotationsValue">0</strong>
+          </div>
+          <div>
+            <span id="targetLabel">목표</span>
+            <strong id="targetValue">0</strong>
+          </div>
+          <div>
+            <span id="hintUsedLabel">힌트</span>
+            <strong id="hintUsedValue">0</strong>
+          </div>
+        </div>
+
+        <div class="mirror-shot-control" id="mirrorShotControl" hidden>
+          <div>
+            <span id="mirrorShotsLabel">발사 횟수</span>
+            <strong id="mirrorShotsValue">0 / 3</strong>
+          </div>
+          <button id="fireMirrorBtn" class="mirror-fire-button" type="button">▶ 레이저 발사</button>
+        </div>
+
+        <div class="objective-tracker" id="objectiveTracker" hidden>
+          <span class="objective-tracker-label" id="objectiveTrackerLabel">작전 순서</span>
+          <div class="objective-steps" id="objectiveSteps"></div>
+        </div>
+
+        <div class="controls">
+          <button id="rotateBtn" class="primary" type="button">90° 회전</button>
+          <button id="resetBtn" type="button">초기화</button>
+          <button id="hintBtn" type="button">힌트</button>
+        </div>
+
+        <div class="level-controls">
+          <button id="prevBtn" type="button">이전</button>
+          <button id="nextBtn" type="button">다음</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="note-card">
+      <h3 id="noteTitle">연구 노트</h3>
+      <p id="noteText">스테이지를 클리어하면 짧은 물리 설명이 표시된다.</p>
+    </section>
+  </main>
+
+  <div id="stageModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="stageModalTitle" hidden>
+    <section class="stage-select-card">
+      <header class="stage-select-header">
+        <div>
+          <p class="eyebrow" id="stageModalEyebrow">Mission Map</p>
+          <h2 id="stageModalTitle">스테이지 선택</h2>
+          <p id="progressSummary" class="progress-summary"></p>
+        </div>
+        <button id="closeStageModalBtn" class="modal-close" type="button" aria-label="닫기">×</button>
+      </header>
+      <div id="stageSelectGrid" class="stage-select-grid"></div>
+      <footer class="stage-select-footer">
+        <button id="resetProgressBtn" class="danger-subtle" type="button">진행도 초기화</button>
+      </footer>
+    </section>
+  </div>
+
+  <div id="chapterModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="chapterCompleteTitle" hidden>
+    <section class="chapter-complete-card">
+      <div class="chapter-emblem" aria-hidden="true">✓</div>
+      <p class="eyebrow" id="chapterCompleteEyebrow">Mirror Mission Complete</p>
+      <h2 id="chapterCompleteTitle">거울 작전 완료!</h2>
+      <p id="chapterCompleteText" class="chapter-complete-text"></p>
+      <div class="chapter-results">
+        <div><span id="chapterStarsLabel">획득 별</span><strong id="chapterStarsValue">0/30</strong></div>
+        <div><span id="chapterChallengesLabel">추가 도전</span><strong id="chapterChallengesValue">0/10</strong></div>
+      </div>
+      <div class="chapter-actions">
+        <button id="chapterMapBtn" class="primary" type="button">스테이지 지도</button>
+        <button id="closeChapterBtn" type="button">계속 플레이</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="src/streamlit_bridge.js?v=20260708a"></script>
+  <script src="src/i18n.js?v=20260708a"></script>
+  <script src="src/levels.js?v=20260708a"></script>
+  <script src="src/text_fixes.js?v=20260708a"></script>
+  <script src="src/raycaster.js?v=20260708a"></script>
+  <script src="src/renderer.js?v=20260708a"></script>
+  <script src="src/game.js?v=20260708a"></script>
+</body>
+</html>

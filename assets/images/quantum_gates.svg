@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">Single-qubit gates</title>
+  <desc id="desc">A diagram showing X, H, and Z as buttons that change a qubit state.</desc>
+  <rect width="900" height="520" fill="#f7f8fb"/>
+  <text x="450" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#182233">Single-qubit gates</text>
+  <rect x="76" y="142" width="190" height="220" rx="18" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
+  <rect x="106" y="188" width="130" height="70" rx="12" fill="#dbeafe" stroke="#2f80ed" stroke-width="4"/>
+  <text x="171" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#1d4ed8">X</text>
+  <text x="171" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">flip 0 and 1</text>
+
+  <rect x="355" y="142" width="190" height="220" rx="18" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
+  <rect x="385" y="188" width="130" height="70" rx="12" fill="#ede9fe" stroke="#8b5cf6" stroke-width="4"/>
+  <text x="450" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#6d28d9">H</text>
+  <text x="450" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">make superposition</text>
+
+  <rect x="634" y="142" width="190" height="220" rx="18" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
+  <rect x="664" y="188" width="130" height="70" rx="12" fill="#fee2e2" stroke="#ef4444" stroke-width="4"/>
+  <text x="729" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#b91c1c">Z</text>
+  <text x="729" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">change phase sign</text>
+
+  <rect x="166" y="410" width="568" height="42" rx="21" fill="#eef2ff"/>
+  <text x="450" y="437" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#334155">A gate is an operation that changes the qubit state.</text>
+</svg>

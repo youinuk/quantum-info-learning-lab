@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photon Heist · 작전 허브</title>
+  <link rel="stylesheet" href="styles/style.css?v=20260708a" />
+  <link rel="stylesheet" href="styles/hub.css?v=20260708a" />
+</head>
+<body>
+  <main class="hub-shell">
+    <header class="hub-hero">
+      <div>
+        <p class="eyebrow" id="hubEyebrow">Photon Heist · 작전 본부</p>
+        <h1 id="hubTitle">빛의 규칙을 훔쳐라</h1>
+        <p id="hubIntro">고전 광학에서 시작해 양자정보 작전까지 이어지는 캠페인이다.</p>
+      </div>
+      <label class="language-control hub-language">
+        <span id="hubLanguageLabel">언어</span>
+        <select id="hubLanguageSelect" aria-label="Language">
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+    </header>
+
+    <section class="hub-summary" aria-label="전체 진행도">
+      <div><span id="hubCompletedLabel">완료 작전</span><strong id="hubCompleted">0 / 20</strong></div>
+      <div><span id="hubStarsLabel">획득 별</span><strong id="hubStars">0 / 60</strong></div>
+      <div><span id="hubNextLabel">다음 목표</span><strong id="hubNext">거울 작전</strong></div>
+    </section>
+
+    <section class="hub-section-heading">
+      <div>
+        <p class="eyebrow" id="campaignEyebrow">Campaign Route</p>
+        <h2 id="campaignTitle">챕터 선택</h2>
+      </div>
+      <p id="unlockRule">필수 작전 클리어로 다음 챕터가 열린다. 별은 숙련 기록이며 진행을 막지 않는다.</p>
+    </section>
+
+    <section class="chapter-grid" id="chapterGrid" aria-live="polite"></section>
+  </main>
+
+  <script src="src/streamlit_bridge.js?v=20260708a"></script>
+  <script src="src/chapters.js?v=20260708a"></script>
+  <script src="src/text_fixes.js?v=20260708a"></script>
+  <script src="src/hub.js?v=20260708a"></script>
+</body>
+</html>

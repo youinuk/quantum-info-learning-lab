@@ -1,0 +1,332 @@
+{
+  "ko": {
+    "level0": [
+      {
+        "title": "Khan Academy · 확률 기초",
+        "type": "link",
+        "url": "https://ko.khanacademy.org/math/statistics-probability/probability-library"
+      },
+      {
+        "title": "PhET · 확률 관련 시뮬레이션 모음",
+        "type": "link",
+        "url": "https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html"
+      },
+      {
+        "title": "Seeing Theory · 동전과 주사위로 보는 확률",
+        "type": "simulation_link",
+        "url": "https://seeing-theory.brown.edu/basic-probability/index.html"
+      }
+    ],
+    "level1": [
+      {
+        "title": "Simple English Wikipedia · Qubit",
+        "type": "link",
+        "url": "https://simple.wikipedia.org/wiki/Qubit"
+      },
+      {
+        "title": "TED · A beginner's guide to quantum computing",
+        "type": "video_link",
+        "url": "https://www.ted.com/talks/shohini_ghose_a_beginner_s_guide_to_quantum_computing"
+      },
+      {
+        "title": "IBM Think · What is quantum computing?",
+        "type": "link",
+        "url": "https://www.ibm.com/think/topics/quantum-computing"
+      }
+    ],
+    "level2": [
+      {
+        "title": "Qutube · 슈뢰딩거의 고양이로 이해하는 보른 규칙",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/born-rule"
+      },
+      {
+        "title": "Quantum Flytrap · Virtual Lab",
+        "type": "simulation_link",
+        "url": "https://lab.quantumflytrap.com/"
+      },
+      {
+        "title": "PhET · Quantum Wave Interference",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/quantum-wave-interference"
+      }
+    ],
+    "level3": [
+      {
+        "title": "Quirk · Drag-and-drop quantum circuit simulator",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "IBM Quantum Composer",
+        "type": "simulation_link",
+        "url": "https://quantum.ibm.com/composer"
+      },
+      {
+        "title": "IBM Quantum Learning · Gates and circuits",
+        "type": "link",
+        "url": "https://learning.quantum.ibm.com/course/basics-of-quantum-information/quantum-circuits"
+      },
+      {
+        "title": "YouTube · Veritasium의 양자 컴퓨터 작동 원리",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=g_IaVepNDT4"
+      }
+    ],
+    "level4": [
+      {
+        "title": "PhET · Quantum Wave Interference",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/quantum-wave-interference"
+      },
+      {
+        "title": "YouTube · 3Blue1Brown의 빛으로 보는 양자 중첩",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=MzRCDLre1b4"
+      },
+      {
+        "title": "YouTube · Walter Lewin double slit interference lecture",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=1rYF72PXVks"
+      }
+    ],
+    "level5": [
+      {
+        "title": "Quirk · Two-qubit circuit playground",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "IBM Quantum Composer",
+        "type": "simulation_link",
+        "url": "https://quantum.ibm.com/composer"
+      },
+      {
+        "title": "Qutube · 한 큐비트에서 여러 큐비트로",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/multiqubit-systems-322"
+      }
+    ],
+    "level6": [
+      {
+        "title": "Caltech · 얽힘을 쉬운 비유와 그림으로 설명",
+        "type": "article_link",
+        "url": "https://scienceexchange.caltech.edu/topics/quantum-science-explained/entanglement"
+      },
+      {
+        "title": "Qutube · Bell 상태와 얽힘 입문 영상",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/entanglement-324"
+      },
+      {
+        "title": "IBM Quantum Composer · H와 CNOT으로 Bell 회로 만들기",
+        "type": "simulation_link",
+        "url": "https://quantum.cloud.ibm.com/composer"
+      },
+      {
+        "title": "IBM Quantum Learning · Bell 상태와 여러 시스템 (심화)",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information"
+      }
+    ],
+    "level7": [
+      {
+        "title": "Qutube · Deutsch-Jozsa 알고리즘 영상과 확인 문제",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/quantum-algorithms/deutsch-jozsa-algorithm"
+      },
+      {
+        "title": "IBM Quantum Learning · Deutsch-Jozsa 교실 모듈",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa"
+      },
+      {
+        "title": "IBM Quantum Learning · 양자 질의 알고리즘 강의 (심화)",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/introduction"
+      }
+    ],
+    "level8": [
+      {
+        "title": "Qutube · 큐비트가 환경 때문에 결맞음을 잃는 과정",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/coherence-111"
+      },
+      {
+        "title": "Qutube · 반복 코드로 시작하는 고전 오류 정정",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/germanium-quantum-technology/classical-error-correction"
+      },
+      {
+        "title": "Quirk · Try adding noise-like gates by hand",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      }
+    ]
+  },
+  "en": {
+    "level0": [
+      {
+        "title": "Khan Academy · Probability basics",
+        "type": "link",
+        "url": "https://www.khanacademy.org/math/statistics-probability/probability-library"
+      },
+      {
+        "title": "PhET · Math simulations",
+        "type": "link",
+        "url": "https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html"
+      },
+      {
+        "title": "Seeing Theory · Probability with coins and dice",
+        "type": "simulation_link",
+        "url": "https://seeing-theory.brown.edu/basic-probability/index.html"
+      }
+    ],
+    "level1": [
+      {
+        "title": "Simple English Wikipedia · Qubit",
+        "type": "link",
+        "url": "https://simple.wikipedia.org/wiki/Qubit"
+      },
+      {
+        "title": "TED · A beginner's guide to quantum computing",
+        "type": "video_link",
+        "url": "https://www.ted.com/talks/shohini_ghose_a_beginner_s_guide_to_quantum_computing"
+      },
+      {
+        "title": "IBM Think · What is quantum computing?",
+        "type": "link",
+        "url": "https://www.ibm.com/think/topics/quantum-computing"
+      }
+    ],
+    "level2": [
+      {
+        "title": "Qutube · The Born rule with Schrodinger's cat",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/born-rule"
+      },
+      {
+        "title": "Quantum Flytrap · Virtual Lab",
+        "type": "simulation_link",
+        "url": "https://lab.quantumflytrap.com/"
+      },
+      {
+        "title": "PhET · Quantum Wave Interference",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/quantum-wave-interference"
+      }
+    ],
+    "level3": [
+      {
+        "title": "Quirk · Drag-and-drop quantum circuit simulator",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "IBM Quantum Composer",
+        "type": "simulation_link",
+        "url": "https://quantum.ibm.com/composer"
+      },
+      {
+        "title": "IBM Quantum Learning · Gates and circuits",
+        "type": "link",
+        "url": "https://learning.quantum.ibm.com/course/basics-of-quantum-information/quantum-circuits"
+      },
+      {
+        "title": "YouTube · How Does a Quantum Computer Work? by Veritasium",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=g_IaVepNDT4"
+      }
+    ],
+    "level4": [
+      {
+        "title": "PhET · Quantum Wave Interference",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/quantum-wave-interference"
+      },
+      {
+        "title": "YouTube · Quantum superposition with light by 3Blue1Brown",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=MzRCDLre1b4"
+      },
+      {
+        "title": "YouTube · Walter Lewin double slit interference lecture",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=1rYF72PXVks"
+      }
+    ],
+    "level5": [
+      {
+        "title": "Quirk · Two-qubit circuit playground",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "IBM Quantum Composer",
+        "type": "simulation_link",
+        "url": "https://quantum.ibm.com/composer"
+      },
+      {
+        "title": "Qutube · From one qubit to multiqubit systems",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/multiqubit-systems-322"
+      }
+    ],
+    "level6": [
+      {
+        "title": "Caltech · Entanglement explained with simple examples",
+        "type": "article_link",
+        "url": "https://scienceexchange.caltech.edu/topics/quantum-science-explained/entanglement"
+      },
+      {
+        "title": "Qutube · Introductory Bell-state and entanglement video",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/entanglement-324"
+      },
+      {
+        "title": "IBM Quantum Composer · Build a Bell circuit with H and CNOT",
+        "type": "simulation_link",
+        "url": "https://quantum.cloud.ibm.com/composer"
+      },
+      {
+        "title": "IBM Quantum Learning · Bell states and multiple systems (advanced)",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information"
+      }
+    ],
+    "level7": [
+      {
+        "title": "Qutube · Deutsch-Jozsa video and review questions",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/quantum-algorithms/deutsch-jozsa-algorithm"
+      },
+      {
+        "title": "IBM Quantum Learning · Deutsch-Jozsa classroom module",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa"
+      },
+      {
+        "title": "IBM Quantum Learning · Quantum query algorithms (advanced)",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/introduction"
+      }
+    ],
+    "level8": [
+      {
+        "title": "Qutube · How a qubit loses coherence to its environment",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/coherence-111"
+      },
+      {
+        "title": "Qutube · Classical error correction with repetition codes",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/germanium-quantum-technology/classical-error-correction"
+      },
+      {
+        "title": "Quirk · Try adding noise-like gates by hand",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      }
+    ]
+  }
+}

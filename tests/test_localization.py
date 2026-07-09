@@ -1,0 +1,38 @@
+import re
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+HANGUL = re.compile(r"[가-힣]")
+EXPECTED_CARD_COUNTS = [4, 6, 5, 5, 6, 5, 8, 8, 5]
+IMAGE_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
+
+
+def test_korean_and_english_lessons_have_matching_card_counts():
+    for level, expected_count in enumerate(EXPECTED_CARD_COUNTS):
+        korean = (ROOT / "content" / "lessons" / "ko" / f"level{level}.md").read_text(encoding="utf-8")
+        english = (ROOT / "content" / "lessons" / "en" / f"level{level}.md").read_text(encoding="utf-8")
+
+        assert korean.count("## ") == expected_count
+        assert english.count("## ") == expected_count
+        assert not HANGUL.search(english)
+
+
+def test_every_lesson_image_reference_exists():
+    for lesson_path in (ROOT / "content" / "lessons").rglob("*.md"):
+        lesson = lesson_path.read_text(encoding="utf-8")
+        for image_path in IMAGE_PATTERN.findall(lesson):
+            assert (ROOT / image_path).is_file(), f"Missing image referenced by {lesson_path}: {image_path}"
+
+
+def test_korean_and_english_lessons_use_the_same_images():
+    for level in range(9):
+        korean = (ROOT / "content" / "lessons" / "ko" / f"level{level}.md").read_text(encoding="utf-8")
+        english = (ROOT / "content" / "lessons" / "en" / f"level{level}.md").read_text(encoding="utf-8")
+
+        assert IMAGE_PATTERN.findall(korean) == IMAGE_PATTERN.findall(english)
+
+
+def test_english_structured_content_contains_no_hangul():
+    english_content = (ROOT / "content" / "levels_en.json").read_text(encoding="utf-8")
+    assert not HANGUL.search(english_content)

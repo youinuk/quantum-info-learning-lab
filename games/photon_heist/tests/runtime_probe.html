@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Photon Heist Runtime Probe</title>
+  <script>
+    window.__probeErrors = [];
+    window.__probeSyntax = [];
+    window.__probeCurrentScript = "inline";
+    function probeSyntax(name, url) {
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, false);
+        xhr.send(null);
+        new Function(xhr.responseText);
+      } catch (error) {
+        window.__probeSyntax.push(name + " | " + error.name + " | " + error.message);
+      }
+    }
+    [
+      ["streamlit_bridge.js", "../src/streamlit_bridge.js?v=20260708a"],
+      ["i18n.js", "../src/i18n.js?v=20260708a"],
+      ["levels.js", "../src/levels.js?v=20260708a"],
+      ["text_fixes.js", "../src/text_fixes.js?v=20260708a"],
+      ["raycaster.js", "../src/raycaster.js?v=20260708a"],
+      ["renderer.js", "../src/renderer.js?v=20260708a"],
+      ["game.js", "../src/game.js?v=20260708a"]
+    ].forEach(function (item) { probeSyntax(item[0], item[1]); });
+    window.addEventListener("error", function (event) {
+      window.__probeErrors.push([
+        window.__probeCurrentScript,
+        event.message,
+        event.filename,
+        event.lineno,
+        event.colno
+      ].join(" | "));
+    });
+    window.addEventListener("load", function () {
+      window.setTimeout(function () {
+        var output = document.getElementById("probeOutput");
+        var board = document.getElementById("board");
+        var interaction = {
+          loadedLevel: false,
+          mirrorButtons: -1,
+          selectedAfterClick: false,
+          rotationsAfterRotate: null,
+          successAfterRotate: false
+        };
+        try {
+          if (typeof loadLevel === "function") {
+            loadLevel(1);
+            interaction.loadedLevel = document.getElementById("stageId").textContent.indexOf("0-2") !== -1;
+            var mirror = board ? board.querySelector(".cell.mirror") : null;
+            interaction.mirrorButtons = board ? board.querySelectorAll(".cell.mirror").length : -1;
+            if (mirror) mirror.click();
+            interaction.selectedAfterClick = Boolean(board && board.querySelector(".cell.mirror.selected"));
+            var rotateBtn = document.getElementById("rotateBtn");
+            if (rotateBtn) rotateBtn.click();
+            interaction.rotationsAfterRotate = document.getElementById("rotationsValue").textContent;
+            interaction.successAfterRotate = document.getElementById("statusBox").classList.contains("success");
+          }
+        } catch (error) {
+          window.__probeErrors.push("interaction | " + error.name + " | " + error.message);
+        }
+        var bodyText = document.body ? document.body.textContent : "";
+        var badPatterns = ["쨌", "罐", "諛", "怨", "嫄", "援", "鍮", "吏", "痢", "?꾨", "?덉", "?묒", "?뚰", "?좊", "?"];
+        var badText = badPatterns.filter(function (pattern) {
+          return bodyText.indexOf(pattern) !== -1;
+        });
+        output.textContent = JSON.stringify({
+          syntax: window.__probeSyntax,
+          errors: window.__probeErrors,
+          cells: board ? board.querySelectorAll(".cell").length : -1,
+          interaction: interaction,
+          badText: badText
+        });
+      }, 250);
+    });
+  </script>
+  <link rel="stylesheet" href="../styles/style.css?v=20260708a">
+</head>
+<body>
+  <main>
+    <div id="board"></div>
+    <div id="probeOutput">pending</div>
+  </main>
+  <div id="gameTitle"></div>
+  <div id="chapterLabel"></div>
+  <label id="languageLabel"></label>
+  <select id="languageSelect"><option value="ko">ko</option><option value="en">en</option></select>
+  <button id="soundBtn"></button>
+  <button id="stageSelectBtn"></button>
+  <a id="hubLink"></a>
+  <a id="glassRouteLink"></a>
+  <div id="stageId"></div>
+  <div id="stageTitle"></div>
+  <div id="stageIntro"></div>
+  <div id="stars"></div>
+  <div id="currentStarsLabel"></div>
+  <div id="campaignProgress"></div>
+  <div id="statusBox"></div>
+  <div id="statusTitle"></div>
+  <div id="statusText"></div>
+  <div id="rotationsLabel"></div>
+  <div id="rotationsValue"></div>
+  <div id="targetLabel"></div>
+  <div id="targetValue"></div>
+  <div id="hintUsedLabel"></div>
+  <div id="hintUsedValue"></div>
+  <div id="mirrorShotControl"></div>
+  <span id="mirrorShotsLabel"></span>
+  <strong id="mirrorShotsValue"></strong>
+  <button id="fireMirrorBtn"></button>
+  <div id="objectiveTracker"></div>
+  <div id="objectiveTrackerLabel"></div>
+  <div id="objectiveSteps"></div>
+  <button id="rotateBtn"></button>
+  <button id="resetBtn"></button>
+  <button id="hintBtn"></button>
+  <button id="prevBtn"></button>
+  <button id="nextBtn"></button>
+  <div id="noteTitle"></div>
+  <div id="noteText"></div>
+  <div id="effectLayer"></div>
+  <dialog id="stageModal"><div id="stageModalEyebrow"></div><div id="stageModalTitle"></div><div id="progressSummary"></div><div id="stageSelectGrid"></div><button id="closeStageModalBtn"></button><button id="resetProgressBtn"></button></dialog>
+  <div id="challengeStrip"><span class="challenge-icon"></span></div>
+  <div id="challengeLabel"></div>
+  <div id="challengeText"></div>
+  <div id="challengeStatus"></div>
+  <dialog id="chapterModal"><div id="chapterCompleteEyebrow"></div><div id="chapterCompleteTitle"></div><div id="chapterCompleteText"></div><div id="chapterStarsLabel"></div><div id="chapterStarsValue"></div><div id="chapterChallengesLabel"></div><div id="chapterChallengesValue"></div><button id="chapterMapBtn"></button><button id="closeChapterBtn"></button></dialog>
+  <script>window.__probeCurrentScript = "streamlit_bridge.js";</script>
+  <script src="../src/streamlit_bridge.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "i18n.js";</script>
+  <script src="../src/i18n.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "levels.js";</script>
+  <script src="../src/levels.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "text_fixes.js";</script>
+  <script src="../src/text_fixes.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "raycaster.js";</script>
+  <script src="../src/raycaster.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "renderer.js";</script>
+  <script src="../src/renderer.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "game.js";</script>
+  <script src="../src/game.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "after-game";</script>
+</body>
+</html>

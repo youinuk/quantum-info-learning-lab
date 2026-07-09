@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Photon Heist Hub Runtime Probe</title>
+  <script>
+    window.__probeErrors = [];
+    window.__probeSyntax = [];
+    window.__probeCurrentScript = "inline";
+    try {
+      localStorage.setItem("photonHeistProgressV1", JSON.stringify({
+        bestStars: { "0-1": 3 },
+        bestRotations: { "0-1": 0 },
+        bestShots: {},
+        challenges: {},
+        unlockedIndex: 1
+      }));
+    } catch (_) {}
+    function probeSyntax(name, url) {
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, false);
+        xhr.send(null);
+        new Function(xhr.responseText);
+      } catch (error) {
+        window.__probeSyntax.push(name + " | " + error.name + " | " + error.message);
+      }
+    }
+    [
+      ["streamlit_bridge.js", "../src/streamlit_bridge.js?v=20260708a"],
+      ["chapters.js", "../src/chapters.js?v=20260708a"],
+      ["text_fixes.js", "../src/text_fixes.js?v=20260708a"],
+      ["hub.js", "../src/hub.js?v=20260708a"]
+    ].forEach(function (item) { probeSyntax(item[0], item[1]); });
+    window.addEventListener("error", function (event) {
+      window.__probeErrors.push([
+        window.__probeCurrentScript,
+        event.message,
+        event.filename,
+        event.lineno,
+        event.colno
+      ].join(" | "));
+    });
+    window.addEventListener("load", function () {
+      window.setTimeout(function () {
+        var output = document.getElementById("probeOutput");
+        var firstLink = document.querySelector(".chapter-enter");
+        var bodyText = document.body ? document.body.textContent : "";
+        var badPatterns = ["쨌", "罐", "諛", "怨", "嫄", "援", "鍮", "吏", "痢", "?꾨", "?덉", "?묒", "?뚰", "?좊", "?"];
+        output.textContent = JSON.stringify({
+          syntax: window.__probeSyntax,
+          errors: window.__probeErrors,
+          title: document.getElementById("hubTitle").textContent,
+          linkText: firstLink ? firstLink.textContent : "",
+          linkHref: firstLink ? firstLink.getAttribute("href") : "",
+          cards: document.querySelectorAll(".chapter-card").length,
+          badText: badPatterns.filter(function (pattern) { return bodyText.indexOf(pattern) !== -1; })
+        });
+      }, 250);
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <p id="hubEyebrow"></p>
+    <h1 id="hubTitle"></h1>
+    <p id="hubIntro"></p>
+    <label id="hubLanguageLabel"></label>
+    <select id="hubLanguageSelect"><option value="ko">ko</option><option value="en">en</option></select>
+    <span id="hubCompletedLabel"></span><strong id="hubCompleted"></strong>
+    <span id="hubStarsLabel"></span><strong id="hubStars"></strong>
+    <span id="hubNextLabel"></span><strong id="hubNext"></strong>
+    <p id="campaignEyebrow"></p>
+    <h2 id="campaignTitle"></h2>
+    <p id="unlockRule"></p>
+    <div id="chapterGrid"></div>
+    <div id="probeOutput">pending</div>
+  </main>
+  <script>window.__probeCurrentScript = "streamlit_bridge.js";</script>
+  <script src="../src/streamlit_bridge.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "chapters.js";</script>
+  <script src="../src/chapters.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "text_fixes.js";</script>
+  <script src="../src/text_fixes.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "hub.js";</script>
+  <script src="../src/hub.js?v=20260708a"></script>
+  <script>window.__probeCurrentScript = "after-hub";</script>
+</body>
+</html>

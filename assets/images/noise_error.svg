@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="430" viewBox="0 0 860 430" role="img" aria-labelledby="title desc">
+  <title id="title">Noise and quantum errors</title>
+  <desc id="desc">A fragile qubit signal passes through environmental noise, causing some measurement results to flip.</desc>
+  <rect width="860" height="430" fill="#f8fafc"/>
+  <rect x="42" y="42" width="776" height="346" rx="18" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="76" y="88" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">Noise can blur the answer</text>
+  <text x="76" y="118" font-family="Arial, sans-serif" font-size="16" fill="#475569">A real quantum device is affected by heat, vibration, imperfect control, and measurement errors.</text>
+  <rect x="94" y="174" width="150" height="116" rx="16" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="133" y="218" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1d4ed8">ideal</text>
+  <text x="130" y="252" font-family="Arial, sans-serif" font-size="18" fill="#1e3a8a">mostly 1</text>
+  <path d="M260 232 H360" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M342 210 L364 232 L342 254" fill="none" stroke="#64748b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <path d="M402 170 L430 206"/>
+    <path d="M448 150 L430 206"/>
+    <path d="M492 172 L462 214"/>
+    <path d="M420 268 L452 230"/>
+    <path d="M500 282 L462 230"/>
+  </g>
+  <circle cx="456" cy="220" r="48" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="431" y="226" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#b91c1c">noise</text>
+  <path d="M542 232 H642" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M624 210 L646 232 L624 254" fill="none" stroke="#64748b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="666" y="174" width="150" height="116" rx="16" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="702" y="214" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#047857">measured</text>
+  <text x="690" y="248" font-family="Arial, sans-serif" font-size="18" fill="#065f46">some flips</text>
+  <text x="126" y="340" font-family="Arial, sans-serif" font-size="15" fill="#334155">clear pattern</text>
+  <text x="382" y="340" font-family="Arial, sans-serif" font-size="15" fill="#334155">environment + hardware</text>
+  <text x="680" y="340" font-family="Arial, sans-serif" font-size="15" fill="#334155">blurred statistics</text>
+</svg>

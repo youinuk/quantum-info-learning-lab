@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
+  <title id="title">Two-qubit Deutsch algorithm circuit</title>
+  <desc id="desc">A first qubit starts at zero and a helper qubit starts at one. Hadamard gates prepare both qubits, one oracle query marks phase, and a final Hadamard makes the first-qubit measurement zero for constant or one for balanced.</desc>
+  <rect width="900" height="500" fill="#f8fafc"/>
+  <rect x="36" y="30" width="828" height="430" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+
+  <text x="72" y="76" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#0f172a">Deutsch algorithm: one oracle query</text>
+  <text x="72" y="108" font-family="Arial, sans-serif" font-size="16" fill="#475569">The helper qubit turns f(x) into phase markers; interference reveals whether they match.</text>
+
+  <text x="68" y="186" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">first</text>
+  <text x="68" y="296" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">helper</text>
+  <text x="122" y="186" font-family="Arial, sans-serif" font-size="21" fill="#2563eb">|0&gt;</text>
+  <text x="122" y="296" font-family="Arial, sans-serif" font-size="21" fill="#2563eb">|1&gt;</text>
+
+  <line x1="166" y1="180" x2="824" y2="180" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <line x1="166" y1="290" x2="824" y2="290" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+
+  <rect x="208" y="147" width="66" height="66" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <rect x="208" y="257" width="66" height="66" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="232" y="189" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#1d4ed8">H</text>
+  <text x="232" y="299" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#1d4ed8">H</text>
+  <text x="196" y="350" font-family="Arial, sans-serif" font-size="15" fill="#475569">prepare</text>
+
+  <rect x="350" y="138" width="172" height="194" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="415" y="210" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#92400e">U<tspan baseline-shift="sub" font-size="18">f</tspan></text>
+  <text x="377" y="246" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#92400e">oracle query</text>
+  <text x="379" y="276" font-family="Arial, sans-serif" font-size="15" fill="#92400e">mark + / - phase</text>
+  <text x="389" y="350" font-family="Arial, sans-serif" font-size="15" fill="#475569">call once</text>
+
+  <rect x="604" y="147" width="66" height="66" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="628" y="189" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#1d4ed8">H</text>
+  <text x="594" y="350" font-family="Arial, sans-serif" font-size="15" fill="#475569">interfere</text>
+
+  <rect x="730" y="137" width="112" height="86" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="746" y="169" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#047857">measure first</text>
+  <text x="748" y="196" font-family="Arial, sans-serif" font-size="15" fill="#065f46">0 constant</text>
+  <text x="748" y="216" font-family="Arial, sans-serif" font-size="15" fill="#065f46">1 balanced</text>
+
+  <path d="M690 180 H716" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <path d="M706 169 L720 180 L706 191" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="92" y="390" width="716" height="42" rx="8" fill="#eef2ff"/>
+  <text x="450" y="417" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#334155">same phase markers -> 0 (constant)   |   opposite phase markers -> 1 (balanced)</text>
+</svg>

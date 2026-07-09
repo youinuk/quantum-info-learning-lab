@@ -1,0 +1,597 @@
+{
+  "level0": {
+    "goal": "Goal: Build an intuition for repeated trials and probability using a classical bit.",
+    "key_takeaway": "Key idea: one result may look random, but repeated trials reveal a probability pattern.",
+    "simulation_waiting": "The experiment has not run yet. Choose the probability of 1 and the trial count, then run it.",
+    "simulation_caption": "As the number of trials grows, the observed ratio tends to move closer to the configured probability.",
+    "terms_title": "Probability experiment terms",
+    "terms": [
+      {"Term": "bit", "Meaning": "The smallest classical information unit, holding either 0 or 1"},
+      {"Term": "probability", "Meaning": "A number from 0 to 1 describing how often an outcome is expected"},
+      {"Term": "trial count", "Meaning": "The total number of times an experiment is repeated under the same conditions"},
+      {"Term": "observed ratio", "Meaning": "The count of one outcome divided by the total number of trials"}
+    ],
+    "quiz": [
+      {
+        "question": "What value can one classical bit have at one time?",
+        "options": ["Either 0 or 1", "Definitely 0 and 1 at the same time", "Always 0.5"],
+        "answer": "Either 0 or 1",
+        "correct": "Correct. A classical bit has one definite value: either 0 or 1.",
+        "wrong": "Try again. Holding several possibilities at once becomes important when we reach qubits."
+      },
+      {
+        "question": "Why is it normal for 10 coin tosses not to give exactly 5 heads?",
+        "options": ["Small samples can fluctuate a lot", "Coins always prefer one side", "Probability has nothing to do with repeated trials"],
+        "answer": "Small samples can fluctuate a lot",
+        "correct": "Correct. With few trials, the observed ratio can wobble.",
+        "wrong": "Probability appears as a pattern across repeated trials."
+      },
+      {
+        "question": "What usually happens when the number of trials becomes large?",
+        "options": ["The observed ratio stabilizes near the configured probability", "The result always becomes 0", "Probability disappears"],
+        "answer": "The observed ratio stabilizes near the configured probability",
+        "correct": "Correct. Many trials make the probability pattern easier to see.",
+        "wrong": "More trials usually make the probability pattern clearer."
+      },
+      {
+        "question": "Why is one result not enough to know the probability?",
+        "options": ["One result contains too much randomness", "Probability is always 0", "Recording the result changes the probability"],
+        "answer": "One result contains too much randomness",
+        "correct": "Correct. Probability is easier to infer from many results.",
+        "wrong": "One result is a poor summary of the whole pattern."
+      },
+      {
+        "question": "If the probability of 1 is 3/4, about how many 1s should we expect in 100 trials?",
+        "options": ["About 75", "Exactly 100", "About 3"],
+        "answer": "About 75",
+        "correct": "Correct. Three quarters of 100 is 75, so many trials should land near 75.",
+        "wrong": "Multiply the probability by the number of trials. The actual count can still fluctuate."
+      },
+      {
+        "question": "If 1 appears 7 times in 20 trials, what is the observed ratio of 1?",
+        "options": ["7/20", "13/20", "7/100"],
+        "answer": "7/20",
+        "correct": "Correct. Divide the count of the outcome by the total number of trials.",
+        "wrong": "Divide the seven observed 1s by all 20 trials."
+      }
+    ]
+  },
+  "level1": {
+    "goal": "Goal: Understand a qubit as a state that carries the sizes of two possible measurement outcomes.",
+    "presentation_title": "A first explanation of qubits",
+    "terms_title": "Terms for this level",
+    "key_takeaway": "Key idea: before measurement, a qubit can carry possibilities for both 0 and 1.",
+    "simulation_intro": "Choose the probability of measuring 1, and the app shows a simple qubit state with that probability.",
+    "simulation_waiting": "No measurement has been made yet. Choose the qubit probability and trial count, then run the experiment.",
+    "single_measurement_caption": "One measurement is not enough to know the whole state. Repeating the same preparation reveals the probability.",
+    "terms": [
+      {"Term": "bit", "Meaning": "A unit of information with one definite value, 0 or 1"},
+      {"Term": "qubit", "Meaning": "A quantum information unit that can carry possibilities for 0 and 1 before measurement"},
+      {"Term": "amplitude", "Meaning": "A number whose squared size gives a measurement probability"},
+      {"Term": "measurement", "Meaning": "The process of getting one actual result, 0 or 1, from a qubit"}
+    ],
+    "quiz": [
+      {
+        "question": "Which statement best describes a qubit?",
+        "options": ["A state carrying possibilities for 0 and 1 before measurement", "A value that always prints 0 and 1 at the same time", "A coin that must always be 50-50"],
+        "answer": "A state carrying possibilities for 0 and 1 before measurement",
+        "correct": "Correct. A qubit describes the state before measurement; the observed result is one value.",
+        "wrong": "A qubit does not mean that both results appear on the screen at once."
+      },
+      {
+        "question": "If the |0> amplitude is 0.8, what is the probability of measuring |0>?",
+        "options": ["0.64", "0.8", "1.6"],
+        "answer": "0.64",
+        "correct": "Correct. Square the amplitude to get the probability.",
+        "wrong": "The amplitude itself is not the probability. It must be squared."
+      },
+      {
+        "question": "Can one measurement reveal the full original qubit state?",
+        "options": ["No", "Always yes", "Only when the probability is 50%"],
+        "answer": "No",
+        "correct": "Correct. Repeated statistics are needed.",
+        "wrong": "One result is one observation, not the whole state."
+      },
+      {
+        "question": "What must be repeated to learn a qubit state's probabilities?",
+        "options": ["Prepare the same state again and measure it", "Keep secretly watching the same qubit", "Erase the result until it looks right"],
+        "answer": "Prepare the same state again and measure it",
+        "correct": "Correct. Measurement changes the state, so the preparation must be repeated.",
+        "wrong": "After measurement, the original superposition should not be treated as still intact."
+      },
+      {
+        "question": "If the magnitudes of the |0> and |1> amplitudes are both 1/√2, what are the measurement probabilities?",
+        "options": ["1/2 for both 0 and 1", "1/√2 for both 0 and 1", "Always 1"],
+        "answer": "1/2 for both 0 and 1",
+        "correct": "Correct. Squaring each amplitude magnitude gives probability 1/2.",
+        "wrong": "1/√2 is an amplitude. Its square, 1/2, is the probability."
+      },
+      {
+        "question": "Two states can have the same measurement probabilities but different amplitude signs. What can change?",
+        "options": ["The result after later interference", "The number of qubits", "Whether one measurement prints two results"],
+        "answer": "The result after later interference",
+        "correct": "Correct. Sign and phase can change how possibilities interfere when they meet again.",
+        "wrong": "A sign may be hidden in immediate probabilities but become important during interference."
+      }
+    ]
+  },
+  "level2": {
+    "goal": "Goal: Understand why quantum measurement is interpreted through repeated statistics.",
+    "terms_title": "Terms for measurement",
+    "key_takeaway": "Key idea: measurement gives one result, and the state just after measurement is represented by that result.",
+    "simulation_intro": "Imagine preparing the same qubit state many times and measuring each copy once.",
+    "simulation_waiting": "No measurement has been made yet. Choose the probability and trial count, then run the experiment.",
+    "simulation_caption": "A single measurement is strongly affected by chance. Repeating 100 or 1000 times gives a better estimate of the state's probability.",
+    "terms": [
+      {"Term": "superposition", "Meaning": "A state that represents multiple possible outcomes before measurement"},
+      {"Term": "measurement result", "Meaning": "The actual observed value, 0 or 1"},
+      {"Term": "post-measurement state", "Meaning": "The |0> or |1> state corresponding to the observed result"},
+      {"Term": "repeated measurement", "Meaning": "Preparing the same state many times and comparing outcome ratios"}
+    ],
+    "quiz": [
+      {
+        "question": "Why do we prepare and measure the same qubit state many times?",
+        "options": ["One measurement is not enough to infer the original probability", "A qubit always gives the same result", "Repeating always forces the probability to 50%"],
+        "answer": "One measurement is not enough to infer the original probability",
+        "correct": "Correct. Repeated measurements reveal the state's probability statistically.",
+        "wrong": "The point of repetition is to reduce the effect of one lucky or unlucky result."
+      },
+      {
+        "question": "What happens when a superposition is measured?",
+        "options": ["One result, 0 or 1, appears", "Both values always appear together", "No result appears"],
+        "answer": "One result, 0 or 1, appears",
+        "correct": "Correct. The observed measurement result is one classical value.",
+        "wrong": "The displayed measurement result is one value."
+      },
+      {
+        "question": "How is the state just after measurement represented in this app?",
+        "options": ["As |0> or |1>, matching the observed result", "Always as the original superposition", "As the probability number itself"],
+        "answer": "As |0> or |1>, matching the observed result",
+        "correct": "Correct. The app shows the post-measurement state based on the observed result.",
+        "wrong": "Measurement is the process of observing one result."
+      },
+      {
+        "question": "If a state has probability 0.9 of giving 1, but one measurement gives 0, what does that mean?",
+        "options": ["Low-probability outcomes can still occur", "The probability setting must be wrong", "Quantum measurement has no probability"],
+        "answer": "Low-probability outcomes can still occur",
+        "correct": "Correct. Probability 0.9 means 1 is common, not guaranteed.",
+        "wrong": "Probability describes a tendency, not a guarantee for one trial."
+      },
+      {
+        "question": "A superposition is measured as 1. What is the most likely result of an immediate second measurement in the same basis?",
+        "options": ["1 again", "Always 0", "0 and 1 shown together"],
+        "answer": "1 again",
+        "correct": "Correct. After the first measurement, the state is |1> in that basis.",
+        "wrong": "The post-measurement state matches the result that was observed."
+      },
+      {
+        "question": "A state with equal 0 and 1 probabilities gives 480 zeros and 520 ones in 1000 trials. What is the best interpretation?",
+        "options": ["A normal finite-sample fluctuation", "The experiment must be broken", "The probabilities permanently changed to 0.48 and 0.52"],
+        "answer": "A normal finite-sample fluctuation",
+        "correct": "Correct. Equal theoretical probabilities do not require exactly equal finite counts.",
+        "wrong": "Observed counts can differ slightly from theoretical probabilities in a finite sample."
+      }
+    ]
+  },
+  "level3": {
+    "goal": "Goal: Press X, H, and Z gates like buttons and observe how a qubit state changes.",
+    "terms_title": "Terms for gates",
+    "key_takeaway": "Key idea: quantum gates change a qubit state before measurement.",
+    "simulation_intro": "Choose an initial state and press X, H, or Z. Changing the initial state automatically starts a new gate sequence.",
+    "simulation_hint": "Check whether two H gates return to the original state, and when Z becomes visible.",
+    "terms": [
+      {"Term": "gate", "Meaning": "An operation that changes a qubit state"},
+      {"Term": "X gate", "Meaning": "A flip operation that swaps |0> and |1>"},
+      {"Term": "H gate", "Meaning": "An operation that creates or recombines a 50-50 superposition"},
+      {"Term": "Z gate", "Meaning": "An operation that changes the sign of the |1> amplitude"}
+    ],
+    "quiz": [
+      {
+        "question": "What happens when H is applied to |0> once?",
+        "options": ["A superposition with roughly equal chances of 0 and 1 is created", "The state always becomes |1>", "The qubit disappears"],
+        "answer": "A superposition with roughly equal chances of 0 and 1 is created",
+        "correct": "Correct. H turns |0> into a 50-50 superposition.",
+        "wrong": "Flipping |0> to |1> is the role of X."
+      },
+      {
+        "question": "What is the most intuitive role of X?",
+        "options": ["It flips |0> and |1>", "It always makes probabilities 50-50", "It deletes the measurement result"],
+        "answer": "It flips |0> and |1>",
+        "correct": "Correct. X behaves like a flip button.",
+        "wrong": "H is the gate that creates the common 50-50 superposition."
+      },
+      {
+        "question": "Why can Z look quiet at first?",
+        "options": ["It changes sign, but the immediate measurement probabilities may not change", "It does nothing", "It always makes the qubit |0>"],
+        "answer": "It changes sign, but the immediate measurement probabilities may not change",
+        "correct": "Correct. The sign becomes important in interference.",
+        "wrong": "Z is not a do-nothing gate; it changes the sign of an amplitude."
+      },
+      {
+        "question": "What is the difference between a gate and a measurement?",
+        "options": ["A gate changes the state; measurement observes one result", "They always mean the same thing", "Measurement never changes the state"],
+        "answer": "A gate changes the state; measurement observes one result",
+        "correct": "Correct. Gates manipulate the state before measurement.",
+        "wrong": "Gates and measurements have different roles."
+      },
+      {
+        "question": "What is the final state after applying X twice to |0>?",
+        "options": ["|0>", "|1>", "Always a superposition"],
+        "answer": "|0>",
+        "correct": "Correct. The first X flips |0> to |1>, and the second flips it back.",
+        "wrong": "X swaps 0 and 1, so two X gates return the starting state."
+      },
+      {
+        "question": "Does changing the order of quantum gates always leave the result unchanged?",
+        "options": ["No, order can change the result", "Yes, always", "Order exists only during measurement"],
+        "answer": "No, order can change the result",
+        "correct": "Correct. Which gate acts first can matter in a quantum circuit.",
+        "wrong": "Like matrix multiplication, quantum gates generally cannot be reordered freely."
+      }
+    ]
+  },
+  "level4": {
+    "goal": "Goal: Observe how H and Z gates combine to make interference change measurement probabilities.",
+    "terms_title": "Terms for interference",
+    "key_takeaway": "Key idea: quantum power comes from interference, where possibilities add or cancel.",
+    "simulation_intro": "Start from |0>, create a superposition with H, choose a middle operation, then apply H again.",
+    "simulation_waiting": "The circuit has not run yet. Choose the middle operation, then run the experiment.",
+    "simulation_hint": "Doing nothing in the middle gives H-H and returns to |0>. Adding Z changes the final result toward |1>.",
+    "simulation_ui": {
+      "start_state": "Start state",
+      "middle_state": "Middle state",
+      "final_state": "Final state"
+    },
+    "terms": [
+      {"Term": "interference", "Meaning": "Possibilities adding or canceling when they meet again"},
+      {"Term": "constructive interference", "Meaning": "A case where an outcome becomes more likely"},
+      {"Term": "destructive interference", "Meaning": "A case where an outcome becomes less likely"},
+      {"Term": "sign", "Meaning": "Information that may be hidden in probabilities but affects interference"}
+    ],
+    "quiz": [
+      {
+        "question": "What happens when H is applied twice to |0>?",
+        "options": ["It returns to |0>", "It always becomes |1>", "It becomes impossible to measure"],
+        "answer": "It returns to |0>",
+        "correct": "Correct. H-H is a classic return-to-start experiment.",
+        "wrong": "Try the H-H case in the simulation."
+      },
+      {
+        "question": "Which phrase best describes interference?",
+        "options": ["Possibilities add or cancel each other", "The number of trials decreases", "Randomness always increases"],
+        "answer": "Possibilities add or cancel each other",
+        "correct": "Correct. Interference can increase or reduce outcome probabilities.",
+        "wrong": "Interference is not just repetition or more randomness."
+      },
+      {
+        "question": "When does the sign change from Z become easy to see?",
+        "options": ["When it meets another gate such as H and creates interference", "Immediately in every standalone probability graph", "When a bit is copied"],
+        "answer": "When it meets another gate such as H and creates interference",
+        "correct": "Correct. The sign matters when paths recombine.",
+        "wrong": "Z is most visible through interference, not through a standalone probability plot."
+      },
+      {
+        "question": "What is the goal of interference in many quantum algorithms?",
+        "options": ["Increase useful possibilities and reduce wrong ones", "Make all outcomes exactly equal", "Prevent measurement"],
+        "answer": "Increase useful possibilities and reduce wrong ones",
+        "correct": "Correct. Algorithms design interference so useful answers stand out.",
+        "wrong": "Interference is used as a design tool for shaping probabilities."
+      },
+      {
+        "question": "What is the final state after applying H-Z-H to |0>?",
+        "options": ["|1>", "|0>", "A permanent 50-50 state"],
+        "answer": "|1>",
+        "correct": "Correct. The final H turns the relative sign introduced by Z into the |1> result.",
+        "wrong": "In H-Z-H, the middle sign change becomes visible as |1> after the final H."
+      },
+      {
+        "question": "Why track phase even when the intermediate 0 and 1 probabilities look equal?",
+        "options": ["It determines later interference", "It increases the number of qubits", "It removes measurement"],
+        "answer": "It determines later interference",
+        "correct": "Correct. Equal probabilities with different relative phases can interfere differently later.",
+        "wrong": "Phase determines whether possibilities add or cancel when they meet again."
+      }
+    ]
+  },
+  "level5": {
+    "goal": "Goal: Understand the four possible two-qubit results and how the state space grows.",
+    "terms_title": "Terms for two qubits",
+    "key_takeaway": "Key idea: each added qubit doubles the number of basis states.",
+    "simulation_intro": "Treat two qubits as independently prepared and see how the four outcomes are distributed.",
+    "simulation_waiting": "The probabilities have not been calculated yet. Choose both qubit probabilities, then run the experiment.",
+    "simulation_hint": "Changing the first and second qubit probabilities changes the ratios of 00, 01, 10, and 11 together.",
+    "terms": [
+      {"Term": "two qubits", "Meaning": "A system containing two qubits"},
+      {"Term": "basis state", "Meaning": "A basic named outcome such as 00, 01, 10, or 11"},
+      {"Term": "state space", "Meaning": "The set of possible basis states considered together"},
+      {"Term": "independent", "Meaning": "A case where one qubit's result does not specially determine the other's"}
+    ],
+    "quiz": [
+      {
+        "question": "How many possible results can two qubits produce when measured?",
+        "options": ["4", "2", "8"],
+        "answer": "4",
+        "correct": "Correct. The four outcomes are 00, 01, 10, and 11.",
+        "wrong": "List all combinations of two 0-or-1 values."
+      },
+      {
+        "question": "What happens to the number of basis states when one qubit is added?",
+        "options": ["It doubles", "It increases by one", "It always stays at 2"],
+        "answer": "It doubles",
+        "correct": "Correct. 1 qubit has 2 states, 2 qubits have 4, and 3 qubits have 8.",
+        "wrong": "Each qubit adds another 0-or-1 possibility."
+      },
+      {
+        "question": "Which topic is not yet treated deeply in Level 5?",
+        "options": ["Entanglement", "The four two-qubit outcomes", "State-space growth"],
+        "answer": "Entanglement",
+        "correct": "Correct. Entanglement is the next level.",
+        "wrong": "Level 5 prepares the state-space idea before entanglement."
+      },
+      {
+        "question": "What is a key difference between independent and entangled qubits?",
+        "options": ["In entanglement, the relationship between outcomes becomes part of the state", "Independent qubits have no measurement results", "Entangled qubits always give all four outcomes equally"],
+        "answer": "In entanglement, the relationship between outcomes becomes part of the state",
+        "correct": "Correct. That relationship is the core of Level 6.",
+        "wrong": "Entanglement is about relationships between outcomes, not just more outcomes."
+      },
+      {
+        "question": "For independent qubits, the first has probability 1/2 of being 1 and the second has probability 1/4. What is P(11)?",
+        "options": ["1/8", "3/4", "1/2"],
+        "answer": "1/8",
+        "correct": "Correct. For independent outcomes, multiply 1/2 by 1/4 to get 1/8.",
+        "wrong": "Multiply the probabilities of independent events occurring together."
+      },
+      {
+        "question": "A two-qubit experiment runs 500 times. What must the counts of 00, 01, 10, and 11 add up to?",
+        "options": ["500", "1000", "Exactly 125 for each result"],
+        "answer": "500",
+        "correct": "Correct. Each run contributes once to exactly one of the four outcomes.",
+        "wrong": "Every run is counted once as 00, 01, 10, or 11."
+      }
+    ]
+  },
+  "level6": {
+    "goal": "Goal: Understand why matching results in one basis do not prove entanglement, and why correlations should be compared in more than one measurement basis.",
+    "terms_title": "Terms for entanglement",
+    "key_takeaway": "Key idea: a classically correlated mixture and a Bell state can look identical in the Z basis. A different basis, such as X, reveals the difference.",
+    "simulation_intro": "Prepare an independent product state, a classically correlated mixture, or a Bell state, then measure it in both the Z and X bases.",
+    "simulation_caption": "An X-basis measurement is equivalent to applying H to both qubits and then using the usual Z-basis measurement.",
+    "state_options": [
+      {"id": "product_plus", "label": "Independent product |+>|+>", "latex": "\\lvert+\\rangle\\lvert+\\rangle"},
+      {"id": "classical_correlated", "label": "Classically correlated 00/11 mixture", "latex": "\\rho=\\frac{1}{2}\\lvert00\\rangle\\!\\langle00\\rvert+\\frac{1}{2}\\lvert11\\rangle\\!\\langle11\\rvert"},
+      {"id": "bell_phi_plus", "label": "Entangled Bell |Phi+>", "latex": "\\lvert\\Phi^+\\rangle=\\frac{\\lvert00\\rangle+\\lvert11\\rangle}{\\sqrt{2}}"}
+    ],
+    "simulation_ui": {
+      "state_label": "Two-qubit state to compare",
+      "basis_view": "Measurement basis to chart",
+      "z_same_ratio": "Same-result ratio in Z",
+      "x_same_ratio": "Same-result ratio in X",
+      "state_column": "Outcome",
+      "z_count_column": "Z-basis count",
+      "x_count_column": "X-basis count",
+      "waiting_note": "Choose a state and run the experiment.",
+      "comparison_title": "Theoretical patterns of the three states",
+      "comparison_columns": ["State", "Z measurement", "X measurement", "Key point"],
+      "comparison_rows": [
+        ["Independent |+>|+>", "00, 01, 10, 11", "only 00", "the two qubits can be described separately"],
+        ["Classical 00/11 mixture", "00, 11", "all four outcomes", "preselected matching values explain the Z result"],
+        ["Bell |Phi+>", "00, 11", "00, 11", "the relationship survives the basis change"]
+      ],
+      "result_explanations": {
+        "product_plus": "The product state gives all four outcomes in Z but only 00 in X because each qubit is a + state. Matching in one basis does not automatically mean entanglement.",
+        "classical_correlated": "The classical mixture looks like the Bell state in Z, producing only 00 and 11. In X it spreads across all four outcomes because it has no coherent phase link.",
+        "bell_phi_plus": "The Bell state produces only 00 and 11 in both Z and X. Each qubit is random by itself, while the two-qubit relationship survives both measurement choices."
+      }
+    },
+    "terms": [
+      {"Term": "entanglement", "Meaning": "A situation where multiple qubits must be described as one whole state"},
+      {"Term": "Bell state", "Meaning": "A simple two-qubit entangled state used as a standard example"},
+      {"Term": "product state", "Meaning": "A state where the two qubits can be described separately"},
+      {"Term": "classical mixture", "Meaning": "A probabilistic mixture caused by not knowing which definite state was prepared"},
+      {"Term": "measurement basis", "Meaning": "The chosen definition of 0 and 1 used to read a qubit"},
+      {"Term": "correlation", "Meaning": "A relationship linking one measurement result to another"}
+    ],
+    "quiz": [
+      {
+        "question": "Which statement best describes entanglement?",
+        "options": ["The relationship between qubits becomes part of the state", "The qubits are completely independent", "The qubits have become classical bits"],
+        "answer": "The relationship between qubits becomes part of the state",
+        "correct": "Correct. The whole-state relationship is the key.",
+        "wrong": "Entanglement is stronger than independence."
+      },
+      {
+        "question": "A Z-basis experiment produces only 00 and 11. Does that alone prove Bell entanglement?",
+        "options": ["No, a classical correlated mixture can do the same", "Yes, matching outcomes always prove entanglement", "No 01 result means the detector is broken"],
+        "answer": "No, a classical correlated mixture can do the same",
+        "correct": "Correct. Correlation in one measurement basis is not enough to identify entanglement.",
+        "wrong": "A preselected classical 00/11 mixture produces the same Z-basis pattern."
+      },
+      {
+        "question": "Does entanglement mean faster-than-light messaging?",
+        "options": ["No", "Yes", "Always faster than phone signals"],
+        "answer": "No",
+        "correct": "Correct. Entanglement creates strong correlations, not a chosen faster-than-light message.",
+        "wrong": "It is important not to confuse entanglement with faster-than-light communication."
+      },
+      {
+        "question": "What does H do when making a Bell state with H and CNOT?",
+        "options": ["It creates 0-and-1 possibilities on the first qubit", "It deletes the second qubit", "It hides the measurement result"],
+        "answer": "It creates 0-and-1 possibilities on the first qubit",
+        "correct": "Correct. CNOT then links that possibility to the second qubit.",
+        "wrong": "H creates the superposition; CNOT connects it across two qubits."
+      },
+      {
+        "question": "How does this lab implement an X-basis measurement?",
+        "options": ["Apply H to both qubits, then measure in Z", "Copy both qubits", "Press the measurement button twice"],
+        "answer": "Apply H to both qubits, then measure in Z",
+        "correct": "Correct. H changes the basis so an ordinary Z measurement reads X information.",
+        "wrong": "The lab uses H as a basis change before the usual Z measurement."
+      },
+      {
+        "question": "Which observation helps distinguish a classical 00/11 mixture from Bell |Phi+>?",
+        "options": ["Check whether the correlation survives in the X basis", "Use only one Z measurement", "Compare the lengths of the state names"],
+        "answer": "Check whether the correlation survives in the X basis",
+        "correct": "Correct. The states look alike in Z but produce different X-basis patterns.",
+        "wrong": "Change the measurement basis rather than relying on one matching pattern."
+      }
+    ]
+  },
+  "level7": {
+    "goal": "Goal: Understand how a two-qubit Deutsch circuit uses one oracle query and interference to classify a hidden rule.",
+    "terms_title": "Terms for algorithms",
+    "key_takeaway": "Key idea: the oracle does not print both answers. It marks their relationship in phase, and the final H turns that relationship into a measurable 0 or 1.",
+    "simulation_intro": "Choose one black-box oracle from A to D. The circuit classifies it as constant or balanced without opening its truth table first.",
+    "simulation_hint": "This lab calculates the standard two-qubit Deutsch circuit. A deterministic classical method must ask for both f(0) and f(1), while this circuit calls the oracle U_f once.",
+    "classification_labels": {
+      "constant": "constant",
+      "balanced": "balanced"
+    },
+    "oracle_options": [
+      {"id": "constant_zero", "label": "Oracle A"},
+      {"id": "balanced_identity", "label": "Oracle B"},
+      {"id": "constant_one", "label": "Oracle C"},
+      {"id": "balanced_flip", "label": "Oracle D"}
+    ],
+    "simulation_ui": {
+      "circuit_caption": "The first qubit carries the classification. The second helper qubit lets the oracle mark phase information.",
+      "stage_title": "Circuit stages",
+      "stage_column": "Circuit stage",
+      "p0_column": "First-qubit P(0)",
+      "p1_column": "First-qubit P(1)",
+      "observation_column": "What to notice",
+      "waiting_stage": "Before the experiment",
+      "waiting_note": "Choose an oracle and run the experiment.",
+      "stage_start": "Start |0>|1>",
+      "stage_prepared": "After H x H",
+      "stage_oracle": "After oracle U_f",
+      "stage_final": "After the final H",
+      "note_start": "The first qubit starts at 0.",
+      "note_prepared": "The first qubit has equal 0 and 1 possibilities.",
+      "note_oracle": "The probabilities stay equal, but the phase relationship may change.",
+      "note_final": "Interference makes one result reach 100% probability.",
+      "query_count": "Oracle queries",
+      "phase_title": "Phase markers left by the oracle",
+      "input_column": "Input x",
+      "phase_column": "Phase marker (-1)^f(x)",
+      "phase_same": "The two phase markers match. The final H reinforces first-qubit result 0, so the oracle is constant.",
+      "phase_opposite": "The phase markers differ. The final H reinforces first-qubit result 1, so the oracle is balanced.",
+      "reveal_title": "Reveal the oracle truth table"
+    },
+    "terms": [
+      {"Term": "algorithm", "Meaning": "A planned procedure for solving a problem"},
+      {"Term": "oracle", "Meaning": "A black-box operation that applies the hidden function f inside a quantum circuit"},
+      {"Term": "helper qubit", "Meaning": "The second qubit that helps the oracle mark phase information"},
+      {"Term": "phase kickback", "Meaning": "The function value becomes a relative sign carried by the first qubit"},
+      {"Term": "constant", "Meaning": "A rule whose output stays the same for both inputs"},
+      {"Term": "balanced", "Meaning": "A rule whose two outputs are different"}
+    ],
+    "quiz": [
+      {
+        "question": "What does constant mean in the Deutsch problem?",
+        "options": ["f(0) and f(1) are the same", "f(0) and f(1) are different", "The measurement disappears"],
+        "answer": "f(0) and f(1) are the same",
+        "correct": "Correct. Constant means both inputs give the same output.",
+        "wrong": "Constant means not changing across the two inputs."
+      },
+      {
+        "question": "What does balanced mean here?",
+        "options": ["f(0) and f(1) are different", "f(0) and f(1) are always 0", "The answer appears without input"],
+        "answer": "f(0) and f(1) are different",
+        "correct": "Correct. In this one-bit problem, balanced means the two outputs differ.",
+        "wrong": "Balanced means the outputs split across the two inputs."
+      },
+      {
+        "question": "What is the key idea shown by this quantum algorithm?",
+        "options": ["Interference makes the needed information visible in measurement", "All answers are printed at the same time", "Quantum computation removes probability"],
+        "answer": "Interference makes the needed information visible in measurement",
+        "correct": "Correct. The algorithm designs interference so the useful information stands out.",
+        "wrong": "A quantum algorithm does not simply print every answer."
+      },
+      {
+        "question": "In this Deutsch lab, what does measurement 0 indicate?",
+        "options": ["constant", "balanced", "error"],
+        "answer": "constant",
+        "correct": "Correct. In this simplified lab, 0 means constant.",
+        "wrong": "In this lab, 0 means constant and 1 means balanced."
+      },
+      {
+        "question": "Why can the oracle leave useful information even when the first-qubit probabilities still look 50:50?",
+        "options": ["It can change the phase relationship between the two possibilities", "It prints the truth table on screen", "It deletes the helper qubit"],
+        "answer": "It can change the phase relationship between the two possibilities",
+        "correct": "Correct. Equal probability bars can hide different relative phases.",
+        "wrong": "Look at the phase markers rather than only the probability bars after the oracle."
+      },
+      {
+        "question": "How many times does this circuit query the oracle U_f?",
+        "options": ["Once", "Twice", "It never queries the oracle"],
+        "answer": "Once",
+        "correct": "Correct. The Deutsch circuit distinguishes the two types with one oracle query.",
+        "wrong": "Count oracle calls separately from H gates. The circuit passes through U_f once."
+      }
+    ]
+  },
+  "level8": {
+    "goal": "Goal: Understand why noise and errors matter in real quantum computers.",
+    "terms_title": "Terms for noise",
+    "key_takeaway": "Key idea: quantum probability and hardware error are different; noise blurs measurement statistics.",
+    "simulation_intro": "Compare ideal measurement results with measurement results affected by noise.",
+    "simulation_waiting": "No measurement has been made yet. Choose the state probability, error rate, and trial count, then run the experiment.",
+    "simulation_caption": "As the error rate increases, the original probability pattern becomes harder to see.",
+    "simulation_ui": {
+      "case_column": "Comparison",
+      "count_zero_column": "Count of 0",
+      "count_one_column": "Count of 1"
+    },
+    "terms": [
+      {"Term": "noise", "Meaning": "Unwanted disturbance from hardware or the environment"},
+      {"Term": "error rate", "Meaning": "The chance that a result is flipped or distorted"},
+      {"Term": "decoherence", "Meaning": "The weakening of quantum behavior through interaction with the environment"},
+      {"Term": "error correction", "Meaning": "Methods for detecting and reducing errors"}
+    ],
+    "quiz": [
+      {
+        "question": "What is noise in this context?",
+        "options": ["Unwanted disturbance from hardware or the environment", "Proof that qubits are always exact", "A process that removes all probability"],
+        "answer": "Unwanted disturbance from hardware or the environment",
+        "correct": "Correct. Noise is an unwanted influence from the device or environment.",
+        "wrong": "Noise is an unwanted effect that blurs experimental results."
+      },
+      {
+        "question": "Are quantum probability and hardware error the same thing?",
+        "options": ["No", "Yes", "They can never be separated"],
+        "answer": "No",
+        "correct": "Correct. Probability belongs to the state; error comes from hardware or environment.",
+        "wrong": "Probability and error should be kept separate."
+      },
+      {
+        "question": "Why can a small error rate still matter?",
+        "options": ["Small errors can accumulate in long circuits", "The error rate is always zero", "More errors always make the answer more accurate"],
+        "answer": "Small errors can accumulate in long circuits",
+        "correct": "Correct. Many operations can make small errors add up.",
+        "wrong": "Small errors can become serious when repeated many times."
+      },
+      {
+        "question": "Why is quantum error correction difficult?",
+        "options": ["Qubits cannot be freely copied or measured", "Quantum computers need less electricity", "Errors never happen"],
+        "answer": "Qubits cannot be freely copied or measured",
+        "correct": "Correct. Quantum information has copying and measurement constraints.",
+        "wrong": "Quantum error correction is hard because copying and measurement are restricted."
+      },
+      {
+        "question": "In this app, if the ideal probability of 1 is 1 and the noise rate is 20%, about what noisy ratio of 1 should appear?",
+        "options": ["0.8", "1.0", "1.2"],
+        "answer": "0.8",
+        "correct": "Correct. About 20% of the 1 results flip to 0, leaving about 80% as 1.",
+        "wrong": "This simulation flips outcomes. About 20% of the 1s become 0s."
+      },
+      {
+        "question": "With an ideal probability of 1/2, noise may leave the overall 0-1 ratio looking similar. What does that mean?",
+        "options": ["Individual results may still contain errors", "The noise did nothing", "Every error was automatically corrected"],
+        "answer": "Individual results may still contain errors",
+        "correct": "Correct. Flips from 0 to 1 and from 1 to 0 can hide each other in an even distribution.",
+        "wrong": "A similar histogram does not prove that every individual measurement was correct."
+      }
+    ]
+  }
+}

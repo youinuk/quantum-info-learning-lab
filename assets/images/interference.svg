@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">Quantum interference</title>
+  <desc id="desc">A simple diagram comparing H-H and H-Z-H paths.</desc>
+  <rect width="900" height="520" fill="#f7f8fb"/>
+  <text x="450" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#182233">Interference changes the final result</text>
+
+  <rect x="70" y="130" width="760" height="120" rx="16" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
+  <text x="120" y="178" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1d4ed8">H-H</text>
+  <text x="228" y="178" font-family="Arial, sans-serif" font-size="22" fill="#334155">|0&gt; -> H -> superposition -> H -> |0&gt;</text>
+  <rect x="665" y="156" width="88" height="52" rx="10" fill="#dbeafe" stroke="#2f80ed" stroke-width="3"/>
+  <text x="709" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1d4ed8">|0&gt;</text>
+
+  <rect x="70" y="292" width="760" height="120" rx="16" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
+  <text x="120" y="340" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#7c3aed">H-Z-H</text>
+  <text x="228" y="340" font-family="Arial, sans-serif" font-size="22" fill="#334155">|0&gt; -> H -> superposition -> Z -> H -> |1&gt;</text>
+  <rect x="665" y="318" width="88" height="52" rx="10" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="709" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#6d28d9">|1&gt;</text>
+
+  <path d="M154 230 C235 270, 305 270, 386 230" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round"/>
+  <text x="270" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#15803d">adds toward |0&gt;</text>
+  <path d="M154 390 C235 430, 305 430, 386 390" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" stroke-dasharray="9 9"/>
+  <text x="270" y="446" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#b91c1c">sign changes the interference</text>
+</svg>

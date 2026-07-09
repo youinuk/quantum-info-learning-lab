@@ -1,0 +1,386 @@
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgba(138, 216, 255, 0.35);
+  border-radius: 999px;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--card);
+}
+
+.back-link:hover,
+.back-link:focus-visible { background: var(--card-strong); }
+
+.glass-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) 330px;
+  gap: 16px;
+  margin-top: 16px;
+  align-items: start;
+}
+
+.glass-board-wrap {
+  padding: clamp(10px, 2vw, 18px);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.35), var(--shadow);
+}
+
+.glass-board {
+  display: block;
+  width: min(100%, 680px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #0b1020;
+}
+
+.glass-grid-line { stroke: rgba(255, 255, 255, 0.055); stroke-width: 1; }
+
+/* ── Glass pane ── */
+.glass-pane {
+  fill: rgba(94, 196, 255, 0.2);
+  stroke: #8ad8ff;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 12px rgba(91, 196, 255, 0.35));
+}
+/* Water: blue tint with wave-like stroke */
+.glass-pane.water {
+  fill: rgba(50, 130, 255, 0.22);
+  stroke: #5599ff;
+  stroke-width: 4;
+  stroke-dasharray: 12 5;
+  filter: drop-shadow(0 0 14px rgba(50, 130, 255, 0.45));
+}
+
+/* ── Danger zone ── */
+.danger-zone {
+  fill: rgba(255, 60, 60, 0.10);
+  stroke: rgba(255, 90, 90, 0.55);
+  stroke-width: 2;
+  stroke-dasharray: 10 5;
+}
+.danger-zone.active {
+  fill: rgba(255, 60, 60, 0.28);
+  stroke: #ff4444;
+  stroke-dasharray: none;
+  animation: danger-pulse 0.35s ease-in-out infinite alternate;
+}
+@keyframes danger-pulse {
+  from { opacity: 0.75; }
+  to   { opacity: 1.0; }
+}
+.danger-zone-label {
+  fill: rgba(255, 130, 130, 0.80);
+  font: 700 13px system-ui;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+/* ── Beams ── */
+.refraction-beam {
+  fill: none;
+  stroke: var(--laser);
+  stroke-width: 8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px #ff4664) drop-shadow(0 0 12px rgba(255, 70, 100, 0.65));
+}
+.refraction-beam.in-glass {
+  stroke: #ffd05e;
+  filter: drop-shadow(0 0 7px rgba(255, 208, 94, 0.75));
+}
+/* TIR-reflected segment: bright cyan */
+.refraction-beam.tir-beam {
+  stroke: #a8f0ff;
+  stroke-width: 7;
+  filter: drop-shadow(0 0 10px rgba(168, 240, 255, 0.9)) drop-shadow(0 0 20px rgba(138, 216, 255, 0.5));
+  animation: tir-pulse 0.9s ease-in-out infinite alternate;
+}
+@keyframes tir-pulse {
+  from { opacity: 0.75; }
+  to   { opacity: 1.0; }
+}
+
+/* ── TIR indicator ring ── */
+.tir-flash-ring {
+  fill: none;
+  stroke: rgba(168, 240, 255, 0.85);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px rgba(168, 240, 255, 1));
+}
+.tir-label { fill: #a8f0ff !important; }
+
+/* ── Other board elements ── */
+.normal-line { stroke: #8ad8ff; stroke-width: 2; stroke-dasharray: 9 7; opacity: 0.9; }
+.normal-point { fill: #fff; stroke: #8ad8ff; stroke-width: 3; }
+.angle-label { fill: #dff7ff; font: 800 15px system-ui; paint-order: stroke; stroke: #0b1020; stroke-width: 5; }
+.glass-source-body { fill: #35435f; stroke: #a9bad5; stroke-width: 3; }
+.glass-source-core { fill: #fff2f4; stroke: #ff4664; stroke-width: 5; }
+.glass-target-ring { fill: #123a2a; stroke: var(--success); stroke-width: 7; }
+.glass-target-mark { fill: none; stroke: white; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.glass-target.active { filter: drop-shadow(0 0 14px var(--success)); }
+
+/* ── Panel ── */
+.glass-medium-label { fill: #dff7ff; font: 700 18px system-ui; text-anchor: middle; pointer-events: none; }
+.glass-angle-tag { fill: #b9dff3; font: 800 15px system-ui; text-anchor: middle; pointer-events: none; }
+
+.glass-panel { position: sticky; top: 14px; }
+.glass-angle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.glass-angle-grid div {
+  padding: 12px 8px;
+  border: 1px solid rgba(138, 216, 255, 0.2);
+  border-radius: 18px;
+  text-align: center;
+  background: rgba(138, 216, 255, 0.055);
+}
+.glass-angle-grid span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 0.72rem; }
+.glass-angle-grid strong { color: #dff7ff; font-size: 1.08rem; }
+
+/* ── Rotate pair buttons ── */
+.rotate-pair {
+  display: flex;
+  gap: 4px;
+}
+.rotate-pair button {
+  flex: 1;
+  padding-inline: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.fine-rotate-pair[hidden] { display: none; }
+.fine-rotate-pair button {
+  color: #dff7ff;
+  border-color: rgba(138, 216, 255, 0.34);
+  background: rgba(80, 155, 210, 0.1);
+}
+
+.shot-control {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.prediction-control {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(138, 216, 255, 0.28);
+  border-radius: 18px;
+  background: rgba(70, 118, 180, 0.08);
+}
+
+.prediction-control[hidden] { display: none; }
+.prediction-control > strong { line-height: 1.45; }
+.prediction-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.prediction-options button { min-height: 42px; padding: 0.6rem; }
+.prediction-options button.selected { border-color: var(--selected); }
+.prediction-options button.wrong { border-color: var(--laser); background: rgba(255, 70, 100, 0.14); }
+.prediction-control small { min-height: 1.4em; color: var(--warning); line-height: 1.45; }
+
+.shot-control[hidden] { display: none; }
+
+.glass-objective-tracker {
+  display: grid;
+  gap: 7px;
+  padding: 10px 12px;
+  border: 1px solid rgba(138, 216, 255, 0.2);
+  border-radius: 16px;
+  background: rgba(9, 15, 29, 0.5);
+}
+.glass-objective-tracker[hidden] { display: none; }
+.glass-objective-tracker > span { color: var(--muted); font-size: 0.72rem; font-weight: 800; }
+.glass-objective-steps { display: flex; align-items: center; gap: 7px; color: #536078; font-size: 0.74rem; }
+.glass-objective-step { display: flex; align-items: center; gap: 5px; color: #718099; font-weight: 850; }
+.glass-objective-step b { display: grid; width: 19px; height: 19px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 0.62rem; }
+.glass-objective-step.current { color: #ffe28a; }
+.glass-objective-step.current b { box-shadow: 0 0 10px rgba(255, 202, 75, 0.48); }
+.glass-objective-step.complete { color: #58f0a5; }
+
+.shot-control > div {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border: 1px solid rgba(255, 191, 77, 0.28);
+  border-radius: 18px;
+  background: rgba(255, 191, 77, 0.06);
+}
+
+.shot-control span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.shot-control strong { color: var(--warning); }
+
+.fire-button {
+  border-color: rgba(255, 191, 77, 0.55);
+  color: #fff5d7;
+  background: linear-gradient(135deg, #d47f24, #ff4664);
+  font-weight: 900;
+}
+
+.fire-button:not(:disabled) { animation: fire-ready 1.45s ease-in-out infinite; }
+
+.refraction-beam.planning-beam {
+  stroke: rgba(255, 112, 135, 0.65);
+  stroke-width: 5;
+  stroke-dasharray: 10 8;
+  filter: none;
+}
+
+.shot-ghost {
+  stroke: rgba(119, 214, 255, 0.42);
+  stroke-width: 4;
+  stroke-dasharray: 7 11;
+  pointer-events: none;
+}
+
+.shot-ghost.alarm-ghost { stroke: rgba(255, 92, 122, 0.48); }
+
+.shot-ghost-marker circle {
+  fill: rgba(16, 26, 48, 0.92);
+  stroke: rgba(119, 214, 255, 0.72);
+  stroke-width: 2;
+}
+
+.shot-ghost-marker text {
+  fill: #dff7ff;
+  font-size: 13px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.data-shard polygon {
+  fill: rgba(255, 191, 77, 0.18);
+  stroke: #ffd166;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 10px rgba(255, 191, 77, 0.65));
+}
+
+.data-shard circle { fill: #fff4b0; }
+
+.data-shard text {
+  fill: #ffe69a;
+  font-size: 13px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.data-shard.collected { opacity: 0.42; }
+.data-shard.collected polygon { fill: rgba(83, 240, 164, 0.2); stroke: #53f0a4; }
+.data-shard.collected text { fill: #8fffc3; }
+
+.optics-mirror-back {
+  stroke: rgba(63, 79, 111, 0.95);
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.optics-mirror-face {
+  stroke: #dff7ff;
+  stroke-width: 8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 7px rgba(138, 216, 255, 0.72));
+}
+
+.refraction-beam.mirror-beam {
+  stroke: #ffd166;
+  filter: drop-shadow(0 0 7px rgba(255, 209, 102, 0.85));
+}
+
+.angle-label.mirror-label { fill: #ffe69a; }
+
+.optics-mirror-label {
+  fill: #dff7ff;
+  font-size: 18px;
+  font-weight: 950;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: rgba(7, 15, 30, 0.9);
+  stroke-width: 5px;
+}
+
+.glass-target.locked { opacity: 0.72; }
+.glass-target.locked .glass-target-ring { stroke: #ffd166; stroke-dasharray: 8 7; }
+
+.glass-target-lock {
+  fill: #ffd166;
+  font-size: 13px;
+  font-weight: 950;
+  text-anchor: middle;
+}
+
+@keyframes fire-ready {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 191, 77, 0.15); }
+  50% { box-shadow: 0 0 22px rgba(255, 191, 77, 0.38); }
+}
+
+/* ── Stage select trigger & sound btn ── */
+.stage-select-trigger {
+  min-height: 40px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgba(138, 216, 255, 0.35);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--card);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.stage-select-trigger:hover,
+.stage-select-trigger:focus-visible { background: var(--card-strong); }
+
+.sound-btn {
+  min-height: 40px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.sound-btn:hover { color: var(--text); }
+
+@media (max-width: 860px) {
+  .glass-layout { grid-template-columns: 1fr; }
+  .glass-panel { position: static; }
+}
+
+@media (max-width: 560px) {
+  .glass-topbar .header-controls { align-items: stretch; flex-wrap: wrap; gap: 6px; }
+  .back-link { justify-content: center; }
+  .glass-board-wrap { padding: 7px; border-radius: 22px; }
+  .glass-board { border-radius: 17px; }
+  .stage-select-trigger, .sound-btn { font-size: 0.8rem; }
+}
+
+@media (max-width: 700px) {
+  .glass-topbar {
+    flex-direction: row;
+    align-items: center;
+  }
+  .glass-topbar .header-controls {
+    width: auto;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .glass-layout {
+    grid-template-columns: minmax(560px, 1fr) 300px;
+  }
+  .glass-panel {
+    position: sticky;
+  }
+  .glass-board {
+    width: min(100%, 680px);
+  }
+}

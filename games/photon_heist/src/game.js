@@ -280,7 +280,7 @@ function renderHeader() {
   el.gameTitle.textContent = t("gameTitle");
   el.chapterLabel.textContent = t("chapter");
   el.languageLabel.textContent = t("language");
-  el.stageId.textContent = `Stage ${state.level.id}`;
+  el.stageId.textContent = state.lang === "ko" ? `스테이지 ${state.level.id}` : `Stage ${state.level.id}`;
   el.stageTitle.textContent = state.level.title[state.lang];
   el.stageIntro.textContent = state.level.intro[state.lang];
   const adjustKey = !state.level.stowableMirrors
@@ -324,7 +324,7 @@ function renderChallenge() {
   el.challengeText.textContent = state.level.challenge[state.lang];
   el.challengeStatus.textContent = complete ? t("challengeComplete") : t("challengeRetry");
   el.challengeStrip.classList.toggle("complete", complete);
-  el.challengeStrip.querySelector(".challenge-icon").textContent = complete ? "OK" : "!";
+  el.challengeStrip.querySelector(".challenge-icon").textContent = complete ? "✓" : "!";
 }
 
 function renderStats() {
@@ -339,7 +339,7 @@ function renderStats() {
   el.stars.textContent = renderStars(state.lastStars);
   el.stars.setAttribute("aria-label", `${t("starsLabel")}: ${state.lastStars}/3`);
   el.currentStarsLabel.textContent = t("currentMissionStars");
-  el.campaignProgress.textContent = `${t("campaignTotal")} *${totals.stars}/${LEVELS.length * 3} - ${totals.challenges}/${LEVELS.length}`;
+  el.campaignProgress.textContent = `${t("campaignTotal")} ★${totals.stars}/${LEVELS.length * 3} · ${t("challenges")} ${totals.challenges}/${LEVELS.length}`;
 }
 
 function renderStatus() {
@@ -363,7 +363,7 @@ function renderStatus() {
     resultParts.push(state.lang === "ko"
       ? (state.usedHint ? `힌트 ${state.hintIndex}개` : "힌트 없음")
       : (state.usedHint ? `Hints ${state.hintIndex}` : "No hints"));
-    showMessage("success", t(clearTitleKey), resultParts.join(" - "));
+    showMessage("success", t(clearTitleKey), resultParts.join(" · "));
     el.noteText.textContent = state.level.successNote[state.lang];
   } else if (state.alarm) {
     showMessage("alarm", t("alarmTitle"), t("alarmText"));
@@ -410,7 +410,7 @@ function renderObjectiveTracker() {
     const step = document.createElement("div");
     step.className = `objective-step ${status} objective-${objective.toLowerCase()}`;
     step.setAttribute("aria-label", `${labels[objective]}: ${t(status === "complete" ? "objectiveDone" : status === "current" ? "objectiveCurrent" : "objectivePending")}`);
-    step.innerHTML = `<span class="objective-symbol" aria-hidden="true">${status === "complete" ? "OK" : icons[objective]}</span><span>${labels[objective]}</span>`;
+    step.innerHTML = `<span class="objective-symbol" aria-hidden="true">${status === "complete" ? "✓" : icons[objective]}</span><span>${labels[objective]}</span>`;
     el.objectiveSteps.appendChild(step);
     if (index < sequence.length - 1) {
       const arrow = document.createElement("span");
@@ -576,9 +576,11 @@ function makeStageCard(level, index) {
   const top = document.createElement("span");
   top.className = "stage-select-item-top";
   const stageId = document.createElement("span");
-  stageId.textContent = `Stage ${level.id}`;
+  stageId.textContent = state.lang === "ko" ? `스테이지 ${level.id}` : `Stage ${level.id}`;
   const stateIcon = document.createElement("span");
-  stateIcon.textContent = unlocked ? `${best > 0 ? "*" : ""}${challengeDone ? " OK" : ""}` : "LOCK";
+  stateIcon.textContent = unlocked
+    ? `${best > 0 ? "★" : ""}${challengeDone ? " ✓" : ""}`
+    : (state.lang === "ko" ? "잠김" : "LOCK");
   top.append(stageId, stateIcon);
 
   const title = document.createElement("strong");
@@ -589,17 +591,17 @@ function makeStageCard(level, index) {
   const performance = document.createElement("span");
   performance.className = "stage-best-performance";
   if (best > 0 && bestRotations !== undefined) {
-    const parts = state.lang === "ko" ? [`Best ${bestRotations} actions`] : [`Best ${bestRotations} actions`];
-    if (level.commitMode && bestShots !== undefined) parts.push(state.lang === "ko" ? `${bestShots} shots` : `${bestShots} shots`);
-    performance.textContent = parts.join(" - ");
+    const parts = state.lang === "ko" ? [`최고 ${bestRotations}조작`] : [`Best ${bestRotations} actions`];
+    if (level.commitMode && bestShots !== undefined) parts.push(state.lang === "ko" ? `${bestShots}발` : `${bestShots} shots`);
+    performance.textContent = parts.join(" · ");
   }
   const status = document.createElement("small");
   const statusParts = [];
   if (!unlocked) statusParts.push(t("locked"));
   if (index === state.levelIndex && unlocked) statusParts.push(t("currentStage"));
   if (best > 0 && index !== state.levelIndex) statusParts.push(t("replayStage"));
-  if (challengeDone) statusParts.push(`${t("challenge")} OK`);
-  status.textContent = statusParts.join(" - ");
+  if (challengeDone) statusParts.push(`${t("challenge")} ${t("challengeComplete")}`);
+  status.textContent = statusParts.join(" · ");
 
   button.append(top, title, stars, performance, status);
   if (unlocked) {

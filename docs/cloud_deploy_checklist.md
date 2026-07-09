@@ -15,10 +15,10 @@
 예시:
 
 ```toml
-PHOTON_HEIST_URL = "https://your-photon-heist-static-site.example/hub.html"
+PHOTON_HEIST_URL = "https://quantum-info-learning-lab.youinuk.workers.dev/hub"
 ```
 
-`PHOTON_HEIST_URL`은 로컬 파일 경로가 아니라 브라우저에서 직접 열 수 있는 `https://.../hub.html` 주소여야 한다.
+`PHOTON_HEIST_URL`은 로컬 파일 경로가 아니라 브라우저에서 직접 열 수 있는 `https://.../hub` 주소여야 한다.
 
 ## 2. Photon Heist 정적 배포
 
@@ -32,8 +32,8 @@ Cloudflare Pages, Netlify, GitHub Pages 같은 정적 호스팅을 사용한다.
 
 배포 뒤 다음 URL을 직접 확인한다.
 
-- `https://.../hub.html?lang=ko`
-- `https://.../hub.html?lang=en`
+- `https://.../hub?lang=ko`
+- `https://.../hub?lang=en`
 - `https://.../index.html?lang=ko`
 - `https://.../glass.html?lang=ko`
 

@@ -27,7 +27,7 @@ def test_game_keeps_separate_local_assets_and_language_bridge() -> None:
         assert asset_path(scripts[0]) == "src/streamlit_bridge.js"
         assert styles
         assert all((GAME_DIR / asset_path(path)).is_file() for path in scripts + styles)
-        assert "?v=20260708a" in html
+        assert "?v=20260710a" in html
         assert "??/option" not in html
         assert "??/button" not in html
 
@@ -78,6 +78,7 @@ def test_game_sources_do_not_contain_known_mojibake_breakage() -> None:
         GAME_DIR / "glass.html",
         GAME_DIR / "src" / "levels.js",
         GAME_DIR / "src" / "glass_levels.js",
+        GAME_DIR / "src" / "i18n.js",
         GAME_DIR / "src" / "glass_game.js",
         GAME_DIR / "src" / "hub.js",
         GAME_DIR / "src" / "renderer.js",
@@ -93,21 +94,27 @@ def test_game_sources_do_not_contain_known_mojibake_breakage() -> None:
         assert 'return "??.repeat' not in source
 
 
-def test_text_fixes_are_loaded_by_every_game_entrypoint() -> None:
-    fixes = (GAME_DIR / "src" / "text_fixes.js").read_text(encoding="utf-8")
-    mirror_levels = (GAME_DIR / "src" / "levels.js").read_text(encoding="utf-8")
-    glass_levels = (GAME_DIR / "src" / "glass_levels.js").read_text(encoding="utf-8")
+def test_game_korean_ui_strings_are_not_left_as_english_defaults() -> None:
+    i18n = (GAME_DIR / "src" / "i18n.js").read_text(encoding="utf-8")
+    hub = (GAME_DIR / "src" / "hub.js").read_text(encoding="utf-8")
+    game = (GAME_DIR / "src" / "game.js").read_text(encoding="utf-8")
     glass_game = (GAME_DIR / "src" / "glass_game.js").read_text(encoding="utf-8")
 
     for relative_html in HTML_FILES:
         html = (GAME_DIR / relative_html).read_text(encoding="utf-8")
-        assert "src/text_fixes.js?v=20260708a" in html
+        assert "src/text_fixes.js?v=20260710a" in html
 
-    assert "빛의 규칙을 훔쳐라" in fixes
-    assert "첫 번째 거울" in mirror_levels
-    assert "유리 작전: 굴절 경로" in glass_game
-    assert "굴절률이 큰 매질일수록" in glass_levels
-    assert "applyPhotonHeistTextFixes?.()" in (GAME_DIR / "src" / "hub.js").read_text(encoding="utf-8")
+    assert 'chapter: "거울 작전"' in i18n
+    assert 'language: "언어"' in i18n
+    assert 'fire: "레이저 발사"' in i18n
+    assert 'planningTitle: "경로 계획"' in i18n
+    assert 'hub: "작전 허브"' in i18n
+    assert 'route: "캠페인 경로"' in hub
+    assert 'state.lang === "ko" ? `스테이지 ${state.level.id}`' in game
+    assert 'chapter: "유리 작전 · 굴절 경로"' in glass_game
+    assert 'glassState.lang === "ko" ? `유리 ${level.id}`' in glass_game
+    assert 'glassState.lang === "ko" ? "잠김" : "LOCK"' in glass_game
+    assert "applyPhotonHeistTextFixes?.()" in hub
 
 
 def test_game_javascript_string_quotes_stay_balanced() -> None:
@@ -160,6 +167,8 @@ def test_game_page_is_registered_as_external_launcher() -> None:
 
     assert 'st.Page("pages/10_photon_heist.py"' in app_source
     assert "PHOTON_HEIST_URL" in page_source
+    assert "DEFAULT_GAME_URL" in page_source
+    assert "https://quantum-info-learning-lab.youinuk.workers.dev/hub" in page_source
     assert "st.link_button" in page_source
     assert "add_language_to_url" in page_source
     assert "render_photon_heist" not in page_source
@@ -175,4 +184,5 @@ def test_game_launcher_page_renders_without_streamlit_exceptions(lang: str) -> N
     app.run()
 
     assert not app.exception
-    assert app.warning
+    assert not app.warning
+    assert app.title

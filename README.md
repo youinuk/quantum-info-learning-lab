@@ -63,7 +63,7 @@ Windows에서 `python.exe`를 직접 실행하면 DLL 검색 경로가 달라질
 예시:
 
 ```toml
-PHOTON_HEIST_URL = "https://your-photon-heist-site.example/hub.html"
+PHOTON_HEIST_URL = "https://quantum-info-learning-lab.youinuk.workers.dev/hub"
 ```
 
 로컬에서 임시 확인할 때는 브라우저로 `games/photon_heist/hub.html`을 직접 열 수 있다. 최종 배포 확인은 정적 호스팅 URL을 만든 뒤 Streamlit의 `Photon Heist` 페이지에서 버튼으로 이동해 확인한다.
@@ -78,7 +78,7 @@ Cloud 배포는 두 주소를 따로 준비한다.
 Streamlit Cloud secrets에는 다음 값을 넣는다. 예시는 `.streamlit/secrets.toml.example`에도 있다.
 
 ```toml
-PHOTON_HEIST_URL = "https://your-photon-heist-static-site.example/hub.html"
+PHOTON_HEIST_URL = "https://quantum-info-learning-lab.youinuk.workers.dev/hub"
 ```
 
 업로드 전 세부 확인은 `docs/cloud_deploy_checklist.md`를 따른다. 특히 루트에서 `git status`가 정상 동작하는지 확인한다. 현재 폴더가 Git 저장소로 인식되지 않는다면, GitHub에 올릴 깨끗한 저장소를 새로 만들거나 정상 clone 폴더에서 배포한다.

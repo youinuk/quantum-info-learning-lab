@@ -8,6 +8,7 @@
     window.__probeSyntax = [];
     window.__probeCurrentScript = "inline";
     function probeSyntax(name, url) {
+      if (window.location.protocol === "file:") return;
       try {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, false);
@@ -18,11 +19,11 @@
       }
     }
     [
-      ["streamlit_bridge.js", "../src/streamlit_bridge.js?v=20260708a"],
-      ["optics.js", "../src/optics.js?v=20260708a"],
-      ["glass_levels.js", "../src/glass_levels.js?v=20260708a"],
-      ["text_fixes.js", "../src/text_fixes.js?v=20260708a"],
-      ["glass_game.js", "../src/glass_game.js?v=20260708a"]
+      ["streamlit_bridge.js", "../src/streamlit_bridge.js?v=20260710a"],
+      ["optics.js", "../src/optics.js?v=20260710a"],
+      ["glass_levels.js", "../src/glass_levels.js?v=20260710a"],
+      ["text_fixes.js", "../src/text_fixes.js?v=20260710a"],
+      ["glass_game.js", "../src/glass_game.js?v=20260710a"]
     ].forEach(function (item) { probeSyntax(item[0], item[1]); });
     window.addEventListener("error", function (event) {
       window.__probeErrors.push([
@@ -68,6 +69,11 @@
           syntax: window.__probeSyntax,
           errors: window.__probeErrors,
           title: document.getElementById("glassGameTitle").textContent,
+          chapter: document.getElementById("glassChapter").textContent,
+          languageLabel: document.getElementById("glassLanguageLabel").textContent,
+          stageId: document.getElementById("glassStageId").textContent,
+          fireText: document.getElementById("fireGlassBtn").textContent,
+          stageSelectText: document.getElementById("glassStageSelectBtn").textContent,
           stageTitle: document.getElementById("glassStageTitle").textContent,
           svgChildren: board ? board.children.length : -1,
           interaction: interaction,
@@ -76,8 +82,8 @@
       }, 300);
     });
   </script>
-  <link rel="stylesheet" href="../styles/style.css?v=20260708a">
-  <link rel="stylesheet" href="../styles/glass.css?v=20260708a">
+  <link rel="stylesheet" href="../styles/style.css?v=20260710a">
+  <link rel="stylesheet" href="../styles/glass.css?v=20260710a">
 </head>
 <body>
   <main>
@@ -118,15 +124,15 @@
     <div id="probeOutput">pending</div>
   </main>
   <script>window.__probeCurrentScript = "streamlit_bridge.js";</script>
-  <script src="../src/streamlit_bridge.js?v=20260708a"></script>
+  <script src="../src/streamlit_bridge.js?v=20260710a"></script>
   <script>window.__probeCurrentScript = "optics.js";</script>
-  <script src="../src/optics.js?v=20260708a"></script>
+  <script src="../src/optics.js?v=20260710a"></script>
   <script>window.__probeCurrentScript = "glass_levels.js";</script>
-  <script src="../src/glass_levels.js?v=20260708a"></script>
+  <script src="../src/glass_levels.js?v=20260710a"></script>
   <script>window.__probeCurrentScript = "text_fixes.js";</script>
-  <script src="../src/text_fixes.js?v=20260708a"></script>
+  <script src="../src/text_fixes.js?v=20260710a"></script>
   <script>window.__probeCurrentScript = "glass_game.js";</script>
-  <script src="../src/glass_game.js?v=20260708a"></script>
+  <script src="../src/glass_game.js?v=20260710a"></script>
   <script>window.__probeCurrentScript = "after-glass";</script>
 </body>
 </html>

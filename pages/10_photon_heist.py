@@ -11,6 +11,7 @@ from core.i18n import get_lang
 
 ROOT = Path(__file__).resolve().parents[1]
 GAME_SOURCE_DIR = ROOT / "games" / "photon_heist"
+DEFAULT_GAME_URL = "https://quantum-info-learning-lab.youinuk.workers.dev/hub"
 REQUIRED_GAME_FILES = (
     "hub.html",
     "index.html",
@@ -29,47 +30,35 @@ LAUNCHER_TEXT = {
         "title": "Photon Heist: 빛의 도둑",
         "caption": "거울과 유리 장치를 조작해 빛의 직진, 반사, 굴절 경로를 설계하는 HTML5 물리 퍼즐이다.",
         "intro": (
-            "게임은 Streamlit 화면 안에 억지로 넣지 않고 별도 정적 사이트로 연다. "
+            "게임은 별도 정적 사이트에서 열린다. "
             "이 방식이 PC와 모바일 브라우저에서 클릭, 키보드 입력, 화면 크기 문제를 가장 안정적으로 만든다."
         ),
         "open": "게임 열기",
-        "configured": "현재 설정된 게임 주소로 이동한다. 선택한 언어는 URL의 `lang` 값으로 전달된다.",
-        "missing_url": "아직 배포된 게임 주소가 설정되지 않았다.",
-        "setup": "Streamlit Cloud secrets 또는 환경 변수에 다음 값을 추가하면 이 버튼이 실제 게임으로 연결된다.",
-        "source_ok": "정적 게임 원본 파일이 프로젝트 안에 준비되어 있다.",
+        "configured": "현재 선택한 언어로 게임을 연다.",
         "source_missing": "정적 게임 원본 파일 일부가 없다: {files}",
-        "deploy_title": "권장 배포 방식",
-        "deploy_body": (
-            "Cloudflare Pages나 Netlify에서 `games/photon_heist` 폴더를 정적 사이트로 배포한다. "
-            "빌드 명령은 비워 두거나 `exit 0`을 쓰고, 진입 주소는 Cloudflare Pages의 clean URL인 `/hub`를 사용한다."
+        "admin_title": "배포 설정",
+        "admin_body": (
+            "`PHOTON_HEIST_URL` secret 또는 환경 변수를 설정하면 기본 게임 주소를 덮어쓸 수 있다. "
+            "값이 없으면 현재 Cloudflare 배포 주소를 사용한다."
         ),
-        "move_note": (
-            "배포가 안정되면 `games/photon_heist`를 별도 repo나 프로젝트 밖 폴더로 옮겨도 된다. "
-            "그때 Streamlit 쪽은 `PHOTON_HEIST_URL` 값만 새 주소로 바꾸면 된다."
-        ),
+        "admin_code": f'PHOTON_HEIST_URL = "{DEFAULT_GAME_URL}"',
     },
     "en": {
         "title": "Photon Heist",
         "caption": "An HTML5 physics puzzle about straight-line light, reflection, and refraction.",
         "intro": (
-            "The game opens as a separate static website instead of being embedded inside Streamlit. "
+            "The game opens as a separate static website. "
             "This keeps clicks, keyboard input, and responsive layout much more reliable on desktop and mobile browsers."
         ),
         "open": "Open game",
-        "configured": "This opens the configured game URL. The selected language is passed through the `lang` query value.",
-        "missing_url": "No deployed game URL is configured yet.",
-        "setup": "Add this value to Streamlit Cloud secrets or to the environment to connect the button to the game.",
-        "source_ok": "The static game source files are present in this project.",
+        "configured": "The game opens in the currently selected language.",
         "source_missing": "Some static game source files are missing: {files}",
-        "deploy_title": "Recommended deployment",
-        "deploy_body": (
-            "Deploy `games/photon_heist` as a static site on Cloudflare Pages or Netlify. "
-            "Leave the build command empty or use `exit 0`, and use the Cloudflare Pages clean URL `/hub` as the entry URL."
+        "admin_title": "Deployment Settings",
+        "admin_body": (
+            "Set the `PHOTON_HEIST_URL` secret or environment variable to override the default game URL. "
+            "If it is not set, the app uses the current Cloudflare deployment."
         ),
-        "move_note": (
-            "After the deployment is stable, `games/photon_heist` can move to a separate repo or a folder outside this project. "
-            "The Streamlit app only needs the `PHOTON_HEIST_URL` value updated."
-        ),
+        "admin_code": f'PHOTON_HEIST_URL = "{DEFAULT_GAME_URL}"',
     },
 }
 
@@ -83,7 +72,7 @@ def configured_game_url() -> str:
         secret_value = st.secrets.get("PHOTON_HEIST_URL", "")
     except Exception:
         secret_value = ""
-    return str(secret_value or os.environ.get("PHOTON_HEIST_URL", "")).strip()
+    return str(secret_value or os.environ.get("PHOTON_HEIST_URL", "") or DEFAULT_GAME_URL).strip()
 
 
 def add_language_to_url(url: str, lang: str) -> str:
@@ -101,22 +90,14 @@ st.title(text["title"])
 st.caption(text["caption"])
 st.write(text["intro"])
 
-game_url = configured_game_url()
 missing_files = missing_game_files()
-
 if missing_files:
     st.error(text["source_missing"].format(files=", ".join(missing_files)))
 else:
-    st.success(text["source_ok"])
-
-if game_url:
+    game_url = configured_game_url()
     st.link_button(text["open"], add_language_to_url(game_url, lang), type="primary")
     st.caption(text["configured"])
-else:
-    st.warning(text["missing_url"])
-    st.write(text["setup"])
-    st.code('PHOTON_HEIST_URL = "https://your-photon-heist-site.example/hub"', language="toml")
 
-st.subheader(text["deploy_title"])
-st.write(text["deploy_body"])
-st.info(text["move_note"])
+with st.expander(text["admin_title"]):
+    st.write(text["admin_body"])
+    st.code(text["admin_code"], language="toml")

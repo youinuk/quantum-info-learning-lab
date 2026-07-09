@@ -1,7 +1,7 @@
 const GLASS_TEXT = {
   ko: {
     gameTitle: "유리 작전: 굴절 경로",
-    chapter: "Prototype 2 · Glass Route",
+    chapter: "유리 작전 · 굴절 경로",
     back: "작전 허브",
     language: "언어",
     experimentStars: "이번 실험",
@@ -334,9 +334,11 @@ function makeGlassStageCard(level, index) {
   const top = document.createElement("span");
   top.className = "stage-select-item-top";
   const idSpan = document.createElement("span");
-  idSpan.textContent = `Glass ${level.id}`;
+  idSpan.textContent = glassState.lang === "ko" ? `유리 ${level.id}` : `Glass ${level.id}`;
   const iconSpan = document.createElement("span");
-  iconSpan.textContent = unlocked ? (best > 0 ? `${challengeDone ? "OK" : "*"}` : "") : "LOCK";
+  iconSpan.textContent = unlocked
+    ? (best > 0 ? `${challengeDone ? "✓" : "★"}` : "")
+    : (glassState.lang === "ko" ? "잠김" : "LOCK");
   top.append(idSpan, iconSpan);
 
   const title = document.createElement("strong");
@@ -764,7 +766,9 @@ function appendDataShard(svg) {
   group.appendChild(svgNode("polygon", { points: "0,-18 18,0 0,18 -18,0" }));
   group.appendChild(svgNode("circle", { cx: 0, cy: 0, r: 5 }));
   const label = svgNode("text", { x: 0, y: 34 });
-  label.textContent = glassState.shardCollected ? "DATA OK" : "DATA";
+  label.textContent = glassState.lang === "ko"
+    ? (glassState.shardCollected ? "정보 확보" : "정보")
+    : (glassState.shardCollected ? "DATA OK" : "DATA");
   group.appendChild(label);
   svg.appendChild(group);
 }
@@ -887,7 +891,7 @@ function renderGlassBoard() {
     }));
     if (sensorLocked) {
       const lock = svgNode("text", { x: sensor.x, y: sensor.y - 28, class: "glass-target-lock" });
-      lock.textContent = "LOCK";
+      lock.textContent = glassState.lang === "ko" ? "잠김" : "LOCK";
       sensorGrp.appendChild(lock);
     }
     svg.appendChild(sensorGrp);
@@ -907,7 +911,7 @@ function renderGlassHeader() {
   glassEl.back.textContent = gt("back");
   glassEl.back.href = glassUrl("hub.html");
   glassEl.languageLabel.textContent = gt("language");
-  glassEl.stageId.textContent = `Glass ${level.id}`;
+  glassEl.stageId.textContent = glassState.lang === "ko" ? `유리 ${level.id}` : `Glass ${level.id}`;
   glassEl.stageTitle.textContent = level.title[glassState.lang];
   glassEl.stageIntro.textContent = level.intro[glassState.lang];
   glassEl.starsLabel.textContent = gt("experimentStars");
@@ -933,13 +937,13 @@ function renderGlassStats() {
   glassEl.incidenceLabel.textContent = gt("incidence");
   glassEl.refractionLabel.textContent = gt("refraction");
   glassEl.glassAngleLabel.textContent = isLaserMode() ? gt("laserAngle") : gt("glassAngle");
-  glassEl.incidenceValue.textContent  = ev ? `${ev.incidenceAngle.toFixed(1)} deg` : "--";
+  glassEl.incidenceValue.textContent  = ev ? `${ev.incidenceAngle.toFixed(1)}°` : "--";
   const resultVisible = (!glassState.level.prediction || glassState.predictionCorrect)
     && (!glassState.level.commitMode || glassState.committed);
   glassEl.refractionValue.textContent = resultVisible && ev && !ev.tir
-    ? `${ev.refractionAngle.toFixed(1)} deg`
+    ? `${ev.refractionAngle.toFixed(1)}°`
     : resultVisible && ev?.tir ? gt("tir") : "--";
-  glassEl.glassAngleValue.textContent = `${glassState.angle} deg`;
+  glassEl.glassAngleValue.textContent = `${glassState.angle}°`;
   glassEl.rotationsLabel.textContent = gt("rotations");
   glassEl.targetLabel.textContent    = gt("target");
   glassEl.indexLabel.textContent     = gt("index");
@@ -959,19 +963,19 @@ function renderGlassStatus() {
   if (glassState.cleared) {
     const titleKey = glassState.stars === 3 ? "perfectSuccess" : glassState.stars === 2 ? "solidSuccess" : "basicSuccess";
     const parts = glassState.lang === "ko"
-      ? [`Actions ${glassState.rotations}/${glassState.level.targetRotations}`]
+      ? [`조작 ${glassState.rotations}/${glassState.level.targetRotations}`]
       : [`Actions ${glassState.rotations}/${glassState.level.targetRotations}`];
     if (glassState.level.commitMode) parts.push(glassState.lang === "ko"
-      ? `Shots ${glassState.shots}/${glassState.level.targetShots || glassState.level.shotBudget}`
+      ? `발사 ${glassState.shots}/${glassState.level.targetShots || glassState.level.shotBudget}`
       : `Shots ${glassState.shots}/${glassState.level.targetShots || glassState.level.shotBudget}`);
     if (glassState.level.prediction) parts.push(glassState.lang === "ko"
-      ? `Predictions ${glassState.predictionAttempts}`
+      ? `예측 ${glassState.predictionAttempts}`
       : `Predictions ${glassState.predictionAttempts}`);
     parts.push(glassState.lang === "ko"
-      ? (glassState.hintStep ? `Hints ${glassState.hintStep}` : "No hints")
+      ? (glassState.hintStep ? `힌트 ${glassState.hintStep}` : "힌트 없음")
       : (glassState.hintStep ? `Hints ${glassState.hintStep}` : "No hints"));
     glassEl.statusTitle.textContent = gt(titleKey);
-    glassEl.statusText.textContent = parts.join(" - ");
+    glassEl.statusText.textContent = parts.join(" · ");
   } else if (glassState.alarmed) {
     glassEl.statusTitle.textContent = gt("alarmTitle");
     glassEl.statusText.textContent  = gt("alarmText");
@@ -1059,7 +1063,11 @@ function renderChallenge() {
     ? gt("challengeComplete")
     : shardSecured ? gt("shardSecured") : gt("challengeRetry");
   glassEl.challengeStrip.classList.toggle("complete", done);
-  glassEl.challengeStrip.querySelector(".challenge-icon").textContent = done ? "OK" : shardSecured ? "DATA" : "!";
+  glassEl.challengeStrip.querySelector(".challenge-icon").textContent = done
+    ? "✓"
+    : shardSecured
+      ? (glassState.lang === "ko" ? "정보" : "DATA")
+      : "!";
 }
 
 function renderGlassButtons() {

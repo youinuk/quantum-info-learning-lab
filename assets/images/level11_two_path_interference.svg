@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" viewBox="0 0 820 330" role="img" aria-labelledby="title desc">
+  <title id="title">Two path interference</title>
+  <desc id="desc">Two possible paths meet again and create bright or dark output depending on phase.</desc>
+  <rect width="820" height="330" rx="8" fill="#f8fafc"/>
+  <rect x="30" y="28" width="760" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="58" y="67" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#0f172a">Two possibilities meet again</text>
+  <circle cx="112" cy="160" r="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="101" y="166" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1d4ed8">H</text>
+  <path d="M132 160 C240 80, 342 86, 454 132" fill="none" stroke="#2f80ed" stroke-width="5"/>
+  <path d="M132 160 C240 240, 342 234, 454 188" fill="none" stroke="#f43f5e" stroke-width="5"/>
+  <circle cx="486" cy="160" r="20" fill="#f8fafc" stroke="#334155" stroke-width="3"/>
+  <text x="476" y="166" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#334155">+</text>
+  <line x1="506" y1="160" x2="650" y2="160" stroke="#334155" stroke-width="4"/>
+  <rect x="652" y="130" width="90" height="60" rx="7" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="671" y="166" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#15803d">output</text>
+  <text x="234" y="93" font-family="Arial, sans-serif" font-size="16" fill="#1d4ed8">path A</text>
+  <text x="234" y="252" font-family="Arial, sans-serif" font-size="16" fill="#be123c">path B</text>
+  <text x="58" y="305" font-family="Arial, sans-serif" font-size="15" fill="#64748b">Same phase: paths reinforce. Opposite phase: paths cancel.</text>
+</svg>

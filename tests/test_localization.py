@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HANGUL = re.compile(r"[가-힣]")
-EXPECTED_CARD_COUNTS = [4, 6, 5, 5, 6, 5, 8, 8, 5]
+EXPECTED_CARD_COUNTS = [4, 6, 5, 5, 6, 5, 8, 8, 5, 5, 5, 5, 5]
 IMAGE_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 
 
@@ -26,7 +26,7 @@ def test_every_lesson_image_reference_exists():
 
 
 def test_korean_and_english_lessons_use_the_same_images():
-    for level in range(9):
+    for level in range(13):
         korean = (ROOT / "content" / "lessons" / "ko" / f"level{level}.md").read_text(encoding="utf-8")
         english = (ROOT / "content" / "lessons" / "en" / f"level{level}.md").read_text(encoding="utf-8")
 

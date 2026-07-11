@@ -593,5 +593,384 @@
         "wrong": "A similar histogram does not prove that every individual measurement was correct."
       }
     ]
+  },
+  "level9": {
+    "goal": "Goal: Learn how to read simple quantum circuit diagrams from left to right.",
+    "terms_title": "Circuit reading terms",
+    "key_takeaway": "Key idea: a circuit diagram is a timeline of qubits, gates, and measurement.",
+    "simulation_intro": "Choose a prepared circuit card, read its diagram, then run repeated measurements.",
+    "simulation_waiting": "No circuit has been measured yet. Choose a circuit and trial count, then run the experiment.",
+    "simulation_ui": {
+      "circuit_label": "Circuit card",
+      "outcome_column": "Outcome",
+      "probability_column": "Probability",
+      "count_column": "Count",
+      "sdk_title": "Qiskit/Cirq reading preview"
+    },
+    "circuit_options": [
+      {
+        "id": "x_gate",
+        "label": "X gate: flip 0 to 1",
+        "labels": ["0", "1"],
+        "image": "assets/images/level9_x_gate_circuit.svg",
+        "diagram": "q0: |0> -- X -- M",
+        "reading": "Start from |0>, apply X, then measure. X flips the computational-basis value.",
+        "result_note": "The ideal result is always 1. This is the quantum-circuit version of a simple flip.",
+        "sdk_note": "The code creates one qubit, applies X, and measures it.",
+        "qiskit": "from qiskit import QuantumCircuit\nqc = QuantumCircuit(1)\nqc.x(0)\nqc.measure_all()",
+        "cirq": "import cirq\nq0 = cirq.LineQubit(0)\ncircuit = cirq.Circuit(cirq.X(q0), cirq.measure(q0, key=\"m\"))"
+      },
+      {
+        "id": "h_gate",
+        "label": "H gate: make a 50:50 state",
+        "labels": ["0", "1"],
+        "image": "assets/images/level9_h_gate_circuit.svg",
+        "diagram": "q0: |0> -- H -- M",
+        "reading": "Start from |0>, apply H, then measure. H prepares equal-size possibilities for 0 and 1.",
+        "result_note": "Repeated measurements split around 0 and 1. One run still gives only one value.",
+        "sdk_note": "The code creates one qubit, applies H, and measures it.",
+        "qiskit": "from qiskit import QuantumCircuit\nqc = QuantumCircuit(1)\nqc.h(0)\nqc.measure_all()",
+        "cirq": "import cirq\nq0 = cirq.LineQubit(0)\ncircuit = cirq.Circuit(cirq.H(q0), cirq.measure(q0, key=\"m\"))"
+      },
+      {
+        "id": "h_then_z",
+        "label": "H then Z: same Z probabilities, different phase",
+        "labels": ["0", "1"],
+        "image": "assets/images/level9_h_z_circuit.svg",
+        "diagram": "q0: |0> -- H -- Z -- M",
+        "reading": "Z changes the sign of the |1> part. A Z-basis measurement still sees 0 and 1 half the time.",
+        "result_note": "The probability bars match the H-only circuit, but the phase sign is different.",
+        "sdk_note": "The code applies H and then Z before measurement.",
+        "qiskit": "from qiskit import QuantumCircuit\nqc = QuantumCircuit(1)\nqc.h(0)\nqc.z(0)\nqc.measure_all()",
+        "cirq": "import cirq\nq0 = cirq.LineQubit(0)\ncircuit = cirq.Circuit(cirq.H(q0), cirq.Z(q0), cirq.measure(q0, key=\"m\"))"
+      },
+      {
+        "id": "bell_pair",
+        "label": "Bell circuit: connect two qubits",
+        "labels": ["00", "01", "10", "11"],
+        "image": "assets/images/level9_bell_circuit.svg",
+        "diagram": "q0: |0> -- H -- ● -- M\n              |\nq1: |0> ----- X -- M",
+        "reading": "H creates two possibilities on the first qubit. CNOT then connects the second qubit to that pattern.",
+        "result_note": "The ideal Bell circuit gives only 00 or 11. The two results match, even though each side looks random.",
+        "sdk_note": "The code applies H to qubit 0, CNOT from qubit 0 to qubit 1, and then measures both.",
+        "qiskit": "from qiskit import QuantumCircuit\nqc = QuantumCircuit(2)\nqc.h(0)\nqc.cx(0, 1)\nqc.measure_all()",
+        "cirq": "import cirq\nq0, q1 = cirq.LineQubit.range(2)\ncircuit = cirq.Circuit(cirq.H(q0), cirq.CNOT(q0, q1), cirq.measure(q0, q1, key=\"m\"))"
+      }
+    ],
+    "terms": [
+      {"Term": "circuit line", "Meaning": "A horizontal line representing one qubit over time"},
+      {"Term": "gate", "Meaning": "An operation that changes a qubit state before measurement"},
+      {"Term": "CNOT", "Meaning": "A two-qubit gate where one qubit controls whether the other flips"},
+      {"Term": "measurement symbol", "Meaning": "The point where the circuit produces visible classical results"}
+    ],
+    "quiz": [
+      {
+        "question": "How do we usually read a quantum circuit diagram?",
+        "options": ["From left to right", "From right to left", "Only from bottom to top"],
+        "answer": "From left to right",
+        "correct": "Correct. The left side is earlier and the right side is later.",
+        "wrong": "Treat the circuit like a timeline: left first, right later."
+      },
+      {
+        "question": "What does one horizontal circuit line usually represent?",
+        "options": ["One qubit", "One answer choice", "One battery"],
+        "answer": "One qubit",
+        "correct": "Correct. A line tracks one qubit through time.",
+        "wrong": "A circuit line is the time path of a qubit."
+      },
+      {
+        "question": "What does the H gate do to |0> in this first model?",
+        "options": ["It prepares equal-size possibilities for 0 and 1", "It deletes the qubit", "It always produces 1"],
+        "answer": "It prepares equal-size possibilities for 0 and 1",
+        "correct": "Correct. Measuring after H gives 0 or 1 with about equal frequency.",
+        "wrong": "H is not a delete button. It changes the state before measurement."
+      },
+      {
+        "question": "Why can H and H then Z show the same Z-basis probability bars?",
+        "options": ["Z changes phase, not the size of the bars in this measurement", "Z has no effect in any circuit", "The graph is always random"],
+        "answer": "Z changes phase, not the size of the bars in this measurement",
+        "correct": "Correct. Phase can matter later even when this simple measurement looks the same.",
+        "wrong": "The difference is in phase, which this Z-basis histogram does not fully reveal."
+      },
+      {
+        "question": "In the Bell circuit shown here, which results appear ideally?",
+        "options": ["00 and 11", "01 and 10", "Only 00"],
+        "answer": "00 and 11",
+        "correct": "Correct. This Bell circuit links the two qubits so the results match.",
+        "wrong": "For this Bell circuit, the matching results 00 and 11 are the ones that appear."
+      },
+      {
+        "question": "What is the best reason to preview Qiskit/Cirq code here?",
+        "options": ["To match code lines with circuit parts", "To memorize every library command now", "To avoid learning circuit diagrams"],
+        "answer": "To match code lines with circuit parts",
+        "correct": "Correct. The code preview helps connect real tools to the circuit picture.",
+        "wrong": "The goal is not memorizing commands. The goal is reading how code builds a circuit."
+      }
+    ]
+  },
+  "level10": {
+    "goal": "Goal: Separate one measurement result, repeated-measurement statistics, and noisy readout.",
+    "terms_title": "Terms for measurement statistics",
+    "key_takeaway": "Key idea: one measurement does not reveal the whole state; repeated measurements reveal probability patterns; noise can blur those patterns.",
+    "simulation_intro": "Repeat batches of 10, 100, and 1000 measurements 30 times, then compare the mean and range.",
+    "simulation_focus": [
+      "1. Even without noise, a small number of measurements can wobble a lot.",
+      "2. Increasing the number of measurements usually narrows the wobble range.",
+      "3. With noise, both the range and the average position can move away from the original probability."
+    ],
+    "simulation_waiting": "No measurement has been made yet. Choose the probability and error rate, then run the experiment.",
+    "simulation_caption": "Level 8 shows how noise changes one experiment. This level repeats many batches to show how sample size changes the wobble range.",
+    "result_note": "Each bar is the mean of 30 experiment batches. The vertical line runs from the lowest ratio to the highest ratio. Blue is ideal readout, and red is noisy readout.",
+    "simulation_ui": {
+      "shots_column": "Shots",
+      "batch_column": "Batches",
+      "ideal_mean_column": "Ideal mean",
+      "ideal_range_column": "Ideal range",
+      "noisy_mean_column": "Noisy mean",
+      "noisy_range_column": "Noisy range"
+    },
+    "terms": [
+      {"Term": "single measurement", "Meaning": "Getting one visible result, 0 or 1, from one prepared state"},
+      {"Term": "repeated measurement", "Meaning": "Repeating the same preparation and measurement to build statistics"},
+      {"Term": "sample size", "Meaning": "The total number of repeated measurements"},
+      {"Term": "observed ratio", "Meaning": "The count of one outcome divided by the total number of measurements"},
+      {"Term": "noise", "Meaning": "Unwanted disturbance from hardware or the environment that can blur or flip results"}
+    ],
+    "quiz": [
+      {
+        "question": "Why is one measurement result not enough to know the whole original state?",
+        "options": ["One result still contains a lot of randomness", "Measurement results are always wrong", "Qubits cannot be measured"],
+        "answer": "One result still contains a lot of randomness",
+        "correct": "Correct. One measurement shows one outcome, not the whole probability pattern.",
+        "wrong": "Measurement is possible, but one result is not enough to infer the full pattern."
+      },
+      {
+        "question": "Why do we repeat the same preparation and measurement many times?",
+        "options": ["To see the probability pattern", "To force the same answer every time", "To intentionally increase noise"],
+        "answer": "To see the probability pattern",
+        "correct": "Correct. Repetition reveals the probability pattern behind individual outcomes.",
+        "wrong": "Repeated measurement builds statistics; it does not force the same answer."
+      },
+      {
+        "question": "What usually happens when sample size grows from 10 to 1000?",
+        "options": ["The observed ratio tends to move closer to the original probability", "The ratio is guaranteed to be exactly equal", "Probability disappears"],
+        "answer": "The observed ratio tends to move closer to the original probability",
+        "correct": "Correct. Larger samples help reduce random wobble.",
+        "wrong": "A larger sample does not guarantee exact equality, but the wobble usually gets smaller."
+      },
+      {
+        "question": "Why should quantum probability and noise be separated?",
+        "options": ["Probability belongs to the state, while noise comes from hardware or environment", "They are always the exact same idea", "Noise never affects statistics"],
+        "answer": "Probability belongs to the state, while noise comes from hardware or environment",
+        "correct": "Correct. Separating them helps interpret experiments more accurately.",
+        "wrong": "Noise can blur results, so it should be separated from the original probability."
+      },
+      {
+        "question": "Why can noise remain a problem even with many measurements?",
+        "options": ["If hardware keeps flipping some results, a large sample can still stay biased", "Repeated measurements are always forbidden", "Noise must grow whenever sample size grows"],
+        "answer": "If hardware keeps flipping some results, a large sample can still stay biased",
+        "correct": "Correct. Repetition reduces random wobble but does not automatically remove device bias.",
+        "wrong": "Increasing sample size and reducing hardware noise are different tasks."
+      },
+      {
+        "question": "What is the best way to read measurement statistics?",
+        "options": ["Look at repeated patterns and possible noise, not just one value", "Trust only the first value", "Ignore noise whenever a graph exists"],
+        "answer": "Look at repeated patterns and possible noise, not just one value",
+        "correct": "Correct. Interpret measurements by separating single outcomes, repeated statistics, and noise.",
+        "wrong": "It is important to separate single outcomes, repeated statistics, and noise."
+      }
+    ]
+  },
+  "level11": {
+    "goal": "Goal: Understand how phase difference can make possibilities reinforce or cancel.",
+    "terms_title": "Terms for interference",
+    "key_takeaway": "Key idea: quantum interference does not mean every result appears; it means possibility directions add so some outcomes grow and others disappear.",
+    "simulation_intro": "Choose the phase difference between two paths, then use repeated measurement to see how bright and dark outputs change.",
+    "simulation_focus": [
+      "1. Same phase reinforces the bright output.",
+      "2. Opposite phase cancels the bright output and grows the dark output.",
+      "3. Middle phases split the two outputs."
+    ],
+    "simulation_waiting": "No measurement has been made yet. Choose a phase difference and trial count, then run the experiment.",
+    "simulation_caption": "Graph labels are in English. Treat bright as the reinforced output and dark as the output where cancellation is strong.",
+    "simulation_ui": {
+      "phase_label": "Phase difference",
+      "output_column": "Output",
+      "probability_column": "Probability",
+      "count_column": "Count"
+    },
+    "phase_options": [
+      {
+        "id": "phase_0",
+        "label": "0 degrees · same phase",
+        "phase_turns": 0,
+        "image": "assets/images/level11_phase_0.svg",
+        "reading": "The two possibilities meet in the same direction, so the bright output grows.",
+        "formula": "P(\\text{bright})=1",
+        "result_note": "This is constructive interference. Ideally, only bright appears."
+      },
+      {
+        "id": "phase_90",
+        "label": "90 degrees · middle phase",
+        "phase_turns": 0.25,
+        "image": "assets/images/level11_phase_90.svg",
+        "reading": "The possibilities are neither fully aligned nor fully opposite, so the two outputs split.",
+        "formula": "P(\\text{bright})=\\frac{1}{2}",
+        "result_note": "This is an intermediate phase. Repeated measurements land near half bright and half dark."
+      },
+      {
+        "id": "phase_180",
+        "label": "180 degrees · opposite phase",
+        "phase_turns": 0.5,
+        "image": "assets/images/level11_phase_180.svg",
+        "reading": "The two possibilities meet in opposite directions, so the bright output cancels.",
+        "formula": "P(\\text{bright})=0",
+        "result_note": "This is destructive interference. Ideally, only dark appears."
+      },
+      {
+        "id": "phase_270",
+        "label": "270 degrees · another middle phase",
+        "phase_turns": 0.75,
+        "image": "assets/images/level11_phase_270.svg",
+        "reading": "Like 90 degrees, the outputs split, but the phase direction is different.",
+        "formula": "P(\\text{bright})=\\frac{1}{2}",
+        "result_note": "The measurement probabilities match 90 degrees, but the phase direction differs. That can matter in a later circuit."
+      }
+    ],
+    "terms": [
+      {"Term": "interference", "Meaning": "A process where possibilities meet again and reinforce or cancel"},
+      {"Term": "phase", "Meaning": "A value describing the direction or timing of a possibility"},
+      {"Term": "constructive interference", "Meaning": "A case where possibilities add in the same direction and grow an outcome"},
+      {"Term": "destructive interference", "Meaning": "A case where possibilities add in opposite directions and reduce an outcome"},
+      {"Term": "amplitude", "Meaning": "The size and direction of a quantum possibility before probabilities are formed"}
+    ],
+    "quiz": [
+      {
+        "question": "Which statement best describes quantum interference?",
+        "options": ["Possibilities add so some outcomes grow and others shrink", "Every answer appears on screen at once", "Measurement always gives the same result"],
+        "answer": "Possibilities add so some outcomes grow and others shrink",
+        "correct": "Correct. Interference is about reinforcement and cancellation of possibilities.",
+        "wrong": "Interference does not mean every answer is printed at once."
+      },
+      {
+        "question": "What usually happens when two paths have the same phase?",
+        "options": ["Constructive interference", "All probability disappears", "Measurement becomes impossible"],
+        "answer": "Constructive interference",
+        "correct": "Correct. Same-direction possibilities can grow an output.",
+        "wrong": "Same phase means the possibilities add in the same direction."
+      },
+      {
+        "question": "If two paths have opposite phase, what can happen to the bright output?",
+        "options": ["It can be canceled and become small", "It must double", "It is always exactly 50%"],
+        "answer": "It can be canceled and become small",
+        "correct": "Correct. Opposite phase can create destructive interference.",
+        "wrong": "Opposite phase points toward cancellation, not same-direction reinforcement."
+      },
+      {
+        "question": "Why is one measurement not enough to know the whole interference pattern?",
+        "options": ["Repeated measurements reveal the probability pattern", "Interference cannot be measured", "One measurement always gives bright"],
+        "answer": "Repeated measurements reveal the probability pattern",
+        "correct": "Correct. Interference patterns appear statistically through repeated measurement.",
+        "wrong": "Measurement is possible, but one outcome is not enough to infer the pattern."
+      },
+      {
+        "question": "How does the Deutsch algorithm use interference?",
+        "options": ["It mixes phase differences so useful results remain", "It was designed to remove all interference", "It memorizes answers without an oracle"],
+        "answer": "It mixes phase differences so useful results remain",
+        "correct": "Correct. The algorithm designs interference so useful information is reinforced.",
+        "wrong": "The Deutsch algorithm reads phase information left by the oracle through interference."
+      },
+      {
+        "question": "In P(bright) = (1 + cos(Delta phi)) / 2, what happens when Delta phi is 0?",
+        "options": ["The bright probability becomes 1", "The bright probability becomes 0", "The dark probability must be 1/2"],
+        "answer": "The bright probability becomes 1",
+        "correct": "Correct. cos(0) is 1, so the bright probability is (1+1)/2.",
+        "wrong": "cos(0) is 1, so substitute that into the expression."
+      }
+    ]
+  },
+  "level12": {
+    "goal": "Goal: Understand that entanglement creates strong correlations, but one local record alone cannot send a message.",
+    "terms_title": "Terms for entanglement and information limits",
+    "key_takeaway": "Key idea: entangled information appears in the relationship between two records, not in either local record alone.",
+    "simulation_intro": "Imagine Alice and Bob sharing Bell pairs. Alice tries to use her measurement basis as a 0/1 message, and we test whether Bob can actually read that message.",
+    "simulation_diagram": "assets/images/level12_bell_no_signal_circuit.svg",
+    "simulation_focus": [
+      "1. Bob cannot read Alice's chosen basis from Bob local results alone.",
+      "2. Pair outcome is a relationship that appears only after the two records are compared.",
+      "3. Same bases make the same-result ratio high, and different bases weaken it, but Bob's 0/1 ratio stays close to half and half."
+    ],
+    "simulation_waiting": "No measurement has been made yet. Choose Alice and Bob's bases and the trial count, then run the experiment.",
+    "simulation_caption": "The Bob local results graph is information Bob can see alone. The pair outcome table is information visible only after Alice and Bob compare records.",
+    "simulation_ui": {
+      "alice_basis": "Alice basis",
+      "bob_basis": "Bob basis",
+      "pair_column": "Pair outcome",
+      "count_column": "Count",
+      "bob_zero_ratio": "Bob 0 ratio",
+      "same_ratio": "Same-result ratio",
+      "diagram_caption": "A Bell pair is created, then Alice and Bob measure separately. Bob's local result and the compared pair record answer different questions.",
+      "message_attempt_title": "Message attempt",
+      "message_attempt": "Agreement: if Alice chooses Z, call it message 0; if Alice chooses X, call it message 1. Now check whether Bob can read that message from his record alone.",
+      "bob_panel_title": "Instant information test: Bob alone",
+      "compare_panel_title": "Correlation test: after comparison",
+      "panel_waiting": "Run the experiment to see the judgment here.",
+      "bob_panel_result": "Alice's agreed message is {message_value}. But the only clue Bob can see immediately is Bob 0 ratio = {bob_zero_ratio}, which stays near 1/2, so it does not distinguish Z from X. Verdict: not usable as faster-than-light information.",
+      "compare_panel_same": "After both records are brought together, the same-result ratio is {same_ratio}. Alice's record is required for this, so it is a later correlation check, not an instant message.",
+      "compare_panel_different": "After both records are brought together, the same-result ratio is only {same_ratio} with different bases. Alice's record is still required, so this is not information Bob read instantly alone.",
+      "same_basis_note": "With the same basis, the two records match strongly. Bob's local results still look close to half and half.",
+      "different_basis_note": "With different bases, the matching pattern weakens. Bob's local results still look close to half and half."
+    },
+    "terms": [
+      {"Term": "local record", "Meaning": "The list of measurement results seen by only Alice or only Bob"},
+      {"Term": "correlation", "Meaning": "A relationship that appears when two records are compared side by side"},
+      {"Term": "classical communication", "Meaning": "Ordinary information transfer that is not faster than light"},
+      {"Term": "no-signaling", "Meaning": "The fact that entanglement alone cannot send an instant message from one side to the other"},
+      {"Term": "measurement basis", "Meaning": "The chosen direction for reading a qubit as 0 or 1"}
+    ],
+    "quiz": [
+      {
+        "question": "When does the strong entangled relationship become visible?",
+        "options": ["When the two records are compared later", "When Bob sees one local result alone", "The instant Alice chooses a desired digit"],
+        "answer": "When the two records are compared later",
+        "correct": "Correct. The relationship appears when the two records are compared.",
+        "wrong": "One local record alone usually looks random."
+      },
+      {
+        "question": "What does Bob's local record usually look like for a Bell state?",
+        "options": ["A roughly half-0 half-1 random record", "A direct copy of Alice's message", "A record containing only 0"],
+        "answer": "A roughly half-0 half-1 random record",
+        "correct": "Correct. Bob cannot read a message from his local record alone.",
+        "wrong": "Bob's local results do not look like a chosen message from Alice."
+      },
+      {
+        "question": "If a Bell pair is measured in the same basis and records are compared, what appears?",
+        "options": ["A strong matching pattern", "Only opposite results", "No relationship at all"],
+        "answer": "A strong matching pattern",
+        "correct": "Correct. The same basis reveals strong correlation.",
+        "wrong": "A Bell state measured in the same basis shows strong matching."
+      },
+      {
+        "question": "Why can't entanglement send a faster-than-light message?",
+        "options": ["Each side cannot choose its measurement result", "Entanglement creates no relationship", "Measurement always gives 0"],
+        "answer": "Each side cannot choose its measurement result",
+        "correct": "Correct. Local outcomes are random, so they cannot directly encode a chosen message.",
+        "wrong": "Entanglement creates relationships, but it is not a device for choosing and sending values."
+      },
+      {
+        "question": "What is the difference between the pair outcome table and the Bob local results graph?",
+        "options": ["The table compares both records; the graph shows Bob alone", "Both show only Alice's record", "They always contain the same information"],
+        "answer": "The table compares both records; the graph shows Bob alone",
+        "correct": "Correct. Separating these views is the key to no-signaling.",
+        "wrong": "Bob local results are visible to Bob alone; pair outcomes require later comparison."
+      },
+      {
+        "question": "Which sentence describes entanglement most carefully?",
+        "options": ["Alone it looks random; together the records show a strong relationship", "One side instantly sends any chosen message", "Measurement always returns the same digit"],
+        "answer": "Alone it looks random; together the records show a strong relationship",
+        "correct": "Correct. That is the core distinction behind entanglement and information limits.",
+        "wrong": "Entanglement is a relationship revealed by comparison, not an instant messaging device."
+      }
+    ]
   }
 }

@@ -40,6 +40,10 @@ conda run -n quantum_lab pytest -q
 - Level 6: 얽힘
 - Level 7: 간단한 양자 알고리즘
 - Level 8: 노이즈와 오류
+- Level 9: 회로를 읽는 법
+- Level 10: 측정과 통계
+- Level 11: 간섭 심화
+- Level 12: 얽힘과 정보의 한계
 - Photon Heist: 빛의 직진, 반사, 굴절을 다루는 HTML5 퍼즐 게임
 
 각 레벨은 설명, 시뮬레이션, 자료실, 퀴즈로 구성된다.
@@ -59,4 +63,5 @@ conda run -n quantum_lab python -m compileall -q app.py core pages tests
 conda run -n quantum_lab pytest -q
 ```
 
+후속 레벨과 Photon Heist 다음 챕터 계획은 `docs/next_expansion_plan.md`에 정리한다.
 개발, 배포, Cloudflare/Streamlit 연동 메모는 `docs/development.md`에 정리한다.

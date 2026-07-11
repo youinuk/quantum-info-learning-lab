@@ -125,6 +125,10 @@ pages = [
     st.Page("pages/07_level6_entanglement.py", title=t("nav_level6")),
     st.Page("pages/08_level7_algorithms.py", title=t("nav_level7")),
     st.Page("pages/09_level8_noise.py", title=t("nav_level8")),
+    st.Page("pages/11_level9_circuit_reading.py", title=t("nav_level9")),
+    st.Page("pages/12_level10_measurement_statistics.py", title=t("nav_level10")),
+    st.Page("pages/13_level11_interference_depth.py", title=t("nav_level11")),
+    st.Page("pages/14_level12_entanglement_limits.py", title=t("nav_level12")),
     st.Page("pages/10_photon_heist.py", title=t("nav_photon_heist")),
 ]
 

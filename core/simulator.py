@@ -363,3 +363,250 @@ def simulate_noisy_bit_measurements(
         noisy_count_one=noisy_count_one,
         noise_rate=noise_rate,
     )
+
+
+@dataclass(frozen=True)
+class CircuitReadoutResult:
+    circuit_id: str
+    shots: int
+    labels: tuple[str, ...]
+    probabilities: tuple[float, ...]
+    counts: tuple[int, ...]
+    state_latex: str
+
+
+def simulate_named_circuit(
+    circuit_id: str,
+    shots: int,
+    seed: int | None = None,
+) -> CircuitReadoutResult:
+    if shots < 1:
+        raise ValueError("shots must be at least 1")
+
+    circuits: dict[str, tuple[tuple[str, ...], tuple[float, ...], str]] = {
+        "x_gate": (
+            ("0", "1"),
+            (0.0, 1.0),
+            r"\lvert 1 \rangle",
+        ),
+        "h_gate": (
+            ("0", "1"),
+            (0.5, 0.5),
+            rf"\frac{{1}}{{\sqrt{{2}}}}\lvert 0 \rangle + \frac{{1}}{{\sqrt{{2}}}}\lvert 1 \rangle",
+        ),
+        "h_then_z": (
+            ("0", "1"),
+            (0.5, 0.5),
+            rf"\frac{{1}}{{\sqrt{{2}}}}\lvert 0 \rangle - \frac{{1}}{{\sqrt{{2}}}}\lvert 1 \rangle",
+        ),
+        "bell_pair": (
+            ("00", "01", "10", "11"),
+            (0.5, 0.0, 0.0, 0.5),
+            rf"\frac{{1}}{{\sqrt{{2}}}}\lvert 00 \rangle + \frac{{1}}{{\sqrt{{2}}}}\lvert 11 \rangle",
+        ),
+    }
+    if circuit_id not in circuits:
+        raise ValueError(f"Unsupported circuit: {circuit_id}")
+
+    labels, probabilities, state_latex = circuits[circuit_id]
+    probability_array = np.array(probabilities, dtype=float)
+    probability_array = probability_array / probability_array.sum()
+    rng = np.random.default_rng(seed)
+    counts = tuple(int(value) for value in rng.multinomial(shots, probability_array))
+    return CircuitReadoutResult(
+        circuit_id=circuit_id,
+        shots=shots,
+        labels=labels,
+        probabilities=tuple(float(value) for value in probability_array),
+        counts=counts,
+        state_latex=state_latex,
+    )
+
+
+@dataclass(frozen=True)
+class MeasurementSeriesRow:
+    shots: int
+    ideal_count_zero: int
+    ideal_count_one: int
+    noisy_count_zero: int
+    noisy_count_one: int
+    batch_count: int
+    ideal_ratio_mean: float
+    ideal_ratio_min: float
+    ideal_ratio_max: float
+    noisy_ratio_mean: float
+    noisy_ratio_min: float
+    noisy_ratio_max: float
+
+    @property
+    def ideal_ratio_one(self) -> float:
+        return self.ideal_count_one / self.shots
+
+    @property
+    def noisy_ratio_one(self) -> float:
+        return self.noisy_count_one / self.shots
+
+
+@dataclass(frozen=True)
+class MeasurementSeriesResult:
+    probability_one: float
+    noise_rate: float
+    rows: tuple[MeasurementSeriesRow, ...]
+
+
+def simulate_measurement_series(
+    probability_one: float,
+    noise_rate: float,
+    shot_counts: tuple[int, ...],
+    batch_count: int = 30,
+    seed: int | None = None,
+) -> MeasurementSeriesResult:
+    if not 0.0 <= probability_one <= 1.0:
+        raise ValueError("probability_one must be between 0 and 1")
+    if not 0.0 <= noise_rate <= 1.0:
+        raise ValueError("noise_rate must be between 0 and 1")
+    if not shot_counts:
+        raise ValueError("shot_counts must not be empty")
+    if any(shots < 1 for shots in shot_counts):
+        raise ValueError("each shot count must be at least 1")
+    if batch_count < 1:
+        raise ValueError("batch_count must be at least 1")
+
+    rows: list[MeasurementSeriesRow] = []
+    rng = np.random.default_rng(seed)
+    for index, shots in enumerate(shot_counts):
+        ideal = rng.random((batch_count, shots)) < probability_one
+        flips = rng.random((batch_count, shots)) < noise_rate
+        noisy = np.logical_xor(ideal, flips)
+        ideal_counts_one = np.sum(ideal, axis=1)
+        noisy_counts_one = np.sum(noisy, axis=1)
+        ideal_ratios = ideal_counts_one / shots
+        noisy_ratios = noisy_counts_one / shots
+        ideal_count_one = int(ideal_counts_one[0])
+        noisy_count_one = int(noisy_counts_one[0])
+        rows.append(
+            MeasurementSeriesRow(
+                shots=shots,
+                ideal_count_zero=shots - ideal_count_one,
+                ideal_count_one=ideal_count_one,
+                noisy_count_zero=shots - noisy_count_one,
+                noisy_count_one=noisy_count_one,
+                batch_count=batch_count,
+                ideal_ratio_mean=float(np.mean(ideal_ratios)),
+                ideal_ratio_min=float(np.min(ideal_ratios)),
+                ideal_ratio_max=float(np.max(ideal_ratios)),
+                noisy_ratio_mean=float(np.mean(noisy_ratios)),
+                noisy_ratio_min=float(np.min(noisy_ratios)),
+                noisy_ratio_max=float(np.max(noisy_ratios)),
+            )
+        )
+    return MeasurementSeriesResult(
+        probability_one=probability_one,
+        noise_rate=noise_rate,
+        rows=tuple(rows),
+    )
+
+
+@dataclass(frozen=True)
+class PhaseInterferenceResult:
+    phase_turns: float
+    phase_degrees: float
+    probability_bright: float
+    probability_dark: float
+    count_bright: int
+    count_dark: int
+    shots: int
+
+
+def simulate_phase_interference(
+    phase_turns: float,
+    shots: int,
+    seed: int | None = None,
+) -> PhaseInterferenceResult:
+    if shots < 1:
+        raise ValueError("shots must be at least 1")
+
+    phase_radians = 2 * np.pi * phase_turns
+    probability_bright = float((1 + np.cos(phase_radians)) / 2)
+    probability_bright = min(1.0, max(0.0, probability_bright))
+    probability_dark = 1.0 - probability_bright
+    rng = np.random.default_rng(seed)
+    count_bright, count_dark = (int(value) for value in rng.multinomial(shots, [probability_bright, probability_dark]))
+
+    return PhaseInterferenceResult(
+        phase_turns=phase_turns,
+        phase_degrees=phase_turns * 360,
+        probability_bright=probability_bright,
+        probability_dark=probability_dark,
+        count_bright=count_bright,
+        count_dark=count_dark,
+        shots=shots,
+    )
+
+
+@dataclass(frozen=True)
+class EntanglementLimitResult:
+    alice_basis: str
+    bob_basis: str
+    shots: int
+    count_00: int
+    count_01: int
+    count_10: int
+    count_11: int
+
+    def labels(self) -> list[str]:
+        return ["00", "01", "10", "11"]
+
+    def pair_counts(self) -> list[int]:
+        return [self.count_00, self.count_01, self.count_10, self.count_11]
+
+    @property
+    def bob_count_zero(self) -> int:
+        return self.count_00 + self.count_10
+
+    @property
+    def bob_count_one(self) -> int:
+        return self.count_01 + self.count_11
+
+    @property
+    def bob_zero_ratio(self) -> float:
+        return self.bob_count_zero / self.shots
+
+    @property
+    def same_count(self) -> int:
+        return self.count_00 + self.count_11
+
+    @property
+    def different_count(self) -> int:
+        return self.count_01 + self.count_10
+
+    @property
+    def same_ratio(self) -> float:
+        return self.same_count / self.shots
+
+
+def simulate_entanglement_limit(
+    alice_basis: str,
+    bob_basis: str,
+    shots: int,
+    seed: int | None = None,
+) -> EntanglementLimitResult:
+    if alice_basis not in {"Z", "X"}:
+        raise ValueError("alice_basis must be Z or X")
+    if bob_basis not in {"Z", "X"}:
+        raise ValueError("bob_basis must be Z or X")
+    if shots < 1:
+        raise ValueError("shots must be at least 1")
+
+    probabilities = np.array([0.5, 0.0, 0.0, 0.5]) if alice_basis == bob_basis else np.array([0.25, 0.25, 0.25, 0.25])
+    rng = np.random.default_rng(seed)
+    counts = rng.multinomial(shots, probabilities)
+    return EntanglementLimitResult(
+        alice_basis=alice_basis,
+        bob_basis=bob_basis,
+        shots=shots,
+        count_00=int(counts[0]),
+        count_01=int(counts[1]),
+        count_10=int(counts[2]),
+        count_11=int(counts[3]),
+    )

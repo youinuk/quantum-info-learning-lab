@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320" role="img" aria-labelledby="title desc">
+  <title id="title">Entanglement does not send a message by itself</title>
+  <desc id="desc">Alice and Bob measure entangled qubits far apart, but Bob's local results still look random.</desc>
+  <rect width="820" height="320" rx="8" fill="#f8fafc"/>
+  <rect x="30" y="28" width="760" height="242" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="58" y="66" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#0f172a">Strong relationship, no direct message</text>
+  <circle cx="165" cy="155" r="52" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="130" y="161" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1d4ed8">Alice</text>
+  <circle cx="655" cy="155" r="52" fill="#fee2e2" stroke="#ef4444" stroke-width="3"/>
+  <text x="626" y="161" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#b91c1c">Bob</text>
+  <path d="M218 155 C315 82, 505 82, 602 155" fill="none" stroke="#7c3aed" stroke-width="4" stroke-dasharray="8 8"/>
+  <text x="344" y="104" font-family="Arial, sans-serif" font-size="16" fill="#6d28d9">entangled pair</text>
+  <rect x="554" y="222" width="205" height="38" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="575" y="247" font-family="Arial, sans-serif" font-size="15" fill="#334155">Bob sees 0/1 about 50:50</text>
+  <rect x="62" y="222" width="270" height="38" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="82" y="247" font-family="Arial, sans-serif" font-size="15" fill="#334155">Alice cannot choose Bob's result</text>
+  <text x="58" y="294" font-family="Arial, sans-serif" font-size="15" fill="#64748b">The relationship appears after records are compared through ordinary communication.</text>
+</svg>

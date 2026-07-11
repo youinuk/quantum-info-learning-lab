@@ -3,7 +3,7 @@ from core.i18n import TRANSLATIONS
 from streamlit.testing.v1 import AppTest
 
 
-LEVELS = tuple(f"level{number}" for number in range(9))
+LEVELS = tuple(f"level{number}" for number in range(13))
 QUIZ_FIELDS = {"question", "options", "answer", "correct", "wrong"}
 QUIZ_APP = """
 from core.quiz_renderer import render_quiz_items

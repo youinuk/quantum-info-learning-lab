@@ -8,7 +8,7 @@ from core.navigation import LEVEL_PAGES
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LEVELS = tuple(f"level{number}" for number in range(9))
+LEVELS = tuple(f"level{number}" for number in range(13))
 HONORIFIC_PATTERN = re.compile(r"(습니다|입니다|합니다|하세요|십시오)")
 
 
@@ -45,7 +45,7 @@ def test_korean_learner_copy_uses_plain_declarative_style() -> None:
 
 
 def test_learning_navigation_covers_every_level_page() -> None:
-    assert len(LEVEL_PAGES) == 9
+    assert len(LEVEL_PAGES) == 13
 
     for level, relative_path in enumerate(LEVEL_PAGES):
         page_path = ROOT / relative_path
@@ -74,3 +74,30 @@ def test_loaded_structured_content_contains_no_ascii_ket_endings() -> None:
     for lang in ("ko", "en"):
         for level in LEVELS:
             assert ">" not in str(load_level_content(level, lang))
+
+
+def test_circuit_card_images_exist() -> None:
+    for lang in ("ko", "en"):
+        content = load_level_content("level9", lang)
+        for option in content["circuit_options"]:
+            image = option.get("image")
+            assert image
+            assert (ROOT / image).is_file()
+
+
+def test_phase_option_images_exist() -> None:
+    for lang in ("ko", "en"):
+        content = load_level_content("level11", lang)
+        for option in content["phase_options"]:
+            image = option.get("image")
+            assert image
+            assert (ROOT / image).is_file()
+
+
+def test_simulation_diagram_images_exist() -> None:
+    for lang in ("ko", "en"):
+        for level in LEVELS:
+            content = load_level_content(level, lang)
+            image = content.get("simulation_diagram")
+            if image:
+                assert (ROOT / image).is_file()

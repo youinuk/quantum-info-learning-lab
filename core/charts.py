@@ -86,3 +86,133 @@ def compact_grouped_bar(
 
     fig.tight_layout()
     return fig
+
+
+def compact_interval_bar(
+    labels: list[str],
+    means: list[float],
+    lows: list[float],
+    highs: list[float],
+    title: str = "",
+    ylabel: str = "value",
+    target: float | None = None,
+):
+    fig, ax = plt.subplots(figsize=(4.4, 2.65), dpi=140)
+    positions = list(range(len(labels)))
+    lower_errors = [max(0.0, mean - low) for mean, low in zip(means, lows)]
+    upper_errors = [max(0.0, high - mean) for mean, high in zip(means, highs)]
+    bars = ax.bar(
+        positions,
+        means,
+        width=0.38,
+        color="#2f80ed",
+        yerr=[lower_errors, upper_errors],
+        capsize=4,
+        ecolor="#334155",
+    )
+    if target is not None:
+        ax.axhline(target, color="#f43f5e", linewidth=1.4, linestyle="--", label="target")
+        ax.legend(frameon=False, fontsize=8, loc="upper right")
+
+    ax.set_title(title, fontsize=10, pad=8)
+    ax.set_ylabel(ylabel, fontsize=9)
+    ax.set_xticks(positions, labels)
+    ax.tick_params(axis="x", labelrotation=0, labelsize=10)
+    ax.tick_params(axis="y", labelsize=8)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.grid(axis="y", alpha=0.2)
+    ymax = max(highs + ([target] if target is not None else [0])) if highs else 1
+    ax.set_ylim(0, max(1, ymax * 1.18))
+
+    for bar, mean in zip(bars, means):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height(),
+            f"{mean:.1f}",
+            ha="center",
+            va="bottom",
+            fontsize=8,
+        )
+
+    fig.tight_layout()
+    return fig
+
+
+def compact_dual_interval_bar(
+    labels: list[str],
+    first_means: list[float],
+    first_lows: list[float],
+    first_highs: list[float],
+    second_means: list[float],
+    second_lows: list[float],
+    second_highs: list[float],
+    first_label: str,
+    second_label: str,
+    title: str = "",
+    ylabel: str = "value",
+    target: float | None = None,
+):
+    fig, ax = plt.subplots(figsize=(4.8, 2.8), dpi=140)
+    positions = list(range(len(labels)))
+    width = 0.3
+    first_positions = [position - width / 2 for position in positions]
+    second_positions = [position + width / 2 for position in positions]
+
+    first_errors = [
+        [max(0.0, mean - low) for mean, low in zip(first_means, first_lows)],
+        [max(0.0, high - mean) for mean, high in zip(first_means, first_highs)],
+    ]
+    second_errors = [
+        [max(0.0, mean - low) for mean, low in zip(second_means, second_lows)],
+        [max(0.0, high - mean) for mean, high in zip(second_means, second_highs)],
+    ]
+
+    first_bars = ax.bar(
+        first_positions,
+        first_means,
+        width=width,
+        color="#2f80ed",
+        yerr=first_errors,
+        capsize=3,
+        ecolor="#334155",
+        label=first_label,
+    )
+    second_bars = ax.bar(
+        second_positions,
+        second_means,
+        width=width,
+        color="#f43f5e",
+        yerr=second_errors,
+        capsize=3,
+        ecolor="#334155",
+        label=second_label,
+    )
+    if target is not None:
+        ax.axhline(target, color="#64748b", linewidth=1.2, linestyle="--", label="target")
+
+    ax.set_title(title, fontsize=10, pad=8)
+    ax.set_ylabel(ylabel, fontsize=9)
+    ax.set_xticks(positions, labels)
+    ax.tick_params(axis="x", labelrotation=0, labelsize=10)
+    ax.tick_params(axis="y", labelsize=8)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.grid(axis="y", alpha=0.2)
+    ymax_values = first_highs + second_highs + ([target] if target is not None else [0])
+    ax.set_ylim(0, max(1, max(ymax_values) * 1.18))
+    ax.legend(frameon=False, fontsize=8, ncols=3, loc="upper center")
+
+    for bars, means in ((first_bars, first_means), (second_bars, second_means)):
+        for bar, mean in zip(bars, means):
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                bar.get_height(),
+                f"{mean:.1f}",
+                ha="center",
+                va="bottom",
+                fontsize=7,
+            )
+
+    fig.tight_layout()
+    return fig

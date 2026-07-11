@@ -30,15 +30,17 @@ st.write(t("home_path_intro"))
 for group_title, levels in (
     (t("home_path_foundations"), range(0, 3)),
     (t("home_path_circuits"), range(3, 6)),
-    (t("home_path_quantum"), range(6, 9)),
+    (t("home_path_quantum"), range(6, 13)),
 ):
     st.markdown(f"### {group_title}")
-    columns = st.columns(3)
-    for column, level in zip(columns, levels):
-        with column:
-            st.page_link(
-                LEVEL_PAGES[level],
-                label=t(f"nav_level{level}"),
-                icon=":material/menu_book:",
-                width="stretch",
-            )
+    group_levels = list(levels)
+    for row_start in range(0, len(group_levels), 3):
+        columns = st.columns(3)
+        for column, level in zip(columns, group_levels[row_start : row_start + 3]):
+            with column:
+                st.page_link(
+                    LEVEL_PAGES[level],
+                    label=t(f"nav_level{level}"),
+                    icon=":material/menu_book:",
+                    width="stretch",
+                )

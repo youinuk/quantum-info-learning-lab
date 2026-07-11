@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320" role="img" aria-labelledby="title desc">
+  <title id="title">Deutsch algorithm and interference bridge</title>
+  <desc id="desc">Oracle phase patterns are mixed by the final H gate into different measurement outcomes.</desc>
+  <rect width="820" height="320" rx="8" fill="#f8fafc"/>
+  <rect x="30" y="28" width="760" height="252" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="58" y="66" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#0f172a">Deutsch: phase pattern becomes measurement</text>
+  <g>
+    <rect x="70" y="92" width="185" height="72" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="92" y="122" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1d4ed8">constant</text>
+    <text x="92" y="148" font-family="Arial, sans-serif" font-size="18" fill="#334155">+ +</text>
+    <text x="140" y="148" font-family="Arial, sans-serif" font-size="18" fill="#334155">or</text>
+    <text x="172" y="148" font-family="Arial, sans-serif" font-size="18" fill="#334155">- -</text>
+  </g>
+  <g>
+    <rect x="70" y="190" width="185" height="72" rx="8" fill="#fff1f2" stroke="#fecdd3"/>
+    <text x="92" y="220" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#be123c">balanced</text>
+    <text x="92" y="246" font-family="Arial, sans-serif" font-size="18" fill="#334155">+ -</text>
+    <text x="140" y="246" font-family="Arial, sans-serif" font-size="18" fill="#334155">or</text>
+    <text x="172" y="246" font-family="Arial, sans-serif" font-size="18" fill="#334155">- +</text>
+  </g>
+  <g>
+    <rect x="334" y="134" width="92" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="370" y="177" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#15803d">H</text>
+    <text x="324" y="224" font-family="Arial, sans-serif" font-size="15" fill="#475569">mix again</text>
+  </g>
+  <path d="M260 128 C288 128, 305 150, 328 160" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M260 226 C288 226, 305 188, 328 178" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M432 160 C468 132, 480 122, 506 116" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M432 178 C468 208, 480 220, 506 226" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="520" y="83" width="225" height="72" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="546" y="114" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1d4ed8">measure 0</text>
+    <text x="546" y="140" font-family="Arial, sans-serif" font-size="14" fill="#334155">same signs reinforce 0</text>
+  </g>
+  <g>
+    <rect x="520" y="197" width="225" height="72" rx="8" fill="#fee2e2" stroke="#ef4444"/>
+    <text x="546" y="228" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#b91c1c">measure 1</text>
+    <text x="546" y="254" font-family="Arial, sans-serif" font-size="14" fill="#334155">opposite signs reinforce 1</text>
+  </g>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#334155"/></marker></defs>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" viewBox="0 0 820 330" role="img" aria-labelledby="title desc">
+  <title id="title">Phase examples</title>
+  <desc id="desc">Three examples of phase differences: same, quarter turn, and opposite.</desc>
+  <rect width="820" height="330" rx="8" fill="#f8fafc"/>
+  <rect x="30" y="28" width="760" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="58" y="67" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#0f172a">Phase difference changes the result</text>
+  <g transform="translate(90,105)">
+    <circle cx="55" cy="55" r="46" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+    <line x1="55" y1="55" x2="95" y2="55" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+    <line x1="55" y1="55" x2="92" y2="55" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+    <text x="4" y="126" font-family="Arial, sans-serif" font-size="16" fill="#334155">0 deg</text>
+    <text x="-22" y="150" font-family="Arial, sans-serif" font-size="15" fill="#64748b">mostly bright</text>
+  </g>
+  <g transform="translate(350,105)">
+    <circle cx="55" cy="55" r="46" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="55" y1="55" x2="95" y2="55" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+    <line x1="55" y1="55" x2="55" y2="15" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+    <text x="1" y="126" font-family="Arial, sans-serif" font-size="16" fill="#334155">90 deg</text>
+    <text x="-20" y="150" font-family="Arial, sans-serif" font-size="15" fill="#64748b">half and half</text>
+  </g>
+  <g transform="translate(610,105)">
+    <circle cx="55" cy="55" r="46" fill="#fff1f2" stroke="#fecdd3" stroke-width="2"/>
+    <line x1="55" y1="55" x2="95" y2="55" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+    <line x1="55" y1="55" x2="15" y2="55" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+    <text x="-1" y="126" font-family="Arial, sans-serif" font-size="16" fill="#334155">180 deg</text>
+    <text x="-24" y="150" font-family="Arial, sans-serif" font-size="15" fill="#64748b">mostly dark</text>
+  </g>
+  <text x="58" y="270" font-family="Arial, sans-serif" font-size="15" fill="#64748b">The arrows are not particles. They are a visual guide for how amplitudes add.</text>
+</svg>

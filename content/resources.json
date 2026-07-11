@@ -162,6 +162,94 @@
         "type": "simulation_link",
         "url": "https://algassert.com/quirk"
       }
+    ],
+    "level9": [
+      {
+        "title": "IBM Quantum Composer · 회로를 직접 그려 보는 도구",
+        "type": "simulation_link",
+        "url": "https://quantum.cloud.ibm.com/composer"
+      },
+      {
+        "title": "Quirk · 브라우저에서 바로 쓰는 회로 시뮬레이터",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "Qiskit 공식 문서 · 설치와 시작",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/docs/en/guides/install-qiskit"
+      },
+      {
+        "title": "Cirq 공식 저장소 · 예시와 설치 안내",
+        "type": "link",
+        "url": "https://github.com/quantumlib/Cirq"
+      }
+    ],
+    "level10": [
+      {
+        "title": "Khan Academy · 확률과 통계 기초",
+        "type": "link",
+        "url": "https://www.khanacademy.org/math/statistics-probability"
+      },
+      {
+        "title": "Seeing Theory · 표본과 확률을 직접 만져 보는 시각화",
+        "type": "simulation_link",
+        "url": "https://seeing-theory.brown.edu/basic-probability/index.html"
+      },
+      {
+        "title": "IBM Quantum Learning · 양자 측정과 확률",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/quantum-circuits"
+      },
+      {
+        "title": "Quirk · 측정 결과가 어떻게 바뀌는지 실험",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      }
+    ],
+    "level11": [
+      {
+        "title": "PhET · Quantum Wave Interference 시뮬레이션",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/quantum-wave-interference"
+      },
+      {
+        "title": "PhET · Wave Interference 시뮬레이션",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/wave-interference"
+      },
+      {
+        "title": "YouTube · 3Blue1Brown 빛과 양자 중첩 설명",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=MzRCDLre1b4"
+      },
+      {
+        "title": "IBM Quantum Learning · Deutsch-Jozsa와 간섭",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa"
+      }
+    ],
+    "level12": [
+      {
+        "title": "Caltech · 얽힘을 쉬운 예시로 설명한 글",
+        "type": "article_link",
+        "url": "https://scienceexchange.caltech.edu/topics/quantum-science-explained/entanglement"
+      },
+      {
+        "title": "IBM Quantum Learning · 여러 큐비트와 얽힘",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information"
+      },
+      {
+        "title": "Quirk · Bell 쌍 회로를 직접 실험",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "Qutube · 얽힘 입문 영상",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/entanglement-324"
+      }
     ]
   },
   "en": {
@@ -326,6 +414,94 @@
         "title": "Quirk · Try adding noise-like gates by hand",
         "type": "simulation_link",
         "url": "https://algassert.com/quirk"
+      }
+    ],
+    "level9": [
+      {
+        "title": "IBM Quantum Composer · Build circuits in the browser",
+        "type": "simulation_link",
+        "url": "https://quantum.cloud.ibm.com/composer"
+      },
+      {
+        "title": "Quirk · Browser-based circuit simulator",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "Qiskit documentation · Install and get started",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/docs/en/guides/install-qiskit"
+      },
+      {
+        "title": "Cirq official repository · Examples and install notes",
+        "type": "link",
+        "url": "https://github.com/quantumlib/Cirq"
+      }
+    ],
+    "level10": [
+      {
+        "title": "Khan Academy · Statistics and probability",
+        "type": "link",
+        "url": "https://www.khanacademy.org/math/statistics-probability"
+      },
+      {
+        "title": "Seeing Theory · Interactive probability and sampling",
+        "type": "simulation_link",
+        "url": "https://seeing-theory.brown.edu/basic-probability/index.html"
+      },
+      {
+        "title": "IBM Quantum Learning · Measurement and probability",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/quantum-circuits"
+      },
+      {
+        "title": "Quirk · Experiment with measurement results",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      }
+    ],
+    "level11": [
+      {
+        "title": "PhET · Quantum Wave Interference simulation",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/quantum-wave-interference"
+      },
+      {
+        "title": "PhET · Wave Interference simulation",
+        "type": "simulation_link",
+        "url": "https://phet.colorado.edu/en/simulations/wave-interference"
+      },
+      {
+        "title": "YouTube · 3Blue1Brown explanation of light and quantum superposition",
+        "type": "video_link",
+        "url": "https://www.youtube.com/watch?v=MzRCDLre1b4"
+      },
+      {
+        "title": "IBM Quantum Learning · Deutsch-Jozsa and interference",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa"
+      }
+    ],
+    "level12": [
+      {
+        "title": "Caltech · Entanglement explained with simple examples",
+        "type": "article_link",
+        "url": "https://scienceexchange.caltech.edu/topics/quantum-science-explained/entanglement"
+      },
+      {
+        "title": "IBM Quantum Learning · Multiple systems and entanglement",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information"
+      },
+      {
+        "title": "Quirk · Try a Bell-pair circuit",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      },
+      {
+        "title": "Qutube · Introductory entanglement video",
+        "type": "video_link",
+        "url": "https://www.qutube.nl/fundamentals-11/entanglement-324"
       }
     ]
   }

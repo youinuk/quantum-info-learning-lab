@@ -5,7 +5,7 @@ from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 RESOURCE_PATH = ROOT / "content" / "resources.json"
-LEVELS = tuple(f"level{number}" for number in range(9))
+LEVELS = tuple(f"level{number}" for number in range(13))
 LINK_TYPES = {"link", "article_link", "simulation_link", "video_link"}
 
 

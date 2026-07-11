@@ -13,6 +13,11 @@ from core.math_display import inline_kets_to_latex
 
 IMAGE_PATTERN = re.compile(r"^!\[(?P<caption>.*?)\]\((?P<path>.*?)\)\s*$")
 HEADING_PATTERN = re.compile(r"^##\s+(?P<title>.+?)\s*$")
+LESSON_IMAGE_WIDTHS = {
+    "Doubleslit.svg": 420,
+    "Doubleslit3Dspectrum.gif": 320,
+    "double_slit_interference.svg": 640,
+}
 
 
 def split_lesson_cards(markdown: str) -> list[dict[str, str]]:
@@ -67,7 +72,8 @@ def render_lesson_markdown(markdown: str) -> None:
         image_path = BASE_DIR / Path(match.group("path"))
         caption = match.group("caption")
         if image_path.exists():
-            st.image(str(image_path), caption=caption or None, width="stretch")
+            width = LESSON_IMAGE_WIDTHS.get(image_path.name, "stretch")
+            st.image(str(image_path), caption=caption or None, width=width)
         else:
             st.warning(t("lesson_image_missing").format(path=image_path))
 

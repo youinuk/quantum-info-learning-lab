@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-labelledby="title desc">
+  <title id="title">Bell circuit</title>
+  <desc id="desc">A two-qubit Bell circuit with H on q0, CNOT from q0 to q1, and measurements.</desc>
+  <rect width="760" height="300" rx="8" fill="#f8fafc"/>
+  <rect x="24" y="24" width="712" height="244" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="54" y="82" font-family="Arial, sans-serif" font-size="18" fill="#334155">q0</text>
+  <text x="96" y="82" font-family="Arial, sans-serif" font-size="18" fill="#0f172a">|0></text>
+  <text x="54" y="162" font-family="Arial, sans-serif" font-size="18" fill="#334155">q1</text>
+  <text x="96" y="162" font-family="Arial, sans-serif" font-size="18" fill="#0f172a">|0></text>
+  <line x1="144" y1="76" x2="632" y2="76" stroke="#334155" stroke-width="3"/>
+  <line x1="144" y1="156" x2="632" y2="156" stroke="#334155" stroke-width="3"/>
+  <rect x="246" y="50" width="58" height="52" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="266" y="83" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#15803d">H</text>
+  <circle cx="398" cy="76" r="8" fill="#334155"/>
+  <line x1="398" y1="76" x2="398" y2="156" stroke="#334155" stroke-width="3"/>
+  <circle cx="398" cy="156" r="20" fill="#ffffff" stroke="#334155" stroke-width="3"/>
+  <line x1="386" y1="156" x2="410" y2="156" stroke="#334155" stroke-width="3"/>
+  <line x1="398" y1="144" x2="398" y2="168" stroke="#334155" stroke-width="3"/>
+  <rect x="548" y="50" width="62" height="52" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <path d="M563 84 Q579 57 595 84" fill="none" stroke="#991b1b" stroke-width="3"/>
+  <line x1="579" y1="84" x2="579" y2="97" stroke="#991b1b" stroke-width="3"/>
+  <text x="569" y="44" font-family="Arial, sans-serif" font-size="15" fill="#991b1b">M</text>
+  <rect x="548" y="130" width="62" height="52" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <path d="M563 164 Q579 137 595 164" fill="none" stroke="#991b1b" stroke-width="3"/>
+  <line x1="579" y1="164" x2="579" y2="177" stroke="#991b1b" stroke-width="3"/>
+  <text x="569" y="124" font-family="Arial, sans-serif" font-size="15" fill="#991b1b">M</text>
+  <text x="145" y="229" font-family="Arial, sans-serif" font-size="16" fill="#475569">Start with two qubits</text>
+  <text x="232" y="250" font-family="Arial, sans-serif" font-size="16" fill="#475569">H creates two branches</text>
+  <text x="356" y="229" font-family="Arial, sans-serif" font-size="16" fill="#475569">CNOT connects them</text>
+  <text x="526" y="229" font-family="Arial, sans-serif" font-size="16" fill="#475569">Read 00 or 11</text>
+</svg>

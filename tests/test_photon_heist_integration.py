@@ -174,7 +174,7 @@ def test_game_page_is_registered_as_external_launcher() -> None:
     assert "render_photon_heist" not in page_source
     assert "declare_component" not in page_source
     assert not (ROOT / "core" / "photon_heist_component.py").exists()
-    assert "streamlit>=1.58,<2" in requirements
+    assert "streamlit==1.59.1" in requirements
 
 
 @pytest.mark.parametrize("lang", ("ko", "en"))

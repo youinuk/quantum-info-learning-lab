@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
-from core.charts import compact_count_bar, render_pyplot
+from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -15,6 +14,7 @@ from core.math_display import (
 )
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.simulator import independent_two_qubit_distribution
 from core.terms_renderer import render_terms
 
@@ -75,15 +75,11 @@ with simulation_tab:
         labels = dist.labels()
         probabilities = dist.probabilities()
 
-    st.dataframe(
-        pd.DataFrame(
-            {
-                "state": labels,
-                "probability": [two_qubit_probability_text(value) for value in probabilities],
-            }
-        ),
-        hide_index=True,
-        width="stretch",
+    render_markdown_table(
+        [
+            {"state": label, "probability": two_qubit_probability_text(value)}
+            for label, value in zip(labels, probabilities)
+        ]
     )
 
     chart_col, _ = st.columns([1, 1])
@@ -94,7 +90,7 @@ with simulation_tab:
             "Measurement probability",
             ylabel="probability (%)",
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     message_key = "simulation_waiting" if dist is None else "simulation_hint"
     st.info(content.get(message_key, ""))

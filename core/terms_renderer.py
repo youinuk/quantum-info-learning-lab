@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
 from core.i18n import t
+from core.safe_table import render_markdown_table
 
 
 def render_terms(content: dict) -> None:
@@ -13,4 +13,4 @@ def render_terms(content: dict) -> None:
     if not terms:
         return
     st.markdown(f"### {content.get('terms_title', t('terms_title_default'))}")
-    st.table(pd.DataFrame(terms))
+    render_markdown_table(terms)

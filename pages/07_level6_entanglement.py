@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
-from core.charts import compact_count_bar, render_pyplot
+from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.simulator import simulate_two_basis_correlations
 from core.terms_renderer import render_terms
 
@@ -99,7 +99,7 @@ with simulation_tab:
     metric1.metric(ui.get("z_same_ratio", "Same in Z"), z_ratio)
     metric2.metric(ui.get("x_same_ratio", "Same in X"), x_ratio)
 
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    render_markdown_table(rows)
 
     chart_col, _ = st.columns([1, 1])
     with chart_col:
@@ -108,20 +108,18 @@ with simulation_tab:
             counts,
             f"{basis}-basis measurement",
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     if result is not None:
         st.info(ui.get("result_explanations", {}).get(result.state_kind, ""))
 
     with st.expander(ui.get("comparison_title", "Compare the three states")):
-        st.dataframe(
-            pd.DataFrame(
-                ui.get("comparison_rows", []),
-                columns=ui.get("comparison_columns", []),
-            ),
-            hide_index=True,
-            width="stretch",
-        )
+        comparison_columns = ui.get("comparison_columns", [])
+        comparison_rows = [
+            dict(zip(comparison_columns, row))
+            for row in ui.get("comparison_rows", [])
+        ]
+        render_markdown_table(comparison_rows, comparison_columns)
 
 with resources_tab:
     st.subheader(t("tab_resources"))

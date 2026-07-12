@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
-from core.charts import compact_grouped_bar, render_pyplot
+from core.charts import compact_grouped_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -11,6 +10,7 @@ from core.navigation import render_level_navigation
 from core.math_display import probability_from_label, probability_select_options
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.simulator import simulate_noisy_bit_measurements
 from core.terms_renderer import render_terms
 
@@ -99,7 +99,7 @@ with simulation_tab:
         noisy_counts = [result.noisy_count_zero, result.noisy_count_one]
         noisy_ratio = result.noisy_ratio_one
 
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    render_markdown_table(rows)
     ratio_text = noisy_ratio if isinstance(noisy_ratio, str) else f"{noisy_ratio:.3f}"
     st.metric(t("observed_ratio"), ratio_text)
 
@@ -113,7 +113,7 @@ with simulation_tab:
             "noisy",
             "Ideal vs noisy measurement",
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     if result is None:
         st.info(content.get("simulation_waiting", ""))

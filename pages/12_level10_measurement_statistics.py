@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import importlib
 
-import pandas as pd
 import streamlit as st
 
 import core.simulator as simulator
-from core.charts import compact_dual_interval_bar, render_pyplot
+from core.charts import compact_dual_interval_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -14,6 +13,7 @@ from core.math_display import probability_from_label, probability_select_options
 from core.navigation import render_level_navigation
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.terms_renderer import render_terms
 
 if not hasattr(simulator, "simulate_measurement_series"):
@@ -131,7 +131,7 @@ with simulation_tab:
         target = result.probability_one * 100
         st.info(content.get("result_note", ""))
 
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    render_markdown_table(rows)
 
     chart_col, _ = st.columns([1, 1])
     with chart_col:
@@ -149,7 +149,7 @@ with simulation_tab:
             ylabel="ratio of 1 (%)",
             target=target,
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     st.caption(content.get("simulation_caption", ""))
 

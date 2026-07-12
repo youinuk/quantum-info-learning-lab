@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-from core.charts import compact_count_bar, render_pyplot
+from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -87,7 +87,7 @@ with simulation_tab:
             "Measurement probability",
             ylabel="probability (%)",
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     st.info(content.get("simulation_hint", ""))
 

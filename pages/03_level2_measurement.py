@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
-from core.charts import compact_count_bar, render_pyplot
+from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -17,6 +16,7 @@ from core.math_display import (
 )
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.simulator import simulate_bit_trials
 from core.terms_renderer import render_terms
 
@@ -108,7 +108,7 @@ with simulation_tab:
         )
     if not rows:
         rows = [{t("shots"): shots, t("count_zero"): 0, t("count_one"): 0, t("observed_ratio"): 0.0} for shots in [1, 10, 100, 1000]]
-    st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+    render_markdown_table(rows)
 
     result = st.session_state.get("level2_batch")
     count_zero = 0 if result is None else result.count_zero
@@ -116,7 +116,7 @@ with simulation_tab:
     chart_col, _ = st.columns([1, 1])
     with chart_col:
         fig = compact_count_bar(["0", "1"], [count_zero, count_one], "Result")
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
     st.caption(content.get("simulation_caption", ""))
 
 with resources_tab:

@@ -2,17 +2,17 @@ from __future__ import annotations
 
 import importlib
 
-import pandas as pd
 import streamlit as st
 
 import core.simulator as simulator
-from core.charts import compact_count_bar, render_pyplot
+from core.charts import compact_count_bar, render_fig
 from core.content import BASE_DIR, load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.terms_renderer import render_terms
 
 if not hasattr(simulator, "simulate_phase_interference"):
@@ -117,7 +117,7 @@ with simulation_tab:
         counts = [result.count_bright, result.count_dark]
         st.info(selected.get("result_note", ""))
 
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    render_markdown_table(rows)
 
     chart_col, _ = st.columns([1, 1])
     with chart_col:
@@ -126,7 +126,7 @@ with simulation_tab:
             counts,
             "Interference measurement counts",
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     st.caption(content.get("simulation_caption", ""))
 

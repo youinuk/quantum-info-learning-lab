@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
-from core.charts import compact_count_bar, render_pyplot
+from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.safe_table import render_markdown_table
 from core.simulator import run_deutsch_one_bit
 from core.terms_renderer import render_terms
 
@@ -96,7 +96,7 @@ with simulation_tab:
         query_count = result.query_count
 
     st.markdown(f"### {ui.get('stage_title', 'Circuit stages')}")
-    st.dataframe(pd.DataFrame(stage_rows), hide_index=True, width="stretch")
+    render_markdown_table(stage_rows)
 
     metric1, metric2, metric3 = st.columns(3)
     metric1.metric(ui.get("query_count", "Oracle queries"), query_count)
@@ -111,33 +111,28 @@ with simulation_tab:
             "Final measurement probability",
             ylabel="probability (%)",
         )
-        render_pyplot(fig, width="stretch")
+        render_fig(fig, width="stretch")
 
     if result is not None:
         st.markdown(f"### {ui.get('phase_title', 'Oracle phase markers')}")
-        st.dataframe(
-            pd.DataFrame(
+        render_markdown_table(
+            [
                 {
-                    ui.get("input_column", "Input x"): [0, 1],
-                    ui.get("phase_column", "Phase marker"): list(result.phase_markers),
+                    ui.get("input_column", "Input x"): input_value,
+                    ui.get("phase_column", "Phase marker"): phase_marker,
                 }
-            ),
-            hide_index=True,
-            width="stretch",
+                for input_value, phase_marker in zip([0, 1], result.phase_markers)
+            ]
         )
         phase_hint_key = "phase_same" if result.phase_markers[0] == result.phase_markers[1] else "phase_opposite"
         st.info(ui.get(phase_hint_key, ""))
 
         with st.expander(ui.get("reveal_title", "Reveal the hidden rule")):
-            st.dataframe(
-                pd.DataFrame(
-                    {
-                        ui.get("input_column", "Input x"): [0, 1],
-                        "f(x)": [result.f0, result.f1],
-                    }
-                ),
-                hide_index=True,
-                width="stretch",
+            render_markdown_table(
+                [
+                    {ui.get("input_column", "Input x"): 0, "f(x)": result.f0},
+                    {ui.get("input_column", "Input x"): 1, "f(x)": result.f1},
+                ]
             )
 
     st.info(content.get("simulation_hint", ""))

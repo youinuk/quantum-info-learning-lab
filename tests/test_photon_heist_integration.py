@@ -51,10 +51,22 @@ def test_language_bridge_supports_standalone_static_site_mode() -> None:
     assert "streamlit:componentReady" in bridge
     assert "streamlit:render" in bridge
     assert "streamlit:setFrameHeight" in bridge
+    assert "saveLanguage(readLanguage())" in bridge
     assert "withLanguage" in bridge
     assert all("PhotonHeistBridge" in source for source in (mirror, glass, hub))
     assert all("photonheist:language" in source for source in (mirror, glass, hub))
     assert all("withLanguage" in source for source in (mirror, glass, hub))
+    assert "el.languageSelect.value = state.lang" in mirror
+    assert "glassEl.languageSelect.value = glassState.lang" in glass
+
+
+def test_refraction_board_angle_labels_are_localized() -> None:
+    glass = (GAME_DIR / "src" / "glass_game.js").read_text(encoding="utf-8")
+
+    assert 'glassState.lang === "ko" ? "입사" : "Incident"' in glass
+    assert 'glassState.lang === "ko" ? "굴절" : "Refracted"' in glass
+    assert "iLbl.textContent = `입사" not in glass
+    assert "rLbl.textContent = `굴절" not in glass
 
 
 def test_mirror_board_and_hub_navigation_have_explicit_handlers() -> None:

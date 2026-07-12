@@ -9,9 +9,15 @@
     return value === "en" ? "en" : "ko";
   }
 
-  function readLanguage() {
+  function queryLanguage() {
     const queryLanguage = new URLSearchParams(window.location.search).get("lang");
     if (queryLanguage === "ko" || queryLanguage === "en") return queryLanguage;
+    return null;
+  }
+
+  function readLanguage() {
+    const urlLanguage = queryLanguage();
+    if (urlLanguage) return urlLanguage;
     try {
       return normalizeLanguage(localStorage.getItem(SHARED_LANGUAGE_KEY));
     } catch (_) {
@@ -65,6 +71,8 @@
     withLanguage: withLanguage,
     reportHeight: reportHeight
   };
+
+  saveLanguage(readLanguage());
 
   window.addEventListener("message", function (event) {
     const message = event.data;

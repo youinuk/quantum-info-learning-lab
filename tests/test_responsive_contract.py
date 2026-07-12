@@ -21,8 +21,9 @@ def test_all_matplotlib_charts_follow_the_container_width() -> None:
         path.read_text(encoding="utf-8") for path in (ROOT / "pages").glob("*.py")
     )
 
-    chart_calls = re.findall(r"st\.pyplot\([^\n]+\)", page_sources)
+    chart_calls = re.findall(r"render_pyplot\([^\n]+\)", page_sources)
 
     assert len(chart_calls) == 13
+    assert "st.pyplot(" not in page_sources
     assert "use_container_width" not in page_sources
     assert all('width="stretch"' in call for call in chart_calls)

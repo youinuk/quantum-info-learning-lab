@@ -860,9 +860,9 @@ function renderGlassBoard() {
       svg.appendChild(lbl);
     } else {
       const iLbl = svgNode("text", { x: pt.x - 92, y: pt.y - 28, class: "angle-label" });
-      iLbl.textContent = `입사 ${ev.incidenceAngle.toFixed(1)}°`;
+      iLbl.textContent = `${glassState.lang === "ko" ? "입사" : "Incident"} ${ev.incidenceAngle.toFixed(1)}°`;
       const rLbl = svgNode("text", { x: pt.x + 20, y: pt.y - 28, class: "angle-label" });
-      rLbl.textContent = `굴절 ${ev.refractionAngle.toFixed(1)}°`;
+      rLbl.textContent = `${glassState.lang === "ko" ? "굴절" : "Refracted"} ${ev.refractionAngle.toFixed(1)}°`;
       svg.append(iLbl, rLbl);
     }
   });
@@ -911,6 +911,7 @@ function renderGlassHeader() {
   glassEl.back.textContent = gt("back");
   glassEl.back.href = glassUrl("hub.html");
   glassEl.languageLabel.textContent = gt("language");
+  glassEl.languageSelect.value = glassState.lang;
   glassEl.stageId.textContent = glassState.lang === "ko" ? `유리 ${level.id}` : `Glass ${level.id}`;
   glassEl.stageTitle.textContent = level.title[glassState.lang];
   glassEl.stageIntro.textContent = level.intro[glassState.lang];

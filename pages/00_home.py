@@ -27,11 +27,16 @@ st.divider()
 st.subheader(t("roadmap_title"))
 st.write(t("home_path_intro"))
 
-for group_title, levels in (
-    (t("home_path_foundations"), range(0, 3)),
-    (t("home_path_circuits"), range(3, 6)),
-    (t("home_path_quantum"), range(6, 13)),
-):
+level_count = len(LEVEL_PAGES)
+roadmap_groups = (
+    (t("home_path_foundations"), range(0, min(3, level_count))),
+    (t("home_path_circuits"), range(3, min(6, level_count))),
+    (t("home_path_quantum"), range(6, level_count)),
+)
+
+for group_title, levels in roadmap_groups:
+    if not levels:
+        continue
     st.markdown(f"### {group_title}")
     group_levels = list(levels)
     for row_start in range(0, len(group_levels), 3):

@@ -6,7 +6,7 @@ import pandas as pd
 import streamlit as st
 
 import core.simulator as simulator
-from core.charts import compact_count_bar
+from core.charts import compact_count_bar, render_pyplot
 from core.content import BASE_DIR, load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -121,7 +121,7 @@ with simulation_tab:
             counts,
             "Measurement counts",
         )
-        st.pyplot(fig, width="stretch")
+        render_pyplot(fig, width="stretch")
 
     with st.expander(ui.get("sdk_title", "SDK preview")):
         st.write(selected.get("sdk_note", ""))

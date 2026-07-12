@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from core.charts import compact_grouped_bar
+from core.charts import compact_grouped_bar, render_pyplot
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -113,7 +113,7 @@ with simulation_tab:
             "noisy",
             "Ideal vs noisy measurement",
         )
-        st.pyplot(fig, width="stretch")
+        render_pyplot(fig, width="stretch")
 
     if result is None:
         st.info(content.get("simulation_waiting", ""))

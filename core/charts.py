@@ -7,6 +7,15 @@ import matplotlib
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
+import streamlit as st
+
+
+def render_pyplot(fig, **kwargs) -> None:
+    """Render a Matplotlib figure in Streamlit and always release it."""
+    try:
+        st.pyplot(fig, **kwargs)
+    finally:
+        plt.close(fig)
 
 
 def compact_count_bar(

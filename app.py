@@ -1,8 +1,13 @@
 from __future__ import annotations
 
+import faulthandler
+import sys
+
 import streamlit as st
 
 from core.i18n import LANG_OPTIONS, get_lang, set_lang, t
+
+faulthandler.enable(file=sys.stderr, all_threads=True)
 
 st.set_page_config(
     page_title="Quantum Info Learning Lab",

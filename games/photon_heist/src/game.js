@@ -280,6 +280,7 @@ function renderHeader() {
   el.gameTitle.textContent = t("gameTitle");
   el.chapterLabel.textContent = t("chapter");
   el.languageLabel.textContent = t("language");
+  el.languageSelect.value = state.lang;
   el.stageId.textContent = state.lang === "ko" ? `스테이지 ${state.level.id}` : `Stage ${state.level.id}`;
   el.stageTitle.textContent = state.level.title[state.lang];
   el.stageIntro.textContent = state.level.intro[state.lang];

@@ -56,6 +56,13 @@ def test_learning_navigation_covers_every_level_page() -> None:
         assert f"render_level_navigation({level})" in source
 
 
+def test_home_roadmap_uses_registered_level_pages() -> None:
+    source = (ROOT / "pages" / "00_home.py").read_text(encoding="utf-8")
+
+    assert "len(LEVEL_PAGES)" in source
+    assert "range(6, 13)" not in source
+
+
 def test_ket_notation_is_normalized_for_each_rendering_context() -> None:
     structured = normalize_plain_notation(
         {"state": "|psi> = |0>", "basis": ["|00>", "Bell |Phi+>"]}

@@ -6,7 +6,7 @@ import pandas as pd
 import streamlit as st
 
 import core.simulator as simulator
-from core.charts import compact_dual_interval_bar
+from core.charts import compact_dual_interval_bar, render_pyplot
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
@@ -149,7 +149,7 @@ with simulation_tab:
             ylabel="ratio of 1 (%)",
             target=target,
         )
-        st.pyplot(fig, width="stretch")
+        render_pyplot(fig, width="stretch")
 
     st.caption(content.get("simulation_caption", ""))
 

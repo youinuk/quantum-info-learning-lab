@@ -57,3 +57,5 @@ def test_app_shell_registers_navigation_and_renders_home(lang: str) -> None:
     app.run()
 
     assert not app.exception
+    assert app.selectbox[0].label == "언어 / Language"
+    assert app.selectbox[0].options == ["한국어 (Korean)", "English (영어)"]

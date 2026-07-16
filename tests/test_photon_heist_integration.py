@@ -32,6 +32,18 @@ def test_game_keeps_separate_local_assets_and_language_bridge() -> None:
         assert "??/button" not in html
 
 
+def test_language_controls_are_identifiable_in_both_languages() -> None:
+    for relative_html in HTML_FILES:
+        html = (GAME_DIR / relative_html).read_text(encoding="utf-8")
+        assert ">언어 / Language<" in html
+        assert '<option value="ko">한국어 (Korean)</option>' in html
+        assert '<option value="en">English (영어)</option>' in html
+
+    for relative_js in ("i18n.js", "hub.js", "glass_game.js", "text_fixes.js"):
+        source = (GAME_DIR / "src" / relative_js).read_text(encoding="utf-8")
+        assert 'language: "언어 / Language"' in source
+
+
 def test_existing_mirror_and_glass_stage_sets_are_preserved() -> None:
     mirror_levels = (GAME_DIR / "src" / "levels.js").read_text(encoding="utf-8")
     glass_levels = (GAME_DIR / "src" / "glass_levels.js").read_text(encoding="utf-8")
@@ -117,7 +129,7 @@ def test_game_korean_ui_strings_are_not_left_as_english_defaults() -> None:
         assert "src/text_fixes.js?v=20260710c" in html
 
     assert 'chapter: "거울 작전"' in i18n
-    assert 'language: "언어"' in i18n
+    assert 'language: "언어 / Language"' in i18n
     assert 'fire: "레이저 발사"' in i18n
     assert 'planningTitle: "경로 계획"' in i18n
     assert 'hub: "작전 허브"' in i18n

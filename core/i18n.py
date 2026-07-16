@@ -7,8 +7,8 @@ from typing import Dict
 import streamlit as st
 
 LANG_OPTIONS = {
-    "한국어": "ko",
-    "English": "en",
+    "한국어 (Korean)": "ko",
+    "English (영어)": "en",
 }
 
 DEFAULT_LANG = "ko"
@@ -18,10 +18,12 @@ _LANG_ALIASES = {
     "kr": "ko",
     "korean": "ko",
     "한국어": "ko",
+    "한국어 (korean)": "ko",
     "en": "en",
     "eng": "en",
     "english": "en",
     "영어": "en",
+    "english (영어)": "en",
 }
 
 TRANSLATIONS: Dict[str, Dict[str, str]] = {

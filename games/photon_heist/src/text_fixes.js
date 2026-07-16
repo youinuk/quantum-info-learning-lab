@@ -14,7 +14,7 @@
       eyebrow: "PHOTON HEIST · 작전 본부",
       title: "빛의 규칙을 훔쳐라",
       intro: "고전 광학에서 시작해 양자정보 작전까지 이어지는 캠페인이다.",
-      language: "언어",
+      language: "언어 / Language",
       completed: "완료 작전",
       stars: "획득 별",
       next: "다음 목표",

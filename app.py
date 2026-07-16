@@ -111,9 +111,12 @@ with st.sidebar:
     st.title("Quantum Lab")
     st.caption(t("sidebar_caption"))
     current_lang = get_lang()
-    current_label = next((label for label, code in LANG_OPTIONS.items() if code == current_lang), "한국어")
+    current_label = next(
+        (label for label, code in LANG_OPTIONS.items() if code == current_lang),
+        "한국어 (Korean)",
+    )
     selected_label = st.selectbox(
-        t("language"),
+        "언어 / Language",
         options=list(LANG_OPTIONS.keys()),
         index=list(LANG_OPTIONS.keys()).index(current_label),
     )

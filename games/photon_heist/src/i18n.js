@@ -2,7 +2,7 @@ const TEXT = {
   ko: {
     gameTitle: "Photon Heist",
     chapter: "거울 작전",
-    language: "언어",
+    language: "언어 / Language",
     soundOn: "소리 켬",
     soundOff: "소리 끔",
     soundLabel: "게임 소리",
@@ -94,7 +94,7 @@ const TEXT = {
   en: {
     gameTitle: "Photon Heist",
     chapter: "Mirror Mission",
-    language: "Language",
+    language: "언어 / Language",
     soundOn: "Sound on",
     soundOff: "Sound off",
     soundLabel: "Game sound",

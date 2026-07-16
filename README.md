@@ -65,3 +65,13 @@ conda run -n quantum_lab pytest -q
 
 후속 레벨과 Photon Heist 다음 챕터 계획은 `docs/next_expansion_plan.md`에 정리한다.
 개발, 배포, Cloudflare/Streamlit 연동 메모는 `docs/development.md`에 정리한다.
+
+## Developer and reproducibility metadata
+
+Internal experiment IDs, app-level mappings, manuscript chapter links, and figure
+targets are tracked in:
+
+`docs/experiment_registry.md`
+
+These IDs are for reproducibility and instructor/developer use. They are not required
+for learners using the app.

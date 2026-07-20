@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.simulator as simulator
 from core.charts import compact_count_bar, render_fig
 from core.content import BASE_DIR, load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
@@ -10,7 +11,6 @@ from core.navigation import render_level_navigation
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
 from core.safe_table import render_markdown_table
-from core.simulator import run_deutsch_one_bit
 from core.terms_renderer import render_terms
 
 lang = get_lang()
@@ -91,7 +91,9 @@ with simulation_tab:
 
     run_col, reset_col = st.columns([1, 1])
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
-        st.session_state["level11_result"] = run_deutsch_one_bit(selected_oracle)
+        st.session_state["level11_result"] = simulator.run_deutsch_one_bit(
+            selected_oracle
+        )
     if reset_col.button(t("reset_state"), width="stretch"):
         clear_level11_results()
 

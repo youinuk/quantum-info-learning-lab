@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.simulator as simulator
 from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
@@ -17,7 +18,6 @@ from core.math_display import (
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
 from core.safe_table import render_markdown_table
-from core.simulator import simulate_bit_trials
 from core.terms_renderer import render_terms
 
 lang = get_lang()
@@ -73,11 +73,18 @@ with simulation_tab:
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
         run_index = st.session_state.get("level2_run_index", 0) + 1
         st.session_state["level2_run_index"] = run_index
-        st.session_state["level2_single"] = simulate_bit_trials(probability_one, 1, 4000 + run_index)
+        st.session_state["level2_single"] = simulator.simulate_bit_trials(
+            probability_one, 1, 4000 + run_index
+        )
         st.session_state["level2_rows"] = [
-            simulate_bit_trials(probability_one, shots, 5000 + run_index + shots) for shots in [1, 10, 100, 1000]
+            simulator.simulate_bit_trials(
+                probability_one, shots, 5000 + run_index + shots
+            )
+            for shots in [1, 10, 100, 1000]
         ]
-        st.session_state["level2_batch"] = simulate_bit_trials(probability_one, int(batch), 6000 + run_index)
+        st.session_state["level2_batch"] = simulator.simulate_bit_trials(
+            probability_one, int(batch), 6000 + run_index
+        )
     if reset_col.button(t("reset_state"), width="stretch"):
         clear_level2_results()
         st.session_state["level2_run_index"] = 0

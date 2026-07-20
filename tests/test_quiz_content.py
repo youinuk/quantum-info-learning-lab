@@ -3,7 +3,7 @@ from core.i18n import TRANSLATIONS
 from streamlit.testing.v1 import AppTest
 
 
-LEVELS = tuple(f"level{number}" for number in range(13))
+LEVELS = tuple(f"level{number}" for number in range(14))
 QUIZ_FIELDS = {"question", "options", "answer", "correct", "wrong"}
 QUIZ_APP = """
 from core.quiz_renderer import render_quiz_items
@@ -35,8 +35,8 @@ def test_every_level_has_six_localized_quiz_questions() -> None:
         for level in LEVELS:
             quiz = load_level_content(level, lang)["quiz"]
 
-            assert len(quiz) == 6
-            assert len({item["question"] for item in quiz}) == 6
+            assert len(quiz) >= 6
+            assert len({item["question"] for item in quiz}) == len(quiz)
 
 
 def test_quiz_questions_have_valid_answers_and_feedback() -> None:

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import importlib
-
 import streamlit as st
 
 import core.simulator as simulator
@@ -13,11 +11,15 @@ from core.math_display import probability_from_label, probability_select_options
 from core.navigation import render_level_navigation
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.runtime_modules import ensure_module_api
 from core.safe_table import render_markdown_table
 from core.terms_renderer import render_terms
 
-if not hasattr(simulator, "simulate_measurement_series"):
-    simulator = importlib.reload(simulator)
+simulator = ensure_module_api(
+    simulator,
+    minimum_version=0,
+    required_attributes=("simulate_measurement_series",),
+)
 
 lang = get_lang()
 content = load_level_content("level9", lang)

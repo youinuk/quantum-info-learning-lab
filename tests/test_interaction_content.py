@@ -3,7 +3,17 @@ from core.content import load_level_content
 
 def test_localized_simulations_have_waiting_messages():
     for lang in ("ko", "en"):
-        for level in ("level0", "level1", "level2", "level4", "level5", "level7", "level9", "level10"):
+        for level in (
+            "level0",
+            "level1",
+            "level2",
+            "level4",
+            "level5",
+            "level7",
+            "level9",
+            "level10",
+            "level13",
+        ):
             assert load_level_content(level, lang)["simulation_waiting"]
 
 

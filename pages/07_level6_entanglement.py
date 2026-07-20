@@ -2,15 +2,16 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.simulator as simulator
 from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
+from core.quantum_conventions import basis_labels
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
 from core.safe_table import render_markdown_table
-from core.simulator import simulate_two_basis_correlations
 from core.terms_renderer import render_terms
 
 lang = get_lang()
@@ -54,7 +55,7 @@ with simulation_tab:
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
         run_index = st.session_state.get("level6_run_index", 0) + 1
         st.session_state["level6_run_index"] = run_index
-        st.session_state["level6_result"] = simulate_two_basis_correlations(
+        st.session_state["level6_result"] = simulator.simulate_two_basis_correlations(
             selected_state,
             int(shots),
             7000 + run_index,
@@ -68,6 +69,7 @@ with simulation_tab:
         result = None
 
     basis = st.radio(ui.get("basis_view", "Basis"), ["Z", "X"], horizontal=True)
+    outcome_labels = list(basis_labels(2))
 
     if result is None:
         z_ratio: float | str = "-"
@@ -79,7 +81,7 @@ with simulation_tab:
                 ui.get("z_count_column", "Z count"): 0,
                 ui.get("x_count_column", "X count"): 0,
             }
-            for label in ["00", "01", "10", "11"]
+            for label in outcome_labels
         ]
         st.info(ui.get("waiting_note", ""))
     else:
@@ -104,7 +106,7 @@ with simulation_tab:
     chart_col, _ = st.columns([1, 1])
     with chart_col:
         fig = compact_count_bar(
-            ["00", "01", "10", "11"],
+            outcome_labels,
             counts,
             f"{basis}-basis measurement",
         )

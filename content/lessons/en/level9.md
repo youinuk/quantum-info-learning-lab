@@ -24,7 +24,7 @@ Probability belongs to the prepared state. Noise is unwanted disturbance from me
 
 Increasing the number of measurements reduces random wobble. But if the device keeps flipping some results, a large experiment can still show a biased pattern.
 
-For example, suppose the original probability of 1 is 1/2 and we measure 1000 times. Without noise, the ratio of 1 usually stays near 0.5. If the device keeps flipping 10% of the results, individual results still contain errors. Even if the final ratio happens to look close to 0.5, that does not prove there were no errors.
+For example, suppose the original probability of 1 is $\frac{1}{2}$ and we measure 1000 times. Without noise, the ratio of 1 usually stays near 0.5. If the device keeps flipping 10% of the results, individual results still contain errors. Even if the final ratio happens to look close to 0.5, that does not prove there were no errors.
 
 As another example, if a state should almost always give 1 but the error rate is 20%, then 1000 measurements may still show a ratio near 0.8 rather than 1.0. More samples reduce random wobble, but they do not automatically remove device bias.
 
@@ -38,7 +38,7 @@ $$
 \hat{p}=\frac{N_1}{N}
 $$
 
-Here, `N_1` is the number of 1 results, and `N` is the total number of measurements.
+Here, $N_1$ is the number of 1 results, and $N$ is the total number of measurements.
 
 For example, if 1 appears 57 times in 100 measurements, the observed ratio is:
 

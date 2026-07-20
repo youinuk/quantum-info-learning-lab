@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.simulator as simulator
 from core.charts import compact_count_bar, render_fig
 from core.content import BASE_DIR, load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
@@ -10,7 +11,6 @@ from core.navigation import render_level_navigation
 from core.math_display import qubit_state_latex
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
-from core.simulator import apply_single_qubit_gate, basis_state
 from core.terms_renderer import render_terms
 
 lang = get_lang()
@@ -63,10 +63,14 @@ with simulation_tab:
 
     run_col, reset_col = st.columns([1, 1])
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
-        state = basis_state("0")
-        after_first_h = apply_single_qubit_gate(state, "H")
-        after_middle = after_first_h if middle_gate == t("middle_none") else apply_single_qubit_gate(after_first_h, "Z")
-        final_state = apply_single_qubit_gate(after_middle, "H")
+        state = simulator.basis_state("0")
+        after_first_h = simulator.apply_single_qubit_gate(state, "H")
+        after_middle = (
+            after_first_h
+            if middle_gate == t("middle_none")
+            else simulator.apply_single_qubit_gate(after_first_h, "Z")
+        )
+        final_state = simulator.apply_single_qubit_gate(after_middle, "H")
         st.session_state["level4_after_middle"] = after_middle
         st.session_state["level4_final_state"] = final_state
     if reset_col.button(t("reset_state"), width="stretch"):

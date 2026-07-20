@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.simulator as simulator
 from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
@@ -10,7 +11,6 @@ from core.navigation import render_level_navigation
 from core.math_display import probability_from_label, probability_latex, probability_select_options, single_qubit_latex
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
-from core.simulator import simulate_bit_trials
 from core.terms_renderer import render_terms
 
 lang = get_lang()
@@ -65,8 +65,12 @@ with simulation_tab:
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
         run_index = st.session_state.get("level1_run_index", 0) + 1
         st.session_state["level1_run_index"] = run_index
-        st.session_state["level1_result"] = simulate_bit_trials(probability_one, shots, 2000 + run_index)
-        st.session_state["level1_single"] = simulate_bit_trials(probability_one, 1, 3000 + run_index)
+        st.session_state["level1_result"] = simulator.simulate_bit_trials(
+            probability_one, shots, 2000 + run_index
+        )
+        st.session_state["level1_single"] = simulator.simulate_bit_trials(
+            probability_one, 1, 3000 + run_index
+        )
     if reset_col.button(t("reset_state"), width="stretch"):
         clear_level1_results()
         st.session_state["level1_run_index"] = 0

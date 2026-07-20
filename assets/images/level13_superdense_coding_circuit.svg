@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="350" viewBox="0 0 1120 350" role="img" aria-labelledby="title desc">
+  <title id="title">Superdense coding circuit</title>
+  <desc id="desc">A preparation device starts Bell qubits A and B in zero states and creates a Bell pair. Alice encodes two classical bits with I, X, Z, or ZX and sends one qubit. Bob decodes both qubits with CNOT and H before measurement.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#475569"/></marker>
+    <style>
+      .wire{stroke:#334155;stroke-width:3;fill:none}.gate{fill:#fff;stroke:#2563eb;stroke-width:2.5}.encode{fill:#fff7ed;stroke:#ea580c;stroke-width:2.5}.measure{fill:#ecfeff;stroke:#0f766e;stroke-width:2.5}
+      .label{font:17px Arial,sans-serif;fill:#0f172a}.small{font:14px Arial,sans-serif;fill:#475569}.section{font:bold 16px Arial,sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect width="1120" height="350" fill="#ffffff"/>
+  <rect x="20" y="45" width="260" height="235" rx="6" fill="#fff7ed" stroke="#fdba74"/>
+  <rect x="310" y="45" width="300" height="145" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="660" y="35" width="435" height="245" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="40" y="75" class="section">Bell-pair preparation</text>
+  <text x="330" y="75" class="section">Alice</text>
+  <text x="680" y="65" class="section">Bob</text>
+
+  <text x="32" y="126" class="small">A</text><text x="51" y="126" class="label">|0⟩</text>
+  <text x="32" y="226" class="small">B</text><text x="51" y="226" class="label">|0⟩</text>
+  <text x="330" y="111" class="small">Bell A arrives</text><text x="680" y="211" class="small">Bell B arrives</text>
+  <line x1="85" y1="120" x2="1065" y2="120" class="wire"/>
+  <line x1="85" y1="220" x2="1065" y2="220" class="wire"/>
+
+  <rect x="115" y="95" width="50" height="50" class="gate"/><text x="132" y="128" class="label">H</text>
+  <circle cx="215" cy="120" r="7" fill="#2563eb"/><line x1="215" y1="120" x2="215" y2="220" stroke="#2563eb" stroke-width="3"/>
+  <circle cx="215" cy="220" r="20" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <line x1="215" y1="202" x2="215" y2="238" stroke="#2563eb" stroke-width="2.5"/><line x1="197" y1="220" x2="233" y2="220" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="78" y="268" class="small">H + CNOT create |Φ+⟩</text>
+
+  <rect x="415" y="88" width="125" height="64" class="encode"/>
+  <text x="431" y="113" class="small">encode 2 bits</text><text x="438" y="140" class="label">I / X / Z / ZX</text>
+  <line x1="545" y1="82" x2="655" y2="82" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="548" y="70" class="small">send 1 qubit</text>
+
+  <circle cx="755" cy="120" r="7" fill="#2563eb"/><line x1="755" y1="120" x2="755" y2="220" stroke="#2563eb" stroke-width="3"/>
+  <circle cx="755" cy="220" r="20" fill="#fff" stroke="#2563eb" stroke-width="2.5"/>
+  <line x1="755" y1="202" x2="755" y2="238" stroke="#2563eb" stroke-width="2.5"/><line x1="737" y1="220" x2="773" y2="220" stroke="#2563eb" stroke-width="2.5"/>
+  <rect x="805" y="95" width="50" height="50" class="gate"/><text x="822" y="128" class="label">H</text>
+  <rect x="910" y="95" width="70" height="50" class="measure"/><text x="932" y="127" class="label">M</text>
+  <rect x="910" y="195" width="70" height="50" class="measure"/><text x="932" y="227" class="label">M</text>
+  <text x="997" y="178" class="label">2 bits</text>
+  <text x="748" y="268" class="small">Bell decoder: CNOT, then H, then measurement</text>
+
+  <text x="25" y="330" class="small">The Bell pair is prepared from |00⟩ before encoding. Alice then encodes A; Bob receives it and measures both qubits.</text>
+</svg>

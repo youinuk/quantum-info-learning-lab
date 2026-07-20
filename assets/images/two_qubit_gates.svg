@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+  <title id="title">CNOT, CZ, SWAP</title>
+  <desc id="desc">CNOT, CZ, SWAP circuits on q0 and q1.</desc>
+  <rect width="900" height="390" fill="#ffffff"/>
+  <style>
+    .title{font:700 23px Arial,sans-serif;fill:#172033}.label{font:600 18px Arial,sans-serif;fill:#172033}.note{font:16px Arial,sans-serif;fill:#465269}.wire{stroke:#26364d;stroke-width:3}.link{stroke:#26364d;stroke-width:3}.gate{fill:#ffffff;stroke:#2563a6;stroke-width:3}.control{fill:#172033}.swap{stroke:#b34d2e;stroke-width:4;stroke-linecap:round}
+  </style>
+  <text x="450" y="34" text-anchor="middle" class="title">CNOT · CZ · SWAP</text>
+
+  <g transform="translate(20,65)">
+    <rect x="0" y="0" width="270" height="280" rx="6" fill="#f7fafc" stroke="#cbd5e1"/>
+    <text x="135" y="34" text-anchor="middle" class="label">CNOT</text>
+    <text x="20" y="92" class="note">q₀</text><text x="20" y="192" class="note">q₁</text>
+    <line x1="55" y1="86" x2="245" y2="86" class="wire"/><line x1="55" y1="186" x2="245" y2="186" class="wire"/>
+    <line x1="150" y1="86" x2="150" y2="186" class="link"/><circle cx="150" cy="86" r="8" class="control"/>
+    <circle cx="150" cy="186" r="20" class="gate"/><line x1="138" y1="186" x2="162" y2="186" class="link"/><line x1="150" y1="174" x2="150" y2="198" class="link"/>
+    <text x="135" y="238" text-anchor="middle" class="note">q₀ = 1 ⇒ X(q₁)</text>
+  </g>
+
+  <g transform="translate(315,65)">
+    <rect x="0" y="0" width="270" height="280" rx="6" fill="#f7fafc" stroke="#cbd5e1"/>
+    <text x="135" y="34" text-anchor="middle" class="label">CZ</text>
+    <text x="20" y="92" class="note">q₀</text><text x="20" y="192" class="note">q₁</text>
+    <line x1="55" y1="86" x2="245" y2="86" class="wire"/><line x1="55" y1="186" x2="245" y2="186" class="wire"/>
+    <line x1="150" y1="86" x2="150" y2="186" class="link"/><circle cx="150" cy="86" r="8" class="control"/>
+    <rect x="128" y="164" width="44" height="44" rx="4" class="gate"/><text x="150" y="193" text-anchor="middle" class="label">Z</text>
+    <text x="135" y="238" text-anchor="middle" class="note">|11⟩ → −|11⟩</text>
+  </g>
+
+  <g transform="translate(610,65)">
+    <rect x="0" y="0" width="270" height="280" rx="6" fill="#f7fafc" stroke="#cbd5e1"/>
+    <text x="135" y="34" text-anchor="middle" class="label">SWAP</text>
+    <text x="20" y="92" class="note">q₀</text><text x="20" y="192" class="note">q₁</text>
+    <line x1="55" y1="86" x2="245" y2="86" class="wire"/><line x1="55" y1="186" x2="245" y2="186" class="wire"/>
+    <line x1="150" y1="86" x2="150" y2="186" class="link"/>
+    <line x1="140" y1="76" x2="160" y2="96" class="swap"/><line x1="160" y1="76" x2="140" y2="96" class="swap"/>
+    <line x1="140" y1="176" x2="160" y2="196" class="swap"/><line x1="160" y1="176" x2="140" y2="196" class="swap"/>
+    <text x="135" y="238" text-anchor="middle" class="note">|q₀q₁⟩ → |q₁q₀⟩</text>
+  </g>
+</svg>

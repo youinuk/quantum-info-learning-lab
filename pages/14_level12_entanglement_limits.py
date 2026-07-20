@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import importlib
-
 import streamlit as st
 
 import core.simulator as simulator
@@ -10,13 +8,18 @@ from core.content import BASE_DIR, load_lesson_markdown, load_level_content, loa
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
+from core.quantum_conventions import basis_labels
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
+from core.runtime_modules import ensure_module_api
 from core.safe_table import render_markdown_table
 from core.terms_renderer import render_terms
 
-if not hasattr(simulator, "simulate_entanglement_limit"):
-    simulator = importlib.reload(simulator)
+simulator = ensure_module_api(
+    simulator,
+    minimum_version=0,
+    required_attributes=("simulate_entanglement_limit",),
+)
 
 lang = get_lang()
 content = load_level_content("level12", lang)
@@ -91,10 +94,11 @@ with simulation_tab:
     if result is not None and (result.alice_basis, result.bob_basis, result.shots) != current_controls:
         result = None
 
+    pair_labels = list(basis_labels(2))
     if result is None:
         pair_rows = [
             {ui.get("pair_column", "Pair outcome"): label, ui.get("count_column", "Count"): 0}
-            for label in ["00", "01", "10", "11"]
+            for label in pair_labels
         ]
         bob_counts = [0, 0]
         bob_zero_ratio: float | str = "-"

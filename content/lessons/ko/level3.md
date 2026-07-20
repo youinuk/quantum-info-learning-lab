@@ -51,3 +51,24 @@ Z\lvert0\rangle=\lvert0\rangle,\quad Z\lvert1\rangle=-\lvert1\rangle
 $$
 
 부호만 바뀌면 확률 그래프에서는 변화가 없어 보일 수 있다. 하지만 그 부호가 다시 H와 만나면 결과가 완전히 달라진다.
+
+## 6. S 게이트는 복소 상대위상을 만든다
+
+S 게이트는 $\lvert0\rangle$은 그대로 두고 $\lvert1\rangle$ 진폭에 $i=e^{i\pi/2}$를 곱한다.
+
+$$
+S\lvert0\rangle=\lvert0\rangle,\qquad
+S\lvert1\rangle=i\lvert1\rangle
+$$
+
+$H\lvert0\rangle=\lvert+\rangle$로 만든 상태에 S를 적용하면 β가 실제로 복소수가 된다.
+
+$$
+S\lvert+\rangle
+=\frac{1}{\sqrt{2}}\lvert0\rangle
++\frac{i}{\sqrt{2}}\lvert1\rangle
+=\frac{1}{\sqrt{2}}\lvert0\rangle
++e^{i\pi/2}\frac{1}{\sqrt{2}}\lvert1\rangle
+$$
+
+측정 확률은 여전히 반반이지만 상대위상은 $\phi=90^\circ$가 된다. 시뮬레이션에서 H 다음 S를 눌러 식의 β에 $i$가 나타나는지 확인할 수 있다. S를 두 번 적용하면 $i^2=-1$이므로 Z와 같은 부호 변화가 생긴다.

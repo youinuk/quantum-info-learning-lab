@@ -2,10 +2,17 @@
 
 from __future__ import annotations
 
+import random
 from dataclasses import dataclass
 from typing import Dict
 
 import numpy as np
+
+from core.quantum_conventions import (
+    basis_index,
+    basis_labels,
+    operator_product_for_time_order,
+)
 
 
 @dataclass(frozen=True)
@@ -94,6 +101,8 @@ def apply_single_qubit_gate(state: QubitState, gate: str) -> QubitState:
         return QubitState(alpha=(alpha + beta) * scale, beta=(alpha - beta) * scale)
     if gate == "Z":
         return QubitState(alpha=alpha, beta=-beta)
+    if gate == "S":
+        return QubitState(alpha=alpha, beta=1j * beta)
     raise ValueError(f"Unsupported gate: {gate}")
 
 
@@ -105,7 +114,7 @@ class TwoQubitDistribution:
     p11: float
 
     def labels(self) -> list[str]:
-        return ["00", "01", "10", "11"]
+        return list(basis_labels(2))
 
     def probabilities(self) -> list[float]:
         return [self.p00, self.p01, self.p10, self.p11]
@@ -130,6 +139,38 @@ def independent_two_qubit_distribution(probability_first_one: float, probability
 
 
 @dataclass(frozen=True)
+class TwoQubitGateResult:
+    input_bits: str
+    gate: str
+    output_bits: str
+    phase: int
+
+
+def apply_two_qubit_basis_gate(input_bits: str, gate: str) -> TwoQubitGateResult:
+    """Apply CNOT, CZ, or SWAP to one computational-basis input."""
+    if input_bits not in basis_labels(2):
+        raise ValueError("input_bits must be 00, 01, 10, or 11")
+    if gate not in {"CNOT", "CZ", "SWAP"}:
+        raise ValueError("gate must be CNOT, CZ, or SWAP")
+
+    first, second = (int(bit) for bit in input_bits)
+    phase = 1
+    if gate == "CNOT":
+        second ^= first
+    elif gate == "CZ":
+        phase = -1 if first == second == 1 else 1
+    else:
+        first, second = second, first
+
+    return TwoQubitGateResult(
+        input_bits=input_bits,
+        gate=gate,
+        output_bits=f"{first}{second}",
+        phase=phase,
+    )
+
+
+@dataclass(frozen=True)
 class BellMeasurementResult:
     shots: int
     count_00: int
@@ -138,7 +179,7 @@ class BellMeasurementResult:
     count_11: int
 
     def labels(self) -> list[str]:
-        return ["00", "01", "10", "11"]
+        return list(basis_labels(2))
 
     def counts(self) -> list[int]:
         return [self.count_00, self.count_01, self.count_10, self.count_11]
@@ -177,7 +218,7 @@ class CorrelationExperimentResult:
     x_probabilities: tuple[float, float, float, float]
 
     def labels(self) -> list[str]:
-        return ["00", "01", "10", "11"]
+        return list(basis_labels(2))
 
     def counts_for(self, basis: str) -> tuple[int, int, int, int]:
         return self.x_counts if basis.upper() == "X" else self.z_counts
@@ -263,8 +304,9 @@ class DeutschExperimentResult:
 
 
 def _first_qubit_probabilities(state: np.ndarray) -> tuple[float, float]:
-    probability_zero = float(np.sum(np.abs(state[:2]) ** 2))
-    probability_one = float(np.sum(np.abs(state[2:]) ** 2))
+    amplitudes_by_first_qubit = state.reshape(2, -1)
+    probability_zero = float(np.sum(np.abs(amplitudes_by_first_qubit[0]) ** 2))
+    probability_one = float(np.sum(np.abs(amplitudes_by_first_qubit[1]) ** 2))
     return probability_zero, probability_one
 
 
@@ -272,8 +314,8 @@ def _deutsch_oracle_matrix(f0: int, f1: int) -> np.ndarray:
     oracle = np.zeros((4, 4), dtype=complex)
     for x, fx in enumerate((f0, f1)):
         for y in (0, 1):
-            input_index = 2 * x + y
-            output_index = 2 * x + (y ^ fx)
+            input_index = basis_index(f"{x}{y}")
+            output_index = basis_index(f"{x}{y ^ fx}")
             oracle[output_index, input_index] = 1.0
     return oracle
 
@@ -296,7 +338,7 @@ def run_deutsch_one_bit(oracle_name: str) -> DeutschExperimentResult:
     # Standard two-qubit Deutsch circuit: |0>|1>, H on both, one oracle
     # query, then H and measurement on the first qubit.
     initial_state = np.zeros(4, dtype=complex)
-    initial_state[1] = 1.0
+    initial_state[basis_index("01")] = 1.0
     prepared_state = np.kron(hadamard, hadamard) @ initial_state
     after_oracle_state = _deutsch_oracle_matrix(f0, f1) @ prepared_state
     final_state = np.kron(hadamard, identity) @ after_oracle_state
@@ -400,7 +442,7 @@ def simulate_named_circuit(
             rf"\frac{{1}}{{\sqrt{{2}}}}\lvert 0 \rangle - \frac{{1}}{{\sqrt{{2}}}}\lvert 1 \rangle",
         ),
         "bell_pair": (
-            ("00", "01", "10", "11"),
+            basis_labels(2),
             (0.5, 0.0, 0.0, 0.5),
             rf"\frac{{1}}{{\sqrt{{2}}}}\lvert 00 \rangle + \frac{{1}}{{\sqrt{{2}}}}\lvert 11 \rangle",
         ),
@@ -555,7 +597,7 @@ class EntanglementLimitResult:
     count_11: int
 
     def labels(self) -> list[str]:
-        return ["00", "01", "10", "11"]
+        return list(basis_labels(2))
 
     def pair_counts(self) -> list[int]:
         return [self.count_00, self.count_01, self.count_10, self.count_11]
@@ -609,4 +651,205 @@ def simulate_entanglement_limit(
         count_01=int(counts[1]),
         count_10=int(counts[2]),
         count_11=int(counts[3]),
+    )
+
+
+TELEPORTATION_STATES: dict[str, np.ndarray] = {
+    "zero": np.array([1.0, 0.0], dtype=complex),
+    "one": np.array([0.0, 1.0], dtype=complex),
+    "plus": np.array([1.0, 1.0], dtype=complex) / np.sqrt(2),
+    "minus": np.array([1.0, -1.0], dtype=complex) / np.sqrt(2),
+    "plus_i": np.array([1.0, 1.0j], dtype=complex) / np.sqrt(2),
+    "minus_i": np.array([1.0, -1.0j], dtype=complex) / np.sqrt(2),
+}
+
+
+@dataclass(frozen=True)
+class TeleportationResult:
+    input_state: str
+    input_amplitudes: tuple[complex, complex]
+    alice_bit_zero: int
+    alice_bit_one: int
+    bob_state_before: tuple[complex, complex]
+    correction_gates: tuple[str, ...]
+    bob_state_after: tuple[complex, complex]
+    fidelity: float
+
+    @property
+    def alice_bits(self) -> str:
+        return f"{self.alice_bit_zero}{self.alice_bit_one}"
+
+    @property
+    def correction_label(self) -> str:
+        return operator_product_for_time_order(*self.correction_gates)
+
+
+@dataclass(frozen=True)
+class TeleportationCorrectionAttempt:
+    selected_correction: str
+    output_amplitudes: tuple[complex, complex]
+    fidelity: float
+    matches_protocol_correction: bool
+
+
+def apply_teleportation_correction(
+    result: TeleportationResult,
+    selected_correction: str,
+) -> TeleportationCorrectionAttempt:
+    """Apply a learner-selected correction to Bob's pre-correction state."""
+    identity = np.eye(2, dtype=complex)
+    x_gate = np.array([[0, 1], [1, 0]], dtype=complex)
+    z_gate = np.array([[1, 0], [0, -1]], dtype=complex)
+    operators = {
+        "I": identity,
+        "X": x_gate,
+        "Z": z_gate,
+        "ZX": z_gate @ x_gate,
+    }
+    if selected_correction not in operators:
+        raise ValueError("selected_correction must be I, X, Z, or ZX")
+
+    bob_before = np.asarray(result.bob_state_before, dtype=complex)
+    input_state = np.asarray(result.input_amplitudes, dtype=complex)
+    output = operators[selected_correction] @ bob_before
+    fidelity = float(abs(np.vdot(input_state, output)) ** 2)
+    return TeleportationCorrectionAttempt(
+        selected_correction=selected_correction,
+        output_amplitudes=tuple(complex(value) for value in output),
+        fidelity=fidelity,
+        matches_protocol_correction=selected_correction == result.correction_label,
+    )
+
+
+def simulate_quantum_teleportation(
+    input_state: str,
+    seed: int | None = None,
+    amplitudes: tuple[complex, complex] | None = None,
+) -> TeleportationResult:
+    """Simulate one ideal teleportation run through Alice's random Bell outcome."""
+    if input_state == "custom":
+        if amplitudes is None or len(amplitudes) != 2:
+            raise ValueError("custom input requires alpha and beta amplitudes")
+        state = np.asarray(amplitudes, dtype=complex)
+        if not np.all(np.isfinite(state)):
+            raise ValueError("custom amplitudes must be finite")
+        norm = float(np.linalg.norm(state))
+        if norm < 1e-12:
+            raise ValueError("custom amplitudes cannot both be zero")
+        state = state / norm
+    elif input_state not in TELEPORTATION_STATES:
+        raise ValueError(f"Unsupported teleportation input state: {input_state}")
+    else:
+        if amplitudes is not None:
+            raise ValueError("amplitudes are only accepted for the custom input state")
+        state = TELEPORTATION_STATES[input_state]
+
+    identity = np.eye(2, dtype=complex)
+    x_gate = np.array([[0, 1], [1, 0]], dtype=complex)
+    z_gate = np.array([[1, 0], [0, -1]], dtype=complex)
+
+    rng = np.random.default_rng(seed)
+    outcome = int(rng.integers(0, 4))
+    alice_bit_zero = (outcome >> 1) & 1
+    alice_bit_one = outcome & 1
+
+    x_power = x_gate if alice_bit_one else identity
+    z_power = z_gate if alice_bit_zero else identity
+    bob_before = x_power @ z_power @ state
+
+    corrections: list[str] = []
+    bob_after = bob_before
+    if alice_bit_one:
+        bob_after = x_gate @ bob_after
+        corrections.append("X")
+    if alice_bit_zero:
+        bob_after = z_gate @ bob_after
+        corrections.append("Z")
+
+    fidelity = float(abs(np.vdot(state, bob_after)) ** 2)
+    return TeleportationResult(
+        input_state=input_state,
+        input_amplitudes=tuple(complex(value) for value in state),
+        alice_bit_zero=alice_bit_zero,
+        alice_bit_one=alice_bit_one,
+        bob_state_before=tuple(complex(value) for value in bob_before),
+        correction_gates=tuple(corrections),
+        bob_state_after=tuple(complex(value) for value in bob_after),
+        fidelity=fidelity,
+    )
+
+
+@dataclass(frozen=True)
+class SuperdenseEncodingResult:
+    encoding_gate: str
+    bell_state: str
+    transmitted_qubits: int
+    decoded_bits: str
+
+
+SUPERDENSE_ENCODINGS = {
+    "00": ("I", "phi_plus"),
+    "01": ("X", "psi_plus"),
+    "10": ("Z", "phi_minus"),
+    "11": (operator_product_for_time_order("X", "Z"), "psi_minus"),
+}
+
+
+def explore_superdense_encoding(encoding_gate: str) -> SuperdenseEncodingResult:
+    """Return the Bell state and decoded bits produced by one encoding gate."""
+    gate_to_result = {
+        gate: (decoded_bits, bell_state)
+        for decoded_bits, (gate, bell_state) in SUPERDENSE_ENCODINGS.items()
+    }
+    if encoding_gate not in gate_to_result:
+        raise ValueError("encoding_gate must be I, X, Z, or ZX")
+
+    decoded_bits, bell_state = gate_to_result[encoding_gate]
+    return SuperdenseEncodingResult(
+        encoding_gate=encoding_gate,
+        bell_state=bell_state,
+        transmitted_qubits=1,
+        decoded_bits=decoded_bits,
+    )
+
+
+def generate_superdense_mission(seed: int, previous_bits: str | None = None) -> str:
+    """Choose a reproducible two-bit mission, avoiding an immediate repeat."""
+    if previous_bits is not None and previous_bits not in SUPERDENSE_ENCODINGS:
+        raise ValueError("previous_bits must be one of 00, 01, 10, or 11")
+    options = [bits for bits in SUPERDENSE_ENCODINGS if bits != previous_bits]
+    return random.Random(seed).choice(options)
+
+
+@dataclass(frozen=True)
+class SuperdenseCodingResult:
+    message_bits: str
+    encoding_gate: str
+    bell_state: str
+    transmitted_qubits: int
+    decoded_bits: str
+
+    @property
+    def success(self) -> bool:
+        return self.message_bits == self.decoded_bits
+
+
+def simulate_superdense_coding(
+    message_bits: str,
+    encoding_gate: str | None = None,
+) -> SuperdenseCodingResult:
+    """Decode a selected gate, defaulting to the correct gate for the message."""
+    if message_bits not in SUPERDENSE_ENCODINGS:
+        raise ValueError("message_bits must be one of 00, 01, 10, or 11")
+
+    if encoding_gate is None:
+        encoding_gate = SUPERDENSE_ENCODINGS[message_bits][0]
+
+    encoding = explore_superdense_encoding(encoding_gate)
+    return SuperdenseCodingResult(
+        message_bits=message_bits,
+        encoding_gate=encoding.encoding_gate,
+        bell_state=encoding.bell_state,
+        transmitted_qubits=encoding.transmitted_qubits,
+        decoded_bits=encoding.decoded_bits,
     )

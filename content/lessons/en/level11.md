@@ -8,7 +8,7 @@ A quantum algorithm is also a sequence of steps, but it uses qubits, quantum gat
 
 ## 2. The Deutsch problem asks for the type of a hidden rule
 
-Imagine a hidden function `f` that accepts `0` or `1` and returns `0` or `1`.
+Imagine a hidden function $f$ that accepts `0` or `1` and returns `0` or `1`.
 
 | Rule | f(0) | f(1) | Type |
 |---|---:|---:|---|
@@ -21,9 +21,9 @@ The function is `constant` when its two outputs match and `balanced` when they d
 
 ## 3. An oracle is a black box containing the rule
 
-The oracle contains the hidden function `f`. We cannot inspect its internal work; we count how many times an algorithm queries it.
+The oracle contains the hidden function $f$. We cannot inspect its internal work; we count how many times an algorithm queries it.
 
-A deterministic classical method must ask for both `f(0)` and `f(1)` before it can compare them with certainty. One classical query leaves the other output unknown.
+A deterministic classical method must ask for both $f(0)$ and $f(1)$ before it can compare them with certainty. One classical query leaves the other output unknown.
 
 The Deutsch circuit queries the oracle once and marks the relationship between the two outputs in phase information.
 
@@ -65,16 +65,16 @@ U_f\lvert x\rangle\lvert y\rangle
 =\lvert x\rangle\lvert y\oplus f(x)\rangle
 $$
 
-If the formula is difficult, read it as: “the oracle looks at `x` and flips the helper only when `f(x)=1`.” The value of `x` itself does not change.
+If the formula is difficult, read it as: “the oracle looks at $x$ and flips the helper only when $f(x)=1$.” The value of $x$ itself does not change.
 
-When the helper is prepared in `|->`, it returns to the same `|->` shape after the oracle. The probability amplitude of each corresponding `x` basis-state term instead keeps one of these signs:
+When the helper is prepared in `|->`, it returns to the same `|->` shape after the oracle. The probability amplitude of each corresponding $x$ basis-state term instead keeps one of these signs:
 
-- Term with `f(x)=0`: `+` marker
-- Term with `f(x)=1`: `-` marker
+- Term with $f(x)=0$: `+` marker
+- Term with $f(x)=1$: `-` marker
 
-These signs are called **phase markers**. They do not mean that a measurement probability is positive or negative. They are signs of probability amplitudes and tell us whether the terms will reinforce or cancel when mixed later.
+These signs are called phase markers. They do not mean that a measurement probability is positive or negative. They are signs of probability amplitudes and tell us whether the terms will reinforce or cancel when mixed later.
 
-Initially, the first qubit is in `|+>`. The probability amplitudes of its `x=0` and `x=1` basis-state terms therefore both have a `+` sign, giving the pattern `+,+`. Oracle A has `f(0)=f(1)=0`, so both terms receive `+` markers and that pattern stays unchanged. Oracle B has `f(0)=0` and `f(1)=1`, so it leaves `+` on the `x=0` term and `-` on the `x=1` term. The pattern therefore changes from `+,+` to `+,-`.
+Initially, the first qubit is in `|+>`. The probability amplitudes of its $x=0$ and $x=1$ basis-state terms therefore both have a `+` sign, giving the pattern `+,+`. Oracle A has $f(0)=f(1)=0$, so both terms receive `+` markers and that pattern stays unchanged. Oracle B has $f(0)=0$ and $f(1)=1$, so it leaves `+` on the $x=0$ term and `-` on the $x=1$ term. The pattern therefore changes from `+,+` to `+,-`.
 
 :::expander Check with equations how this sign becomes a phase marker on the first qubit
 
@@ -107,9 +107,9 @@ U_f\lvert x\rangle_1\lvert1\rangle_2
 \end{aligned}
 $$
 
-This does **not** mean that $y\oplus f(x)$ and $(-1)^{f(x)}$ are the same quantity. The first is the helper's bit value. The second will be a sign multiplying the corresponding two-qubit state term.
+This does not mean that $y\oplus f(x)$ and $(-1)^{f(x)}$ are the same quantity. The first is the helper's bit value. The second will be a sign multiplying the corresponding two-qubit state term.
 
-### 2. Substitute `f(x)=0` and `f(x)=1`
+### 2. Substitute $f(x)=0$ and $f(x)=1$
 
 Try these before reading on:
 
@@ -118,7 +118,7 @@ Try these before reading on:
 
 Hint: XOR with `0` leaves a bit unchanged. XOR with `1` swaps `0` and `1`.
 
-When `f(x)=0`, the two terms keep their order:
+When $f(x)=0$, the two terms keep their order:
 
 $$
 \frac{
@@ -129,7 +129,7 @@ $$
 =\lvert-\rangle
 $$
 
-When `f(x)=1`, their order is swapped:
+When $f(x)=1$, their order is swapped:
 
 $$
 \frac{
@@ -141,7 +141,7 @@ $$
 =-\lvert-\rangle
 $$
 
-The notation `X^{f(x)}` packages these two cases. `X` is the gate that swaps `0` and `1`:
+The notation $X^{f(x)}$ packages these two cases. `X` is the gate that swaps `0` and `1`:
 
 $$
 X^{f(x)}
@@ -181,7 +181,7 @@ $$
 \frac{\lvert0\rangle_2-\lvert1\rangle_2}{\sqrt{2}}
 $$
 
-The first qubit consists of an `x=0` term and an `x=1` term. Apply phase kickback to each term:
+The first qubit consists of an $x=0$ term and an $x=1$ term. Apply phase kickback to each term:
 
 $$
 U_f\lvert+\rangle_1\lvert-\rangle_2
@@ -196,7 +196,7 @@ $$
 
 ### Example: substitute Oracle B
 
-Oracle B has `f(0)=0` and `f(1)=1`:
+Oracle B has $f(0)=0$ and $f(1)=1$:
 
 $$
 \begin{aligned}
@@ -215,7 +215,7 @@ U_f\lvert+\rangle_1\lvert-\rangle_2
 \end{aligned}
 $$
 
-The **first qubit** changes as:
+The first qubit changes as:
 
 $$
 \lvert+\rangle_1
@@ -225,7 +225,7 @@ $$
 =\frac{\lvert0\rangle_1-\lvert1\rangle_1}{\sqrt{2}}
 $$
 
-The **helper** remains $\lvert-\rangle_2$. Before the oracle, the first qubit's `|+>` state has the `+,+` pattern. An oracle with `f(0)=f(1)=0` would leave those signs unchanged. Oracle B adds a `-` marker only to the `x=1` term, producing `+,-`. This is the phase-marker change described above.
+The helper remains $\lvert-\rangle_2$. Before the oracle, the first qubit's `|+>` state has the `+,+` pattern. An oracle with $f(0)=f(1)=0$ would leave those signs unchanged. Oracle B adds a `-` marker only to the $x=1$ term, producing `+,-`. This is the phase-marker change described above.
 
 :::
 
@@ -233,8 +233,8 @@ The **helper** remains $\lvert-\rangle_2$. Before the oracle, the first qubit's 
 
 Only one idea from the previous section is needed here: the oracle leaves a `+` or `-` phase marker on each first-qubit basis-state term.
 
-- A constant rule has matching `f(0)` and `f(1)`, so its markers match: `+,+` or `-,-`
-- A balanced rule has different `f(0)` and `f(1)`, so its markers are opposite: `+,-` or `-,+`
+- A constant rule has matching $f(0)$ and $f(1)$, so its markers match: `+,+` or `-,-`
+- A balanced rule has different $f(0)$ and $f(1)$, so its markers are opposite: `+,-` or `-,+`
 
 The final H separates those two relationships. Matching markers collect into result `0`, while opposite markers collect into result `1`. The final measurement therefore means:
 
@@ -262,7 +262,7 @@ H\lvert+\rangle=\lvert0\rangle,\qquad
 H\lvert-\rangle=\lvert1\rangle
 $$
 
-A constant rule with `f(0)=f(1)=1` leaves a `-` marker on both terms:
+A constant rule with $f(0)=f(1)=1$ leaves a `-` marker on both terms:
 
 $$
 \begin{aligned}
@@ -279,7 +279,7 @@ $$
 \end{aligned}
 $$
 
-The final H therefore gives $-\lvert0\rangle$. The overall minus sign is a **global phase**, which does not change measurement probabilities, so the observed result is still `0`.
+The final H therefore gives $-\lvert0\rangle$. The overall minus sign is a global phase, which does not change measurement probabilities, so the observed result is still `0`.
 
 Similarly, the `-,+` pattern is $-\lvert-\rangle$, and the final H gives $-\lvert1\rangle$. Ignoring the global phase, the measured result is `1`.
 

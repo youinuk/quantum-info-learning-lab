@@ -10,7 +10,7 @@ Real devices are affected by heat, vibration, electromagnetic disturbance, small
 
 Suppose we prepare $\lvert1\rangle$ 100 times. With no error, the record contains one hundred 1 results.
 
-This level's simulation uses a simple **outcome-flip error**. At a 5% error rate, roughly five of the 1 results are expected to be recorded incorrectly as 0, leaving about five zeros and ninety-five ones.
+This level's simulation uses a simple outcome-flip error. At a 5% error rate, roughly five of the 1 results are expected to be recorded incorrectly as 0, leaving about five zeros and ninety-five ones.
 
 ![Numerical example of outcome-flip errors](assets/images/noise_measurement_example.svg)
 
@@ -40,8 +40,8 @@ Errors in real quantum hardware may be correlated and come in several forms. Thi
 
 Probabilistic quantum measurement is not the same as faulty hardware.
 
-- An ideal equal superposition producing a mixture of 0 and 1 results is **probability belonging to the state**.
-- Preparing $\lvert1\rangle$ but recording some results as 0 is the **hardware error** assumed by this simulation.
+- An ideal equal superposition producing a mixture of 0 and 1 results is probability belonging to the state.
+- Preparing $\lvert1\rangle$ but recording some results as 0 is the hardware error assumed by this simulation.
 
 If the ideal distribution is already 50-50, flipping some zeros and ones can leave the overall bars looking almost unchanged. A similar histogram does not prove that every individual measurement was correct.
 
@@ -49,9 +49,9 @@ If the ideal distribution is already 50-50, flipping some zeros and ones can lea
 
 The simulation models only flipped measurement outcomes, but real devices face different problems.
 
-- **Readout error:** like misreading a thermometer, the detector records 0 as 1 or 1 as 0.
-- **Control error:** like turning a door slightly less or more than 90 degrees, a gate rotates the state by the wrong amount.
-- **Decoherence:** interaction with the environment weakens the phase relationships in a superposition. A collection of aligned spinning tops gradually disturbed in different directions is a rough visual analogy.
+- Readout error: like misreading a thermometer, the detector records 0 as 1 or 1 as 0.
+- Control error: like turning a door slightly less or more than 90 degrees, a gate rotates the state by the wrong amount.
+- Decoherence: interaction with the environment weakens the phase relationships in a superposition. A collection of aligned spinning tops gradually disturbed in different directions is a rough visual analogy.
 
 These analogies only separate the basic ideas. Real decoherence is not a visible wobble; it is quantum-state information spreading into the environment.
 

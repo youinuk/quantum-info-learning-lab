@@ -48,4 +48,4 @@ $$
 P(\text{Bob}=0)=P(\text{Bob}=1)=\frac{1}{2}
 $$
 
-If the formula feels hard, remember only this: changing Alice's basis does not turn Bob's local results into a readable message. Entanglement appears in the **shared relationship**, not in either **local record alone**.
+If the formula feels hard, remember only this: changing Alice's basis does not turn Bob's local results into a readable message. Entanglement appears in the shared relationship, not in either local record alone.

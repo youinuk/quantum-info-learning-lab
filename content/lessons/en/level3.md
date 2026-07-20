@@ -57,3 +57,24 @@ $$
 Changing only a sign may leave the immediate probability graph unchanged. That does not mean Z did nothing.
 
 The sign becomes visible when another gate, such as H, brings the possibilities together. This prepares the interference experiment in Level 4.
+
+## 6. S creates a complex relative phase
+
+S leaves $\lvert0\rangle$ unchanged and multiplies the $\lvert1\rangle$ amplitude by $i=e^{i\pi/2}$.
+
+$$
+S\lvert0\rangle=\lvert0\rangle,\qquad
+S\lvert1\rangle=i\lvert1\rangle
+$$
+
+Applying S to the state created as $H\lvert0\rangle=\lvert+\rangle$ makes beta genuinely complex.
+
+$$
+S\lvert+\rangle
+=\frac{1}{\sqrt{2}}\lvert0\rangle
++\frac{i}{\sqrt{2}}\lvert1\rangle
+=\frac{1}{\sqrt{2}}\lvert0\rangle
++e^{i\pi/2}\frac{1}{\sqrt{2}}\lvert1\rangle
+$$
+
+The measurement probabilities remain one half each, but the relative phase is now $\phi=90^\circ$. Press H and then S in the simulation and check that $i$ appears in beta. Applying S twice gives $i^2=-1$, the same sign change produced by Z.

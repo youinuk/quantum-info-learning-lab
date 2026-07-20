@@ -61,14 +61,15 @@
     "presentation_title": "A first explanation of qubits",
     "terms_title": "Terms for this level",
     "key_takeaway": "Key idea: before measurement, a qubit can carry possibilities for both 0 and 1.",
-    "simulation_intro": "Choose the probability of measuring 1, and the app shows a simple qubit state with that probability.",
+    "simulation_intro": "Choose the probability of measuring 1. This first simulation fixes relative phase at zero and shows the simplest real-amplitude state; later interference experiments introduce general complex phase.",
     "simulation_waiting": "No measurement has been made yet. Choose the qubit probability and trial count, then run the experiment.",
     "single_measurement_caption": "One measurement is not enough to know the whole state. Repeating the same preparation reveals the probability.",
     "terms": [
       {"Term": "bit", "Meaning": "A unit of information with one definite value, 0 or 1"},
       {"Term": "qubit", "Meaning": "A quantum information unit that can carry possibilities for 0 and 1 before measurement"},
       {"Term": "bra-ket notation", "Meaning": "Notation such as |ψ⟩ for a quantum state; ψ (psi) names the state, and this level uses kets such as |0⟩ and |1⟩"},
-      {"Term": "amplitude", "Meaning": "A number whose squared size gives a measurement probability"},
+      {"Term": "amplitude", "Meaning": "A generally complex number multiplying a state term; its squared magnitude gives a measurement probability"},
+      {"Term": "relative phase", "Meaning": "The complex phase difference between state terms, written as φ in β=e^(iφ)|β|"},
       {"Term": "measurement", "Meaning": "The process of getting one actual result, 0 or 1, from a qubit"}
     ],
     "quiz": [
@@ -175,16 +176,19 @@
     ]
   },
   "level3": {
-    "goal": "Goal: Press X, H, and Z gates like buttons and observe how a qubit state changes.",
+    "goal": "Goal: Use X, H, Z, and S to observe changes in value, superposition, and real or complex relative phase.",
     "terms_title": "Terms for gates",
     "key_takeaway": "Key idea: quantum gates change a qubit state before measurement.",
-    "simulation_intro": "Choose an initial state and press X, H, or Z. Changing the initial state automatically starts a new gate sequence.",
-    "simulation_hint": "Check whether two H gates return to the original state, and when Z becomes visible.",
+    "simulation_intro": "Choose an initial state and press X, H, Z, or S. Changing the initial state automatically starts a new gate sequence.",
+    "simulation_hint": "Press H and then S and check that i appears in beta. The probabilities remain one half each while relative phase becomes 90 degrees.",
+    "s_zero_beta_note": "Beta is currently zero, so S has no |1⟩ amplitude to change. Press H first and then S; beta becomes i/sqrt(2).",
+    "s_complex_beta_note": "S multiplied the |1⟩ amplitude beta by i. Check the complex beta below the state equation. Its direction changes even when the measurement probabilities stay the same.",
     "terms": [
       {"Term": "gate", "Meaning": "An operation that changes a qubit state"},
       {"Term": "X gate", "Meaning": "A flip operation that swaps |0> and |1>"},
       {"Term": "H gate", "Meaning": "An operation that creates or recombines a 50-50 superposition"},
-      {"Term": "Z gate", "Meaning": "An operation that changes the sign of the |1> amplitude"}
+      {"Term": "Z gate", "Meaning": "An operation that changes the sign of the |1> amplitude"},
+      {"Term": "S gate", "Meaning": "An operation that multiplies the |1> amplitude by i=e^(iπ/2), creating a 90-degree complex relative phase"}
     ],
     "quiz": [
       {
@@ -228,6 +232,13 @@
         "answer": "No, order can change the result",
         "correct": "Correct. Which gate acts first can matter in a quantum circuit.",
         "wrong": "Like matrix multiplication, quantum gates generally cannot be reordered freely."
+      },
+      {
+        "question": "What is beta after applying H and then S to |0>?",
+        "options": ["i/√2", "0", "1"],
+        "answer": "i/√2",
+        "correct": "Correct. H creates beta=1/√2, and S multiplies it by i.",
+        "wrong": "Because S|1>=i|1>, i multiplies the amplitude of the |1> term."
       }
     ]
   },
@@ -306,12 +317,32 @@
     "simulation_intro": "Treat two qubits as independently prepared and see how the four outcomes are distributed.",
     "simulation_waiting": "The probabilities have not been calculated yet. Choose both qubit probabilities, then run the experiment.",
     "simulation_hint": "Changing the first and second qubit probabilities changes the ratios of 00, 01, 10, and 11 together.",
+    "gate_lab_title": "Two-qubit gate experiment",
+    "gate_lab_intro": "Choose one basis input and a gate, then observe which qubit values or signs change.",
+    "two_qubit_gate_diagram": "assets/images/two_qubit_gates.svg",
+    "gate_input_label": "Input basis state",
+    "gate_label": "Gate to apply",
+    "gate_waiting": "Choose an input and gate, then run the experiment.",
+    "gate_input_column": "Input",
+    "gate_column": "Gate",
+    "gate_output_column": "Output",
+    "gate_result_explanations": {
+      "CNOT": "The second qubit q₁ flips only when the first control q₀ is 1. Change the input to test the control condition.",
+      "CZ": "CZ keeps the measured bits of |11⟩ but adds a minus sign. One basis-state measurement cannot reveal that sign, but it changes later interference in a superposition.",
+      "SWAP": "SWAP exchanges the first and second positions. Inputs 00 and 11 look unchanged, while 01 and 10 exchange places."
+    },
     "terms": [
       {"Term": "two qubits", "Meaning": "A system containing two qubits"},
       {"Term": "basis state", "Meaning": "A basic coordinate-like state used to describe a quantum state; the two-qubit computational basis contains |00>, |01>, |10>, and |11>"},
       {"Term": "basis-state term", "Meaning": "One basis state appearing as a term in a superposition expression; it can be shortened to term when the context is clear"},
+      {"Term": "big-endian display", "Meaning": "This app's rule of placing the first qubit q₀ in the more significant left position of |q₀q₁⟩, ordered 00, 01, 10, 11"},
       {"Term": "state space", "Meaning": "The set of possible basis states considered together"},
-      {"Term": "independent", "Meaning": "A case where one qubit's result does not specially determine the other's"}
+      {"Term": "independent", "Meaning": "A case where one qubit's result does not specially determine the other's"},
+      {"Term": "control", "Meaning": "The qubit that determines whether a controlled gate acts on its target; shown as a solid dot ●"},
+      {"Term": "target", "Meaning": "The qubit that receives the operation when the control condition is met"},
+      {"Term": "CNOT", "Meaning": "A two-qubit gate written CNOT(control, target) that flips the target only when the control is 1"},
+      {"Term": "CZ", "Meaning": "A controlled-phase gate that changes the sign of the |11> term"},
+      {"Term": "SWAP", "Meaning": "A gate that exchanges the states of two qubits"}
     ],
     "quiz": [
       {
@@ -355,6 +386,20 @@
         "answer": "500",
         "correct": "Correct. Each run contributes once to exactly one of the four outcomes.",
         "wrong": "Every run is counted once as 00, 01, 10, or 11."
+      },
+      {
+        "question": "What is the output of CNOT(q₀,q₁) for input |10>?",
+        "options": ["|11>", "|10>", "|00>"],
+        "answer": "|11>",
+        "correct": "Correct. q₀ is 1, so the target q₁ flips from 0 to 1.",
+        "wrong": "Read the first q₀ as control and the second q₁ as target."
+      },
+      {
+        "question": "Which gate exchanges the two positions in |01>?",
+        "options": ["SWAP", "CZ", "H"],
+        "answer": "SWAP",
+        "correct": "Correct. SWAP turns |01> into |10>.",
+        "wrong": "Look for the gate drawn with connected X symbols."
       }
     ]
   },
@@ -505,7 +550,7 @@
       "query_count": "Oracle queries",
       "phase_title": "Phase markers left by the oracle",
       "input_column": "Input x",
-      "phase_column": "Phase marker (-1)^f(x)",
+      "phase_column": "Phase marker",
       "phase_same": "The two phase markers match. The final H reinforces first-qubit result 0, so the oracle is constant.",
       "phase_opposite": "The phase markers differ. The final H reinforces first-qubit result 1, so the oracle is balanced.",
       "result_constant": "Measurement {measurement} appeared. Matching phase markers reinforced output 0, so this is a {classification} rule.",
@@ -695,6 +740,7 @@
     "terms": [
       {"Term": "circuit line", "Meaning": "A horizontal line representing one qubit over time"},
       {"Term": "gate", "Meaning": "An operation that changes a qubit state before measurement"},
+      {"Term": "operator application order", "Meaning": "Circuits advance left to right, while a product such as ZX|ψ⟩ applies the rightmost X first"},
       {"Term": "CNOT", "Meaning": "A two-qubit gate where one qubit controls whether the other flips"},
       {"Term": "measurement symbol", "Meaning": "The point where the circuit produces visible classical results"}
     ],
@@ -928,7 +974,7 @@
         "wrong": "The Deutsch algorithm reads phase information left by the oracle through interference."
       },
       {
-        "question": "In P(bright) = (1 + cos(Delta phi)) / 2, what happens when Delta phi is 0?",
+        "question": "When the phase difference between the two paths is 0, what happens to the bright-output probability?",
         "options": ["The bright probability becomes 1", "The bright probability becomes 0", "The dark probability must be 1/2"],
         "answer": "The bright probability becomes 1",
         "correct": "Correct. cos(0) is 1, so the bright probability is (1+1)/2.",
@@ -1017,6 +1063,184 @@
         "answer": "Alone it looks random; together the records show a strong relationship",
         "correct": "Correct. That is the core distinction behind entanglement and information limits.",
         "wrong": "Entanglement is a relationship revealed by comparison, not an instant messaging device."
+      }
+    ]
+  },
+  "level13": {
+    "goal": "Goal: Understand how entanglement combines with classical bits or a transmitted qubit to transfer quantum-state and classical information.",
+    "terms_title": "Terms for teleportation and superdense coding",
+    "key_takeaway": "Key idea: entanglement does not send a message by itself, but it becomes a shared resource that changes information transfer when combined with real communication.",
+    "simulation_intro": "Compare how the same Bell-pair resource is used differently in teleportation and superdense coding.",
+    "simulation_purpose": "For teleportation, read Alice's random bits and choose Bob's correction to recover the input. For superdense coding, find the gate that sends each two-bit message using one transmitted qubit.",
+    "simulation_waiting": "Nothing has run yet. Choose an input and run the experiment.",
+    "teleportation_diagram": "assets/images/level13_teleportation_circuit.svg",
+    "dense_coding_diagram": "assets/images/level13_superdense_coding_circuit.svg",
+    "state_options": [
+      {"id": "zero", "label": "|0>"},
+      {"id": "one", "label": "|1>"},
+      {"id": "plus", "label": "|+>"},
+      {"id": "minus", "label": "|->"},
+      {"id": "plus_i", "label": "|+i> = (|0> + i|1>)/√2"},
+      {"id": "minus_i", "label": "|-i> = (|0> - i|1>)/√2"},
+      {"id": "custom", "label": "Custom amplitude and phase"}
+    ],
+    "message_options": ["00", "01", "10", "11"],
+    "bell_state_labels": {
+      "phi_plus": "Bell |Phi+>",
+      "psi_plus": "Bell |Psi+>",
+      "phi_minus": "Bell |Phi->",
+      "psi_minus": "Bell |Psi->"
+    },
+    "simulation_ui": {
+      "teleport_tab": "Quantum teleportation",
+      "dense_tab": "Superdense coding",
+      "teleport_title": "Experiment A · Transfer a quantum state",
+      "teleport_intro": "Set an input state and measure Alice's qubits. Use her bits to choose Bob's correction, then test whether the input state is recovered.",
+      "convention_note": "Notation: circuits advance left to right, while an operator product such as ZX acts from the right. Alice's bits ab list the top input measurement a before the Bell A measurement b below it.",
+      "teleport_diagram_caption": "A preparation device creates the Bell pair. Alice then measures the input; b controls X and a controls Z.",
+      "input_state": "Input state to transfer",
+      "custom_state_intro": "Remove the global phase, choose α as real and nonnegative, and write $\\beta=e^{i\\phi}|\\beta|$. Normalization fixes |β| after |α| is chosen, leaving only the relative phase φ.",
+      "alpha_magnitude": "|α| magnitude",
+      "derived_beta_magnitude": "Normalized |β| = {beta_magnitude:.3f}",
+      "relative_phase": "Relative phase φ of β (degrees)",
+      "normalized_state": "Normalized input state",
+      "probability_zero": "Probability of |0⟩, |α|²",
+      "probability_one": "Probability of |1⟩, |β|²",
+      "phase_probability_note": "In the phase factor $e^{{i\\phi}}$, φ={phase}° rotates β without changing |β|². At 90°, $e^{{i\\phi}}=i$, so the term becomes i|β||1⟩ and the |1⟩ possibility remains present.",
+      "normalization_note": "The app calculates |beta| = sqrt(1-|alpha|^2). A shared global phase does not affect measurement, so alpha is real and nonnegative.",
+      "alice_measurement": "Alice measurement bits",
+      "measurement_number": "Measurements so far",
+      "teleport_measurement_result": "Alice's measurement is random. Read the bits below and choose Bob's correction.",
+      "bob_before": "Bob state before correction",
+      "correction": "Bob correction",
+      "bob_after": "Bob state after correction",
+      "fidelity": "Input-state fidelity",
+      "choose_correction": "Correction Bob applies",
+      "apply_correction": "Apply selected correction",
+      "choose_correction_first": "Choose I, X, Z, or ZX first.",
+      "teleport_success": "Bob's final state matches the input state.",
+      "teleport_wrong_correction": "These measurement bits require {expected}. Another gate can happen to preserve a special input state, but it is not the protocol correction that works for every input.",
+      "measurement_history_title": "Accumulated Alice outcomes",
+      "count_column": "Count",
+      "measurement_history_note": "Repeated measurements produce 00, 01, 10, and 11 at random. Their corrections differ, but every correct correction recovers the same input.",
+      "correction_guide_title": "Alice's bits and Bob's correction",
+      "bit_column": "Alice bits a b",
+      "correction_column": "Bob correction operator",
+      "meaning_column": "Meaning",
+      "correction_none": "No correction",
+      "correction_x": "Apply X",
+      "correction_z": "Apply Z",
+      "correction_xz": "ZX: apply X first, then Z",
+      "dense_title": "Experiment B · Transfer two classical bits",
+      "dense_intro": "First explore what each gate produces and complete the encoding table. Then choose a gate to send the bits assigned by the app.",
+      "dense_diagram_caption": "Alice marks the message on her qubit and physically sends that one qubit to Bob.",
+      "dense_mode_label": "Learning step",
+      "dense_explore_mode": "1. Explore gate effects",
+      "dense_mission_mode": "2. Transmission mission",
+      "dense_explore_title": "Build the encoding table by changing gates",
+      "dense_explore_intro": "Choose one of Alice's gates and observe the Bell state and Bob's decoded bits. Test all four gates to complete the table.",
+      "test_encoding": "Test gate",
+      "explore_waiting": "Choose a gate and test it to reveal the Bell state and Bob's bits.",
+      "explore_progress": "Encoding table progress: {completed}/{total}",
+      "explore_complete": "You found all four gate mappings. Use the table in the transmission mission.",
+      "codebook_title": "Encoding table you discovered",
+      "dense_mission_title": "Choose the gate for the target bits",
+      "dense_mission_intro": "Read the two bits assigned by the app and choose Alice's gate. The mission succeeds when Bob recovers the same bits.",
+      "mission_target_bits": "Bits to send this mission",
+      "send_qubit": "Send qubit",
+      "new_mission": "New mission",
+      "mission_waiting": "Read the target bits, choose an encoding gate, and send the qubit.",
+      "mission_history_title": "Mission log",
+      "mission_history_note": "Compare the target, selected gate, and Bob's result to check whether you applied the encoding table correctly.",
+      "message_bits": "Classical bits to send",
+      "choose_encoding": "Alice's encoding gate",
+      "encoding_gate": "Alice encoding",
+      "bell_state": "Encoded Bell state",
+      "qubits_sent": "Qubits transmitted",
+      "decoded_bits": "Bits decoded by Bob",
+      "one_qubit": "1",
+      "dense_success": "Bob recovered Alice's two classical bits exactly.",
+      "dense_mismatch": "With the selected gate, Bob obtained {decoded}. Try another encoding gate for the target bits.",
+      "dense_history_title": "Transmission log",
+      "target_bits_column": "Target bits",
+      "result_column": "Result",
+      "success_word": "Success",
+      "retry_word": "Mismatch",
+      "dense_history_note": "Each gate always maps to the same Bell state and decoded bits. Change all four gates to build the codebook experimentally.",
+      "resource_title": "Resource comparison",
+      "protocol_column": "Protocol",
+      "input_column": "Input",
+      "shared_column": "Shared beforehand",
+      "sent_column": "Actual transmission",
+      "output_column": "Output",
+      "teleport_protocol": "Teleportation",
+      "dense_protocol": "Superdense coding",
+      "unknown_state": "One unknown qubit state",
+      "two_classical_bits": "Two classical bits",
+      "one_bell_pair": "One Bell pair",
+      "one_qubit_state": "One qubit state",
+      "one_qubit_sent": "One qubit",
+      "resource_note": "The Bell pair is distributed before the protocol. Actual transmission counts only information sent during the protocol after the pair is shared."
+    },
+    "terms": [
+      {"Term": "quantum teleportation", "Meaning": "A protocol that uses shared entanglement and two classical bits to reconstruct an unknown quantum state on Bob's side"},
+      {"Term": "superdense coding", "Meaning": "A protocol that uses shared entanglement and one transmitted qubit to communicate two classical bits"},
+      {"Term": "e-bit", "Meaning": "One shared Bell pair counted as a unit of entanglement resource"},
+      {"Term": "Bell measurement", "Meaning": "A joint measurement that distinguishes the four Bell states"},
+      {"Term": "correction", "Meaning": "An X or Z operation Bob applies from Alice's measurement bits to recover the input state"},
+      {"Term": "fidelity", "Meaning": "A value describing how closely the recovered state matches the original input"},
+      {"Term": "relative phase", "Meaning": "The complex phase difference between basis-state terms, written as φ in β=e^(iφ)|β|"},
+      {"Term": "no-cloning theorem", "Meaning": "The principle that no single operation can perfectly copy an arbitrary unknown quantum state while preserving the original"}
+    ],
+    "quiz": [
+      {
+        "question": "What does Alice actually send to Bob during quantum teleportation?",
+        "options": ["Two classical bits", "The original particle itself", "Only entanglement with no measurement record"],
+        "answer": "Two classical bits",
+        "correct": "Correct. The Bell pair is shared beforehand, and Alice sends two classical bits during the protocol.",
+        "wrong": "Bob needs Alice's two classical bits to choose the corrections."
+      },
+      {
+        "question": "Why can Alice not simply measure an unknown state and prepare an identical copy?",
+        "options": ["One measurement cannot reveal both amplitudes and it changes the original state", "Every quantum state contains only 0", "Classical bits cannot be copied"],
+        "answer": "One measurement cannot reveal both amplitudes and it changes the original state",
+        "correct": "Correct. This is the key obstacle to simply copying an arbitrary unknown state.",
+        "wrong": "Known basis-state information can be prepared again, but one unknown state does not reveal all of alpha and beta for cloning."
+      },
+      {
+        "question": "Why can teleportation recover the input even when Alice measures different bit pairs?",
+        "options": ["Bob applies the matching X and Z corrections", "Alice always chooses 00", "Bob avoids every measurement"],
+        "answer": "Bob applies the matching X and Z corrections",
+        "correct": "Correct. Each of the four outcomes gives Bob a different correction instruction.",
+        "wrong": "Alice's outcome is random, and Bob corrects according to that outcome."
+      },
+      {
+        "question": "What most directly prevents teleportation from being faster-than-light communication?",
+        "options": ["Bob must wait for Alice's classical bits", "A Bell pair has no correlation", "The input is always 0"],
+        "answer": "Bob must wait for Alice's classical bits",
+        "correct": "Correct. Classical communication limits the completion of the protocol.",
+        "wrong": "Entanglement is needed, but Bob cannot recover the state before the classical bits arrive."
+      },
+      {
+        "question": "After sharing a Bell pair, what does Alice send in superdense coding?",
+        "options": ["One qubit", "Two classical bits", "Nothing at all"],
+        "answer": "One qubit",
+        "correct": "Correct. Alice physically sends her encoded qubit to Bob.",
+        "wrong": "Entanglement alone does not carry the message; Alice sends one qubit."
+      },
+      {
+        "question": "How does Bob read the two classical bits in superdense coding?",
+        "options": ["He performs a joint Bell measurement on both qubits", "He instantly looks at his local qubit alone", "He guesses Alice's intention"],
+        "answer": "He performs a joint Bell measurement on both qubits",
+        "correct": "Correct. Distinguishing four Bell states reveals 00, 01, 10, or 11.",
+        "wrong": "Bob combines the transmitted qubit with the qubit he already held."
+      },
+      {
+        "question": "What do teleportation and superdense coding have in common?",
+        "options": ["They use a Bell pair as a shared resource", "They both teleport matter", "They transmit no real information resource"],
+        "answer": "They use a Bell pair as a shared resource",
+        "correct": "Correct. The protocols use the same kind of entanglement resource for different goals.",
+        "wrong": "Both require a Bell pair, but their goals and transmitted resources differ."
       }
     ]
   }

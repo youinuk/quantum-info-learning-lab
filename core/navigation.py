@@ -21,6 +21,7 @@ LEVEL_PAGES = [
     "pages/12_level10_interference_depth.py",
     "pages/13_level11_algorithms.py",
     "pages/14_level12_entanglement_limits.py",
+    "pages/15_level13_teleportation_dense_coding.py",
 ]
 
 
@@ -40,7 +41,7 @@ def _safe_page_link(page: str, *, label: str, icon: str, icon_position: str = "l
 def render_level_navigation(current_level: int) -> None:
     """Render previous, home, and next links below a level."""
     if not 0 <= current_level < len(LEVEL_PAGES):
-        raise ValueError("current_level must be between 0 and 12")
+        raise ValueError(f"current_level must be between 0 and {len(LEVEL_PAGES) - 1}")
 
     st.divider()
     previous_col, home_col, next_col = st.columns(3)

@@ -10,15 +10,15 @@ We need to change the measurement basis and see how the relationship behaves fro
 
 This level compares:
 
-1. **Independent product state `|+>|+>`**: each qubit can be described separately.
-2. **Classically correlated mixture**: prepare `|00>` half the time and `|11>` half the time.
-3. **Entangled Bell `|Phi+>`**: `|00>` and `|11>` have a coherent phase relationship inside one quantum state.
+1. Independent product state `|+>|+>`: each qubit can be described separately.
+2. Classically correlated mixture: prepare `|00>` half the time and `|11>` half the time.
+3. Entangled Bell `|Phi+>`: `|00>` and `|11>` have a coherent phase relationship inside one quantum state.
 
 The second and third states both produce only `00` or `11` in the Z basis. One measurement view cannot tell them apart.
 
 ## 3. H and CNOT create the Bell state
 
-Start from `|00>`. H creates two possibilities on the first qubit, and CNOT links the second qubit to the first.
+Apply the `CNOT(q₀,q₁)` introduced in Level 5 after creating a superposition. Start from `|00>`. H creates two possibilities on the first qubit, and CNOT links the second qubit to the first.
 
 $$
 \lvert00\rangle
@@ -28,7 +28,7 @@ $$
 \frac{\lvert00\rangle+\lvert11\rangle}{\sqrt{2}}
 $$
 
-Skip the equation if it feels heavy. It says: “H creates two paths, and CNOT ties them together as the pair `00` and `11`.”
+The calculation can be skipped. H creates two possibilities on the first qubit. CNOT leaves the `00` branch unchanged and flips only the target in the `10` branch, turning it into `11`.
 
 ![Bell-state entanglement](assets/images/entanglement_bell.svg)
 
@@ -85,4 +85,4 @@ The app compares three ideal states whose preparation is known. It lets us see w
 
 Proving entanglement for an unknown state in a real experiment may require more measurement settings, statistical analysis, a Bell inequality, or an entanglement witness.
 
-The key idea here is simpler: **do not call one matching pattern entanglement. Change the measurement basis and inspect how the whole relationship behaves.**
+Matching outcomes in one basis do not establish entanglement. Change the measurement basis and compare how the two-qubit relationship appears there.

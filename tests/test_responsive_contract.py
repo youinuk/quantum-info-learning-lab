@@ -14,6 +14,8 @@ def test_mobile_layout_rules_are_present() -> None:
     assert 'button[role="tab"]' in app_source
     assert ".katex-display" in app_source
     assert 'div[data-testid="stTable"]' in app_source
+    assert 'div[data-testid="stImage"] > div[data-testid="stImageContainer"]' in app_source
+    assert "width: 100% !important;" in app_source
 
 
 def test_all_matplotlib_charts_follow_the_container_width() -> None:
@@ -35,6 +37,7 @@ def test_learning_images_use_compact_desktop_widths() -> None:
         "09_level8_circuit_reading.py",
         "12_level10_interference_depth.py",
         "14_level12_entanglement_limits.py",
+        "15_level13_teleportation_dense_coding.py",
     )
 
     assert "DEFAULT_LESSON_IMAGE_WIDTH = 680" in renderer_source
@@ -49,6 +52,12 @@ def test_learning_images_use_compact_desktop_widths() -> None:
 
     level12_source = (ROOT / "pages" / "14_level12_entanglement_limits.py").read_text(encoding="utf-8")
     assert 'caption=ui.get("diagram_caption", ""), width=760' in level12_source
+    level13_source = (ROOT / "pages" / "15_level13_teleportation_dense_coding.py").read_text(
+        encoding="utf-8"
+    )
+    assert "st.columns([4, 1])" in level13_source
+    assert 'st.image(str(image_path), caption=caption, width="stretch")' in level13_source
+    assert "width=760" not in level13_source
 
 
 def test_level10_omits_deprecated_two_path_sketch() -> None:

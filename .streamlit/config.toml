@@ -1,5 +1,5 @@
 [server]
-fileWatcherType = "none"
+fileWatcherType = "poll"
 
 [client]
 toolbarMode = "minimal"

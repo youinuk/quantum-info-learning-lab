@@ -6,7 +6,7 @@ A qubit is different. Before measurement, its state can include a possibility of
 
 ## 2. Bra-ket notation is a way to write quantum states
 
-Quantum states are commonly written with **bra-ket notation**. This level uses only the right-angle form called a **ket**.
+Quantum states are commonly written with bra-ket notation. This level uses only the right-angle form called a ket.
 
 $$
 \lvert0\rangle,\qquad \lvert1\rangle,\qquad \lvert\psi\rangle
@@ -26,12 +26,23 @@ $$
 
 If the formula feels difficult, keep only this meaning: a qubit state carries a 0 part and a 1 part before measurement.
 
-Here $\psi$ (psi) names the state, while $\alpha$ (alpha) and $\beta$ (beta) are the **amplitudes** of its state terms. An amplitude is not itself a probability. Its squared magnitude gives a measurement probability.
+Here $\psi$ (psi) names the state, while $\alpha$ (alpha) and $\beta$ (beta) are the amplitudes of its state terms. An amplitude is not itself a probability. Its squared magnitude gives a measurement probability.
 
 $$
 P(0)=\lvert\alpha\rvert^2,\qquad
 P(1)=\lvert\beta\rvert^2
 $$
+
+In general, $\alpha$ and $\beta$ are complex numbers. A phase shared by the entire state cannot change measurement results. After removing that global phase and choosing $\alpha$ to be real and nonnegative, any pure qubit state can be written as
+
+$$
+\lvert\psi\rangle
+=\lvert\alpha\rvert\lvert0\rangle
++e^{i\phi}\lvert\beta\rvert\lvert1\rangle,\qquad
+\lvert\alpha\rvert^2+\lvert\beta\rvert^2=1.
+$$
+
+The factor $e^{i\phi}$ is the relative phase of the $\lvert1\rangle$ term compared with the $\lvert0\rangle$ term. There is no need to calculate it yet. This level starts with real-amplitude examples where $\phi=0$; later interference levels show how relative phase changes a result.
 
 ![Amplitudes and measurement probabilities](assets/images/qubit_superposition.svg)
 
@@ -44,6 +55,8 @@ $$
 \frac{\sqrt{3}}{2}\lvert0\rangle+
 \frac{1}{2}\lvert1\rangle
 $$
+
+This is the special case $\phi=0$, so both amplitudes appear real.
 
 Squaring the amplitude of the $\lvert0\rangle$ term gives $\frac{3}{4}$, while the $\lvert1\rangle$ term gives $\frac{1}{4}$. Repeated preparations therefore produce roughly 75% zero results and 25% one results.
 
@@ -76,6 +89,6 @@ The analogy is not perfect. A qubit is not simply hiding a predetermined 0 or 1 
 
 ## 7. One measurement cannot reveal the whole state
 
-Measuring once shows only 0 or 1. From that single result, we cannot tell whether the original probabilities were $1/2:1/2$ or $1/4:3/4$.
+Measuring once shows only 0 or 1. From that single result, we cannot tell whether the original probabilities were $\frac{1}{2}:\frac{1}{2}$ or $\frac{1}{4}:\frac{3}{4}$.
 
 To estimate the state, prepare the same state many times and measure each preparation once. “Prepare again” matters because measurement changes the state rather than merely looking at it.

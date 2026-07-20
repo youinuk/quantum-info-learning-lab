@@ -38,10 +38,10 @@ For example, a circuit can make unhelpful possibilities cancel while helpful inf
 
 ## 5. Use only a short formula
 
-If the phase difference between two paths is `Delta phi`, this simple model writes the bright probability as:
+If the phase difference between two paths is $\Delta\phi$, this simple model writes the bright probability as:
 
 $$
 P(\text{bright})=\frac{1+\cos(\Delta\phi)}{2}
 $$
 
-If the formula feels hard, skip it for now. Focus on the meaning. When `Delta phi = 0`, the bright output grows. When `Delta phi = pi`, the bright output disappears. Middle values split the results.
+If the formula feels hard, skip it for now. Focus on the meaning. When $\Delta\phi=0$, the bright output grows. When $\Delta\phi=\pi$, the bright output disappears. Middle values split the results.

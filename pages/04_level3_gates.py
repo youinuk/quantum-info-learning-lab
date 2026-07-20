@@ -2,16 +2,33 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.math_display as math_display
+import core.simulator as simulator
 from core.charts import compact_count_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
-from core.math_display import probability_plain, qubit_state_latex
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
-from core.simulator import apply_single_qubit_gate, basis_state
+from core.runtime_modules import ensure_module_api
 from core.terms_renderer import render_terms
+
+
+simulator = ensure_module_api(
+    simulator,
+    minimum_version=0,
+    required_attributes=("apply_single_qubit_gate", "basis_state"),
+)
+math_display = ensure_module_api(
+    math_display,
+    minimum_version=0,
+    required_attributes=(
+        "probability_plain",
+        "qubit_amplitudes_latex",
+        "qubit_state_latex",
+    ),
+)
 
 lang = get_lang()
 content = load_level_content("level3", lang)
@@ -19,7 +36,7 @@ content = load_level_content("level3", lang)
 
 def reset_level3_state() -> None:
     initial_state = st.session_state.get("level3_initial", "0")
-    st.session_state["level3_state"] = basis_state(initial_state)
+    st.session_state["level3_state"] = simulator.basis_state(initial_state)
     st.session_state["level3_history"] = [f"|{initial_state}>"]
 
 
@@ -58,25 +75,30 @@ with simulation_tab:
 
     state = st.session_state["level3_state"]
 
-    gate1, gate2, gate3 = st.columns(3)
+    gate1, gate2, gate3, gate4 = st.columns(4)
     if gate1.button("X", width="stretch"):
-        state = apply_single_qubit_gate(state, "X")
+        state = simulator.apply_single_qubit_gate(state, "X")
         st.session_state["level3_state"] = state
         st.session_state["level3_history"].append("X")
     if gate2.button("H", width="stretch"):
-        state = apply_single_qubit_gate(state, "H")
+        state = simulator.apply_single_qubit_gate(state, "H")
         st.session_state["level3_state"] = state
         st.session_state["level3_history"].append("H")
     if gate3.button("Z", width="stretch"):
-        state = apply_single_qubit_gate(state, "Z")
+        state = simulator.apply_single_qubit_gate(state, "Z")
         st.session_state["level3_state"] = state
         st.session_state["level3_history"].append("Z")
+    if gate4.button("S", width="stretch"):
+        state = simulator.apply_single_qubit_gate(state, "S")
+        st.session_state["level3_state"] = state
+        st.session_state["level3_history"].append("S")
 
     metric1, metric2 = st.columns(2)
-    metric1.metric(t("expected_zero"), probability_plain(state.probability_zero))
-    metric2.metric(t("expected_ratio"), probability_plain(state.probability_one))
+    metric1.metric(t("expected_zero"), math_display.probability_plain(state.probability_zero))
+    metric2.metric(t("expected_ratio"), math_display.probability_plain(state.probability_one))
 
-    st.latex(qubit_state_latex(state.alpha, state.beta))
+    st.latex(math_display.qubit_state_latex(state.alpha, state.beta))
+    st.latex(math_display.qubit_amplitudes_latex(state.alpha, state.beta))
     st.caption(f"{t('gate_sequence')}: {' -> '.join(st.session_state['level3_history'])}")
 
     chart_col, _ = st.columns([1, 1])
@@ -89,7 +111,13 @@ with simulation_tab:
         )
         render_fig(fig, width="stretch")
 
-    st.info(content.get("simulation_hint", ""))
+    if st.session_state["level3_history"][-1] == "S" and abs(state.beta) < 1e-10:
+        hint = content.get("s_zero_beta_note", content.get("simulation_hint", ""))
+    elif st.session_state["level3_history"][-1] == "S":
+        hint = content.get("s_complex_beta_note", content.get("simulation_hint", ""))
+    else:
+        hint = content.get("simulation_hint", "")
+    st.info(hint)
 
 with resources_tab:
     st.subheader(t("tab_resources"))

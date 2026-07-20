@@ -1,10 +1,49 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local Python and Conda environments
 .venv/
+venv/
+env/
+.conda/
+
+# Local environment variables and secrets
 .env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# Editors and local assistant state
+.vscode/
+.idea/
+.agents/
+.codex/
+
+# Build and runtime artifacts
+build/
+dist/
+*.egg-info/
+*.tmp
+*.bak
+*~
+*.log
+.edge-*/
+*-test.png
+
+# Local deployment state
+.wrangler/
+
+# Private notes that are not part of the public contributor documentation
+docs/private/
+
+# Operating-system metadata
 .DS_Store
 Thumbs.db
-*.log
-.streamlit/secrets.toml
-.wrangler/

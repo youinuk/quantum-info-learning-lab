@@ -7,11 +7,11 @@ from typing import Dict
 import streamlit as st
 
 LANG_OPTIONS = {
-    "한국어 (Korean)": "ko",
     "English (영어)": "en",
+    "한국어 (Korean)": "ko",
 }
 
-DEFAULT_LANG = "ko"
+DEFAULT_LANG = "en"
 
 _LANG_ALIASES = {
     "ko": "ko",
@@ -45,6 +45,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "nav_level10": "Level 10 · 간섭 심화",
         "nav_level11": "Level 11 · 간단한 양자 알고리즘",
         "nav_level12": "Level 12 · 얽힘과 정보의 한계",
+        "nav_level13": "Level 13 · 양자전송과 초밀집 부호화",
         "nav_photon_heist": "Photon Heist · 빛의 도둑",
         "previous_level": "이전 · {title}",
         "next_level": "다음 · {title}",
@@ -78,6 +79,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "roadmap_level10": "간섭 심화",
         "roadmap_level11": "간단한 양자 알고리즘",
         "roadmap_level12": "얽힘과 정보의 한계",
+        "roadmap_level13": "양자전송과 초밀집 부호화",
         "level0_title": "Level 0 · 비트와 확률",
         "level0_goal": "목표: 고전 비트가 0 또는 1로 저장되고, 확률 실험을 통해 결과가 통계적으로 나타나는 방식을 이해한다.",
         "level1_title": "Level 1 · 큐비트 입문",
@@ -93,6 +95,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "level10_title": "Level 10 · 간섭 심화",
         "level11_title": "Level 11 · 간단한 양자 알고리즘",
         "level12_title": "Level 12 · 얽힘과 정보의 한계",
+        "level13_title": "Level 13 · 양자전송과 초밀집 부호화",
         "tab_presentation": "설명",
         "tab_simulation": "시뮬레이션",
         "tab_resources": "자료실",
@@ -158,6 +161,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "statistics_lab_title": "측정 통계 실험기",
         "phase_interference_lab_title": "위상 간섭 실험기",
         "entanglement_limit_lab_title": "얽힘 정보 한계 실험기",
+        "level13_lab_title": "얽힘 통신 프로토콜 실험기",
     },
     "en": {
         "app_title": "Quantum Info Learning Lab",
@@ -177,6 +181,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "nav_level10": "Level 10 · Interference in Depth",
         "nav_level11": "Level 11 · Simple Quantum Algorithms",
         "nav_level12": "Level 12 · Entanglement and Information Limits",
+        "nav_level13": "Level 13 · Teleportation and Superdense Coding",
         "nav_photon_heist": "Photon Heist",
         "previous_level": "Previous · {title}",
         "next_level": "Next · {title}",
@@ -210,6 +215,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "roadmap_level10": "Interference in Depth",
         "roadmap_level11": "Simple Quantum Algorithms",
         "roadmap_level12": "Entanglement and Information Limits",
+        "roadmap_level13": "Teleportation and Superdense Coding",
         "level0_title": "Level 0 · Bits and Probability",
         "level0_goal": "Goal: Understand how a classical bit stores either 0 or 1, and how repeated trials create statistical results.",
         "level1_title": "Level 1 · Qubit Basics",
@@ -225,6 +231,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "level10_title": "Level 10 · Interference in Depth",
         "level11_title": "Level 11 · Simple Quantum Algorithms",
         "level12_title": "Level 12 · Entanglement and Information Limits",
+        "level13_title": "Level 13 · Teleportation and Superdense Coding",
         "tab_presentation": "Presentation",
         "tab_simulation": "Simulation",
         "tab_resources": "Resources",
@@ -290,6 +297,7 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "statistics_lab_title": "Measurement Statistics Lab",
         "phase_interference_lab_title": "Phase Interference Lab",
         "entanglement_limit_lab_title": "Entanglement Limit Lab",
+        "level13_lab_title": "Entanglement Communication Protocol Lab",
     },
 }
 

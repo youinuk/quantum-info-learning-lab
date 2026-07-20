@@ -19,3 +19,5 @@ def test_level6_localized_content_has_matching_comparison_structure():
         assert len(content["terms"]) == 6
         assert lesson.count("## ") == 8
         assert "assets/images/entanglement_basis_compare.svg" in lesson
+        assert "Level 5" in lesson
+        assert r"\xrightarrow{\mathrm{CNOT}}" in lesson

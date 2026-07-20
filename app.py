@@ -89,13 +89,17 @@ st.markdown(
             overflow-x: auto;
         }
         div[data-testid="stImage"] {
-            width: 100%;
-            max-width: 100%;
+            width: 100% !important;
+            max-width: 100% !important;
             overflow: hidden;
         }
+        div[data-testid="stImage"] > div[data-testid="stImageContainer"] {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
         div[data-testid="stImage"] img {
-            width: 100%;
-            max-width: 100%;
+            width: 100% !important;
+            max-width: 100% !important;
             object-fit: contain;
         }
         p, li, [data-testid="stCaptionContainer"] {
@@ -113,10 +117,10 @@ with st.sidebar:
     current_lang = get_lang()
     current_label = next(
         (label for label, code in LANG_OPTIONS.items() if code == current_lang),
-        "한국어 (Korean)",
+        "English (영어)",
     )
     selected_label = st.selectbox(
-        "언어 / Language",
+        "Language / 언어",
         options=list(LANG_OPTIONS.keys()),
         index=list(LANG_OPTIONS.keys()).index(current_label),
     )
@@ -137,6 +141,7 @@ pages = [
     st.Page("pages/12_level10_interference_depth.py", title=t("nav_level10")),
     st.Page("pages/13_level11_algorithms.py", title=t("nav_level11")),
     st.Page("pages/14_level12_entanglement_limits.py", title=t("nav_level12")),
+    st.Page("pages/15_level13_teleportation_dense_coding.py", title=t("nav_level13")),
     st.Page("pages/10_photon_heist.py", title=t("nav_photon_heist")),
 ]
 

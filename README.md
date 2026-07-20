@@ -1,78 +1,101 @@
 # Quantum Info Learning Lab
 
-고등학생과 일반 학습자를 위한 Streamlit 기반 양자정보 학습 앱이다. 비트와 확률에서 출발해 큐비트, 측정, 게이트, 간섭, 얽힘, 노이즈, 회로 읽기, 측정 통계, 간섭 심화, 간단한 양자 알고리즘까지 단계적으로 다룬다.
+[Korean README](README_KR.md)
 
-기본 사용 환경은 PC/태블릿 최적화다. 모바일에서는 확인과 가벼운 체험이 가능하도록 호환성을 유지한다.
+Quantum Info Learning Lab is a bilingual Streamlit learning app for high-school students and general learners. It builds quantum-information concepts step by step, beginning with bits and probability and continuing through qubits, measurement, gates, interference, entanglement, noise, circuit reading, quantum algorithms, and quantum teleportation.
 
-배포 주소:
+The primary experience is optimized for desktop and tablet screens, while mobile browsers remain supported for reading and lightweight interaction.
+
+English is the default interface language. Korean can be selected from the sidebar, and the complete Korean learning content is maintained alongside the English version.
+
+Live deployments:
 
 - Quantum Info Learning Lab: https://quantum-info-learning-lab.streamlit.app
 - Photon Heist: https://quantum-info-learning-lab.youinuk.workers.dev/hub
 
-## 실행 방법
+## Run Locally
 
-이 프로젝트는 `conda` 환경과 `conda-forge` 채널을 기준으로 관리한다. 권장 환경 이름은 `quantum_lab`이다.
+The project uses a Conda environment with packages from `conda-forge`. The recommended environment name is `quantum_lab`.
 
 ```bash
 cd quantum_info_learning_lab
 
-conda create -n quantum_lab -c conda-forge python=3.11 streamlit numpy pandas matplotlib pytest
+conda create -n quantum_lab -c conda-forge python=3.12
 conda activate quantum_lab
+conda install -c conda-forge --file requirements.txt pytest
 
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
-이미 환경이 있다면 다음처럼 맞춘다.
+Run one local Streamlit instance for this project. Stop it with `Ctrl+C` before
+starting another instance on port 8501. Keep that terminal open while using the
+app. The polling source watcher reloads
+changed project modules without enabling the native watchdog backend.
+
+To update an existing environment:
 
 ```bash
 conda install -n quantum_lab -c conda-forge --file requirements.txt pytest
 conda run -n quantum_lab pytest -q
 ```
 
-## 학습 구성
+## Curriculum
 
-- Level 0: 비트와 확률
-- Level 1: 큐비트 입문
-- Level 2: 측정
-- Level 3: 양자 게이트
-- Level 4: 간섭
-- Level 5: 두 큐비트
-- Level 6: 얽힘
-- Level 7: 노이즈와 오류
-- Level 8: 회로를 읽는 법
-- Level 9: 측정과 통계
-- Level 10: 간섭 심화
-- Level 11: 간단한 양자 알고리즘
-- Level 12: 얽힘과 정보의 한계
-- Photon Heist: 빛의 직진, 반사, 굴절을 다루는 HTML5 퍼즐 게임
+- Level 0: Bits and Probability
+- Level 1: Qubit Basics
+- Level 2: Measurement
+- Level 3: Quantum Gates, Including Complex Phase with S
+- Level 4: Interference
+- Level 5: Two Qubits and Two-Qubit Gates
+- Level 6: Entanglement
+- Level 7: Noise and Errors
+- Level 8: Reading Quantum Circuits
+- Level 9: Measurement Statistics
+- Level 10: Interference in Depth
+- Level 11: Simple Quantum Algorithms
+- Level 12: Entanglement and Information Limits
+- Level 13: Interactive Quantum Teleportation plus superdense-coding exploration and transmission missions
+- Photon Heist: An HTML5 puzzle game about straight-line propagation, reflection, and refraction
 
-각 레벨은 설명, 시뮬레이션, 자료실, 퀴즈로 구성된다.
+Each level contains lesson cards, an interactive simulation, curated resources, and a quiz.
 
-## 콘텐츠 관리
+### Next Applied Track
 
-- 설명 본문: `content/lessons/{lang}/levelN.md`
-- 레벨 목표, 용어, 퀴즈 등 구조화 데이터: `content/levels.json`, `content/levels_en.json`
-- 자료실 링크: `content/resources.json`
-- 로컬 이미지: `assets/images/`
-- 외부 미디어 출처와 라이선스: `docs/media_attributions.md`
-- Photon Heist 게임 파일: `games/photon_heist/`
+Five bridge levels are planned before the advanced tracks:
 
-## 검증
+- Level 14: Quantum Cryptography and BB84
+- Level 15: Quantum Networks
+- Level 16: Detecting and Reducing Errors
+- Level 17: Real Quantum Hardware
+- Level 18: Qiskit/Cirq SDK and Execution Basics
+
+The later curriculum branches into quantum algorithms such as Grover search, QFT, and variational methods; error correction including stabilizer and surface codes; and applications such as quantum machine learning. See the [curriculum and implementation roadmap](docs/curriculum_roadmap.md) for the detailed sequence and entry requirements.
+
+## Content Layout
+
+- Lesson prose: `content/lessons/{lang}/levelN.md`
+- Goals, terms, simulation labels, and quizzes: `content/levels.json`, `content/levels_en.json`
+- Curated resource links: `content/resources.json`
+- Local images: `assets/images/`
+- Media sources and licenses: [media attributions](docs/media_attributions.md)
+- Photon Heist source: `games/photon_heist/`
+
+## Verification
 
 ```bash
 conda run -n quantum_lab python -m compileall -q app.py core pages tests
 conda run -n quantum_lab pytest -q
 ```
 
-후속 레벨과 Photon Heist 다음 챕터 계획은 `docs/next_expansion_plan.md`에 정리한다.
-개발, 배포, Cloudflare/Streamlit 연동 메모는 `docs/development.md`에 정리한다.
+## Project Documents
 
-## Developer and reproducibility metadata
+- Curriculum, implementation order, and advanced tracks: [curriculum roadmap](docs/curriculum_roadmap.md)
+- Photon Heist work after Chapter 3: [Photon Heist roadmap](docs/photon_heist_roadmap.md)
+- Development, deployment, and service operations: [development notes](docs/development.md)
+- Operator composition, qubit order, and SDK bit order: [quantum conventions](docs/quantum_conventions.md)
+- Learning-copy tone, equation flow, and bilingual authoring rules: [content style guide](docs/content_style_guide.md)
+- Pre-deployment checks: [cloud deployment checklist](docs/cloud_deploy_checklist.md)
+- Experiment IDs, source links, figures, and reproducibility: [experiment registry](docs/experiment_registry.md)
+- External image and media sources: [media attributions](docs/media_attributions.md)
 
-Internal experiment IDs, app-level mappings, manuscript chapter links, and figure
-targets are tracked in:
-
-`docs/experiment_registry.md`
-
-These IDs are for reproducibility and instructor/developer use. They are not required
-for learners using the app.
+These files contain contributor-facing design and operating notes, not secrets, and are intentionally versioned. Never commit tokens, real secret values, personal filesystem paths, or private notes. Store local-only documents under `docs/private/`.

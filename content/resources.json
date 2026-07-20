@@ -250,6 +250,33 @@
         "type": "video_link",
         "url": "https://www.qutube.nl/fundamentals-11/entanglement-324"
       }
+    ],
+    "level13": [
+      {
+        "title": "IBM Quantum Learning · 양자전송",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/quantum-teleportation"
+      },
+      {
+        "title": "IBM Quantum Learning · 초밀집 부호화",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/superdense-coding"
+      },
+      {
+        "title": "IBM Quantum Learning · 복제 불가능 정리",
+        "type": "article_link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/quantum-circuits/limitations-on-quantum-information"
+      },
+      {
+        "title": "IBM Quantum Learning · 두 프로토콜을 실제 회로로 비교",
+        "type": "article_link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/utility-scale-quantum-computing/teleportation"
+      },
+      {
+        "title": "Quirk · 양자전송과 Bell 회로를 직접 구성",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
+      }
     ]
   },
   "en": {
@@ -502,6 +529,33 @@
         "title": "Qutube · Introductory entanglement video",
         "type": "video_link",
         "url": "https://www.qutube.nl/fundamentals-11/entanglement-324"
+      }
+    ],
+    "level13": [
+      {
+        "title": "IBM Quantum Learning · Quantum teleportation",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/quantum-teleportation"
+      },
+      {
+        "title": "IBM Quantum Learning · Superdense coding",
+        "type": "link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/superdense-coding"
+      },
+      {
+        "title": "IBM Quantum Learning · No-cloning theorem",
+        "type": "article_link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/quantum-circuits/limitations-on-quantum-information"
+      },
+      {
+        "title": "IBM Quantum Learning · Compare both protocols on circuits",
+        "type": "article_link",
+        "url": "https://quantum.cloud.ibm.com/learning/en/courses/utility-scale-quantum-computing/teleportation"
+      },
+      {
+        "title": "Quirk · Build teleportation and Bell circuits",
+        "type": "simulation_link",
+        "url": "https://algassert.com/quirk"
       }
     ]
   }

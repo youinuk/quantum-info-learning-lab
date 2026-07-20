@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+import core.simulator as simulator
 from core.charts import compact_grouped_bar, render_fig
 from core.content import load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
@@ -11,7 +12,6 @@ from core.math_display import probability_from_label, probability_select_options
 from core.quiz_renderer import render_quiz_items
 from core.resource_renderer import render_resource_item
 from core.safe_table import render_markdown_table
-from core.simulator import simulate_noisy_bit_measurements
 from core.terms_renderer import render_terms
 
 lang = get_lang()
@@ -71,7 +71,7 @@ with simulation_tab:
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
         run_index = st.session_state.get("level7_run_index", 0) + 1
         st.session_state["level7_run_index"] = run_index
-        st.session_state["level7_result"] = simulate_noisy_bit_measurements(
+        st.session_state["level7_result"] = simulator.simulate_noisy_bit_measurements(
             probability_from_label(probability_label),
             NOISE_OPTIONS[noise_label],
             int(shots),

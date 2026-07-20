@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="280" viewBox="0 0 900 280" role="img" aria-labelledby="title desc">
+  <title id="title">Phase interferometer circuit</title>
+  <desc id="desc">A zero-state qubit passes through a Hadamard gate, a phase gate, a second Hadamard gate, and measurement, producing bright zero or dark one.</desc>
+  <rect width="900" height="280" rx="8" fill="#f8fafc"/>
+  <rect x="22" y="22" width="856" height="236" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+
+  <text x="63" y="127" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="23" fill="#0f172a">|0⟩</text>
+  <line x1="93" y1="118" x2="741" y2="118" stroke="#334155" stroke-width="4"/>
+
+  <rect x="141" y="82" width="72" height="72" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="177" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#15803d">H</text>
+
+  <rect x="349" y="82" width="112" height="72" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="405" y="127" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="25" font-weight="700" fill="#92400e">P(Δφ)</text>
+
+  <rect x="590" y="82" width="72" height="72" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="626" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1d4ed8">H</text>
+
+  <rect x="721" y="82" width="72" height="72" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <path d="M737 130 Q757 92 777 130" fill="none" stroke="#991b1b" stroke-width="3"/>
+  <line x1="757" y1="130" x2="757" y2="146" stroke="#991b1b" stroke-width="3"/>
+  <text x="757" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#991b1b">M</text>
+
+  <text x="177" y="187" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="18" fill="#166534">(|0⟩ + |1⟩) / √2</text>
+  <text x="405" y="187" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="18" fill="#92400e">(|0⟩ + eⁱΔφ|1⟩) / √2</text>
+  <text x="626" y="187" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#1d4ed8">amplitudes interfere</text>
+
+  <line x1="793" y1="106" x2="824" y2="88" stroke="#334155" stroke-width="3"/>
+  <line x1="793" y1="130" x2="824" y2="148" stroke="#334155" stroke-width="3"/>
+  <text x="832" y="91" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#15803d">0 bright</text>
+  <text x="832" y="154" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#991b1b">1 dark</text>
+
+  <line x1="177" y1="202" x2="177" y2="220" stroke="#16a34a" stroke-width="2"/>
+  <line x1="405" y1="202" x2="405" y2="220" stroke="#d97706" stroke-width="2"/>
+  <line x1="626" y1="202" x2="626" y2="220" stroke="#2563eb" stroke-width="2"/>
+  <text x="177" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#475569">split paths</text>
+  <text x="405" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#475569">shift |1⟩ phase</text>
+  <text x="626" y="242" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#475569">recombine paths</text>
+</svg>

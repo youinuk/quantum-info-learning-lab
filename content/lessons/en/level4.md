@@ -74,6 +74,6 @@ $$
 
 Possibilities are not just mixed together. When they meet again, some outcomes grow and some outcomes shrink.
 
-Quantum algorithms use this property to increase the chance of useful answers and reduce the chance of wrong ones.
+Many quantum algorithms adjust amplitude signs or phases and then let them interfere. This can raise the probability of a desired measurement outcome and lower the probability of an unwanted one.
 
 ![Interference in an algorithm](assets/images/algorithm_interference.svg)

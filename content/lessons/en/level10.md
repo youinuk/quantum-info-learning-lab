@@ -36,7 +36,7 @@ Same-sign patterns collect into measurement 0 after the final `H`. Opposite-sign
 
 For example, a circuit can make unhelpful possibilities cancel while helpful information reinforces. That is the basic feeling behind many quantum algorithms.
 
-## 5. Use only a short formula
+## 5. Start with the meaning of the probability formula
 
 If the phase difference between two paths is $\Delta\phi$, this simple model writes the bright probability as:
 
@@ -44,4 +44,101 @@ $$
 P(\text{bright})=\frac{1+\cos(\Delta\phi)}{2}
 $$
 
+![An H-P-H circuit that converts phase difference into interference outcomes](assets/images/level10_phase_interferometer_circuit.svg)
+
+The middle gate $P(\Delta\phi)$ changes only the phase of the $\lvert1\rangle$ path by $\Delta\phi$. The first H creates the two paths, and the final H recombines them so that the phase difference becomes a measurement probability.
+
 If the formula feels hard, skip it for now. Focus on the meaning. When $\Delta\phi=0$, the bright output grows. When $\Delta\phi=\pi$, the bright output disappears. Middle values split the results.
+
+:::expander Derive the bright and dark probabilities from the circuit states
+
+Represent the two paths by $\lvert0\rangle$ and $\lvert1\rangle$. The circuit uses the first H to split the paths, changes the phase of one path, and uses the final H to recombine them.
+
+### 1. The first H splits the paths equally
+
+Starting from $\lvert0\rangle$, the first H gives both paths equal amplitudes:
+
+$$
+\lvert0\rangle
+\xrightarrow{H}
+\frac{\lvert0\rangle+\lvert1\rangle}{\sqrt{2}}
+$$
+
+### 2. One path receives a phase difference
+
+Rotating only the $\lvert1\rangle$ path by $\Delta\phi$ multiplies its amplitude by $e^{i\Delta\phi}$:
+
+$$
+\frac{\lvert0\rangle+\lvert1\rangle}{\sqrt{2}}
+\longrightarrow
+\frac{\lvert0\rangle+e^{i\Delta\phi}\lvert1\rangle}{\sqrt{2}}
+$$
+
+If the exponential is unfamiliar, read it as “rotate the amplitude arrow of the second path by $\Delta\phi$.”
+
+### 3. The final H recombines the paths
+
+H acts on the two basis states as:
+
+$$
+H\lvert0\rangle
+=\frac{\lvert0\rangle+\lvert1\rangle}{\sqrt{2}},
+\qquad
+H\lvert1\rangle
+=\frac{\lvert0\rangle-\lvert1\rangle}{\sqrt{2}}
+$$
+
+Applying these rules to both terms gives:
+
+$$
+\begin{aligned}
+H\left(
+\frac{\lvert0\rangle+e^{i\Delta\phi}\lvert1\rangle}{\sqrt{2}}
+\right)
+&=
+\frac{1}{2}
+\left[
+(1+e^{i\Delta\phi})\lvert0\rangle
++(1-e^{i\Delta\phi})\lvert1\rangle
+\right]
+\end{aligned}
+$$
+
+Calling $\lvert0\rangle$ bright and $\lvert1\rangle$ dark gives these amplitudes:
+
+$$
+A_{\text{bright}}=\frac{1+e^{i\Delta\phi}}{2},
+\qquad
+A_{\text{dark}}=\frac{1-e^{i\Delta\phi}}{2}
+$$
+
+### 4. Square amplitude magnitudes to obtain probabilities
+
+The squared magnitude of a complex amplitude multiplies the number by its complex conjugate. The conjugate of $e^{i\Delta\phi}$ is $e^{-i\Delta\phi}$, and their sum is $2\cos(\Delta\phi)$:
+
+$$
+e^{i\Delta\phi}+e^{-i\Delta\phi}=2\cos(\Delta\phi)
+$$
+
+The bright probability is therefore:
+
+$$
+\begin{aligned}
+P(\text{bright})
+&=\left|\frac{1+e^{i\Delta\phi}}{2}\right|^2\\
+&=\frac{(1+e^{i\Delta\phi})(1+e^{-i\Delta\phi})}{4}\\
+&=\frac{1+\cos(\Delta\phi)}{2}
+\end{aligned}
+$$
+
+The same calculation gives the dark probability:
+
+$$
+P(\text{dark})
+=\left|\frac{1-e^{i\Delta\phi}}{2}\right|^2
+=\frac{1-\cos(\Delta\phi)}{2}
+$$
+
+The two probabilities always add to 1. At $\Delta\phi=0$, $e^{i\Delta\phi}=1$, so only the bright amplitude remains. At $\Delta\phi=\pi$, $e^{i\Delta\phi}=-1$, so only the dark amplitude remains. These two endpoints are enough to understand the formula even if the complex-number steps are still unfamiliar.
+
+:::

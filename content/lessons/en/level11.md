@@ -293,4 +293,6 @@ The Deutsch problem is a teaching example, not a large practical speedup. It red
 
 Do not stretch that small result into a claim that every quantum program is faster. The important pattern is not “print all answers from superposition.” It is “mark a relationship in phase, then use interference to read it.”
 
-This app treats the one-input-bit Deutsch-Jozsa circuit as the Deutsch algorithm. Larger quantum algorithms reuse the same broad idea: encode useful structure into phase and shape the final measurement with interference.
+This app treats the one-input-bit Deutsch-Jozsa circuit as the Deutsch algorithm. Larger quantum algorithms do not all copy this circuit, but many encode a useful feature in phase or amplitude and use interference to turn it into a measurable result.
+
+Grover search is one later example. It marks solution states in phase and repeats amplitude amplification, increasing their probability amplitudes and therefore the chance of measuring a solution. This develops the idea introduced here: mark a distinction, then use interference to change the outcome probabilities.

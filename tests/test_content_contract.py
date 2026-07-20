@@ -138,6 +138,21 @@ def test_lesson_cards_avoid_decorative_bold_and_canned_summaries() -> None:
         assert phrase not in lessons
 
 
+def test_level11_uses_concrete_amplitude_amplification_language() -> None:
+    korean = (ROOT / "content" / "lessons" / "ko" / "level11.md").read_text(
+        encoding="utf-8"
+    )
+    english = (ROOT / "content" / "lessons" / "en" / "level11.md").read_text(
+        encoding="utf-8"
+    )
+
+    assert "진폭 증폭(amplitude amplification)" in korean
+    assert "정답이 측정될 확률도 높아진다" in korean
+    assert "유용한 답을 키운다" not in korean
+    assert "생각을 반복해서 사용한다" not in korean
+    assert "amplitude amplification" in english
+
+
 def test_learning_navigation_covers_every_level_page() -> None:
     assert len(LEVEL_PAGES) == 14
 
@@ -220,6 +235,29 @@ def test_level10_simulation_exposes_continuous_phase_comparison() -> None:
         assert "observed_column" in ui
         assert "gap_column" in ui
         assert "advanced_purpose" in ui
+
+
+def test_level10_lesson_derives_bright_and_dark_probabilities() -> None:
+    for lang in ("ko", "en"):
+        lesson = (
+            ROOT / "content" / "lessons" / lang / "level10.md"
+        ).read_text(encoding="utf-8")
+
+        circuit_image = "assets/images/level10_phase_interferometer_circuit.svg"
+        assert circuit_image in lesson
+        assert lesson.index(r"P(\text{bright})=\frac{1+\cos(\Delta\phi)}{2}") < lesson.index(
+            circuit_image
+        )
+        assert lesson.count(":::expander") == 1
+        assert r"A_{\text{bright}}=\frac{1+e^{i\Delta\phi}}{2}" in lesson
+        assert r"A_{\text{dark}}=\frac{1-e^{i\Delta\phi}}{2}" in lesson
+        assert r"e^{i\Delta\phi}+e^{-i\Delta\phi}=2\cos(\Delta\phi)" in lesson
+        assert r"P(\text{bright})" in lesson
+        assert r"\frac{1+\cos(\Delta\phi)}{2}" in lesson
+        assert r"P(\text{dark})" in lesson
+        assert r"\frac{1-\cos(\Delta\phi)}{2}" in lesson
+
+    assert (ROOT / "assets/images/level10_phase_interferometer_circuit.svg").is_file()
 
 
 def test_simulation_diagram_images_exist() -> None:

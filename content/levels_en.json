@@ -289,10 +289,10 @@
       },
       {
         "question": "What is the goal of interference in many quantum algorithms?",
-        "options": ["Increase useful possibilities and reduce wrong ones", "Make all outcomes exactly equal", "Prevent measurement"],
-        "answer": "Increase useful possibilities and reduce wrong ones",
-        "correct": "Correct. Algorithms design interference so useful answers stand out.",
-        "wrong": "Interference is used as a design tool for shaping probabilities."
+        "options": ["Raise the probability of desired outcomes and lower that of unwanted outcomes", "Make all outcomes exactly equal", "Prevent measurement"],
+        "answer": "Raise the probability of desired outcomes and lower that of unwanted outcomes",
+        "correct": "Correct. Designed interference can raise or lower specific measurement probabilities.",
+        "wrong": "Interference changes outcome probabilities through addition and cancellation of amplitudes."
       },
       {
         "question": "What is the final state after applying H-Z-H to |0>?",
@@ -496,9 +496,9 @@
     "simulation_intro": "First use the truth table to see the difference between constant and balanced, then choose an oracle and follow how the circuit reads that difference.",
     "simulation_purpose": "The goal is not to memorize rules A to D. It is to follow how the relation between two outputs becomes one oracle query, phase markers, interference, and finally a measurement.",
     "simulation_steps": [
-      "The first H gates prepare the input-0 and input-1 possibilities together.",
-      "One pass through U_f leaves the relation between the function values as + or - phase markers.",
-      "The final H converts that hidden phase relation into measurement 0 or 1.",
+      "The two H gates prepare the input possibilities on the first qubit and |-> on the helper.",
+      "One application of U_f leaves a + or - phase marker on the amplitude for each input.",
+      "At the final H, those amplitudes interfere: matching markers give 0 and opposite markers give 1.",
       "Measurement 0 means constant; measurement 1 means balanced."
     ],
     "simulation_diagram": "assets/images/level11_deutsch_circuit.svg",
@@ -551,10 +551,10 @@
       "phase_title": "Phase markers left by the oracle",
       "input_column": "Input x",
       "phase_column": "Phase marker",
-      "phase_same": "The two phase markers match. The final H reinforces first-qubit result 0, so the oracle is constant.",
-      "phase_opposite": "The phase markers differ. The final H reinforces first-qubit result 1, so the oracle is balanced.",
-      "result_constant": "Measurement {measurement} appeared. Matching phase markers reinforced output 0, so this is a {classification} rule.",
-      "result_balanced": "Measurement {measurement} appeared. Opposite phase markers reinforced output 1, so this is a {classification} rule.",
+      "phase_same": "The phase markers match. At the final H, the amplitudes for 0 add while those for 1 cancel, so the oracle is constant.",
+      "phase_opposite": "The phase markers differ. At the final H, the amplitudes for 0 cancel while those for 1 add, so the oracle is balanced.",
+      "result_constant": "Measurement {measurement} appeared. After equal-sign amplitudes interfered, only output 0 retained probability, so this is a {classification} rule.",
+      "result_balanced": "Measurement {measurement} appeared. After opposite-sign amplitudes interfered, only output 1 retained probability, so this is a {classification} rule.",
       "details_title": "Show probability changes at every circuit stage",
       "reveal_title": "Show the selected oracle truth table"
     },
@@ -968,9 +968,9 @@
       },
       {
         "question": "How does the Deutsch algorithm use interference?",
-        "options": ["It mixes phase differences so useful results remain", "It was designed to remove all interference", "It memorizes answers without an oracle"],
-        "answer": "It mixes phase differences so useful results remain",
-        "correct": "Correct. The algorithm designs interference so useful information is reinforced.",
+        "options": ["At the final H, phase differences interfere so the two rule types produce different measurements", "It was designed to remove all interference", "It memorizes answers without an oracle"],
+        "answer": "At the final H, phase differences interfere so the two rule types produce different measurements",
+        "correct": "Correct. Matching and opposite phase markers become measurement results 0 and 1.",
         "wrong": "The Deutsch algorithm reads phase information left by the oracle through interference."
       },
       {

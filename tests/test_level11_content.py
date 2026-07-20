@@ -39,7 +39,7 @@ def test_level11_localized_content_has_matching_learning_structure():
         assert "(선택)" not in lesson
         assert "(optional)" not in lesson
         if lang == "ko":
-            assert "이 부호가 첫 큐비트의 위상 표식으로 정리되는 과정을 수식으로 확인하기" in lesson
+            assert "오라클의 함수값이 첫 큐비트의 위상 표식이 되는 과정을 수식으로 확인하기" in lesson
             assert "같은 위상 표식은 0, 반대 위상 표식은 1이 되는 과정을 수식으로 확인하기" in lesson
             assert "기저 상태 항" in lesson
             assert "`x` 가지" not in lesson

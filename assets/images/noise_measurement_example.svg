@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Outcome flip example</title>
+  <desc id="desc">One hundred ideal measurements of state one are compared with a five percent outcome-flip model.</desc>
+  <rect width="900" height="430" fill="#f8fafc"/>
+  <rect x="42" y="34" width="816" height="362" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="450" y="82" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="30" fill="#0f172a">|1⟩ × 100</text>
+
+  <text x="244" y="125" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="22" fill="#1d4ed8">p<tspan baseline-shift="sub" font-size="15">flip</tspan> = 0</text>
+  <line x1="120" y1="326" x2="368" y2="326" stroke="#64748b" stroke-width="2"/>
+  <rect x="148" y="316" width="72" height="10" rx="4" fill="#94a3b8"/>
+  <rect x="270" y="166" width="72" height="160" rx="4" fill="#2563eb"/>
+  <text x="184" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">0</text>
+  <text x="306" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">1</text>
+  <text x="184" y="302" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#475569">0</text>
+  <text x="306" y="156" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1d4ed8">100</text>
+
+  <line x1="450" y1="112" x2="450" y2="356" stroke="#e2e8f0" stroke-width="2"/>
+
+  <text x="656" y="125" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="22" fill="#7c3aed">p<tspan baseline-shift="sub" font-size="15">flip</tspan> = 0.05</text>
+  <line x1="532" y1="326" x2="780" y2="326" stroke="#64748b" stroke-width="2"/>
+  <rect x="560" y="318" width="72" height="8" rx="4" fill="#f97316"/>
+  <rect x="682" y="174" width="72" height="152" rx="4" fill="#7c3aed"/>
+  <text x="596" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">0</text>
+  <text x="718" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">1</text>
+  <text x="596" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#c2410c">≈5</text>
+  <text x="718" y="164" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#6d28d9">≈95</text>
+</svg>

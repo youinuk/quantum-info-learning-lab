@@ -21,8 +21,8 @@
     <text x="0" y="-18" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#334155">Create entanglement</text>
     <line x1="0" y1="40" x2="260" y2="40" stroke="#334155" stroke-width="3"/>
     <line x1="0" y1="120" x2="260" y2="120" stroke="#334155" stroke-width="3"/>
-    <text x="0" y="30" font-family="Arial, sans-serif" font-size="16" fill="#0f172a">Alice |0&gt;</text>
-    <text x="0" y="110" font-family="Arial, sans-serif" font-size="16" fill="#0f172a">Bob |0&gt;</text>
+    <text x="0" y="30" font-family="Cambria Math, STIX Two Math, serif" font-size="16" fill="#0f172a">Alice |0⟩</text>
+    <text x="0" y="110" font-family="Cambria Math, STIX Two Math, serif" font-size="16" fill="#0f172a">Bob |0⟩</text>
     <rect x="92" y="18" width="44" height="44" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
     <text x="107" y="47" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1d4ed8">H</text>
     <circle cx="178" cy="40" r="8" fill="#0f172a"/>

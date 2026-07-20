@@ -9,7 +9,7 @@
   <text x="452" y="138" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#1d4ed8">Z basis</text>
   <text x="692" y="138" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#7c3aed">X basis</text>
 
-  <text x="58" y="202" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#334155">Product |+&gt;|+&gt;</text>
+  <text x="58" y="202" font-family="Cambria Math, STIX Two Math, serif" font-size="18" font-weight="700" fill="#334155">Product |+⟩|+⟩</text>
   <text x="58" y="222" font-family="Arial, sans-serif" font-size="14" fill="#64748b">separate qubits</text>
   <line x1="330" y1="232" x2="574" y2="232" stroke="#94a3b8" stroke-width="2"/>
   <rect x="352" y="192" width="34" height="40" fill="#60a5fa"/><rect x="405" y="192" width="34" height="40" fill="#60a5fa"/><rect x="458" y="192" width="34" height="40" fill="#60a5fa"/><rect x="511" y="192" width="34" height="40" fill="#60a5fa"/>
@@ -23,7 +23,7 @@
   <line x1="590" y1="358" x2="834" y2="358" stroke="#94a3b8" stroke-width="2"/>
   <rect x="612" y="318" width="34" height="40" fill="#8b5cf6"/><rect x="665" y="318" width="34" height="40" fill="#8b5cf6"/><rect x="718" y="318" width="34" height="40" fill="#8b5cf6"/><rect x="771" y="318" width="34" height="40" fill="#8b5cf6"/>
 
-  <text x="58" y="454" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#334155">Bell |Phi+&gt;</text>
+  <text x="58" y="454" font-family="Cambria Math, STIX Two Math, serif" font-size="18" font-weight="700" fill="#334155">Bell |Φ+⟩</text>
   <text x="58" y="474" font-family="Arial, sans-serif" font-size="14" fill="#64748b">entangled whole state</text>
   <line x1="330" y1="484" x2="574" y2="484" stroke="#94a3b8" stroke-width="2"/>
   <rect x="352" y="428" width="34" height="56" fill="#059669"/><rect x="405" y="482" width="34" height="2" fill="#a7f3d0"/><rect x="458" y="482" width="34" height="2" fill="#a7f3d0"/><rect x="511" y="428" width="34" height="56" fill="#059669"/>

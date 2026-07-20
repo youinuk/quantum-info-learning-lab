@@ -1,100 +1,64 @@
-## 1. An algorithm is a procedure
+## 1. Real quantum computers are imperfect
 
-An algorithm is an ordered procedure for solving a problem. A recipe and a route-finding process are everyday examples.
+Earlier levels assumed that qubits and gates worked ideally.
 
-A quantum algorithm is also a sequence of steps, but it uses qubits, quantum gates, and interference. It does not print every possible answer at once. Measurement still returns one result, so the circuit must make useful information survive in that result.
+Real devices are affected by heat, vibration, electromagnetic disturbance, small control errors, and imperfect measurement hardware. These unwanted effects are collectively called noise.
 
-![Algorithm interference](assets/images/algorithm_interference.svg)
+![How noise blurs measurement statistics](assets/images/noise_error.svg)
 
-## 2. The Deutsch problem asks for the type of a hidden rule
+## 2. Example: an outcome-flip error changes the record
 
-Imagine a hidden function `f` that accepts `0` or `1` and returns `0` or `1`.
+Suppose we prepare $\lvert1\rangle$ 100 times. With no error, the record contains one hundred 1 results.
 
-| Rule | f(0) | f(1) | Type |
-|---|---:|---:|---|
-| A | 0 | 0 | constant |
-| B | 0 | 1 | balanced |
-| C | 1 | 1 | constant |
-| D | 1 | 0 | balanced |
+This level's simulation uses a simple **outcome-flip error**. At a 5% error rate, roughly five of the 1 results are expected to be recorded incorrectly as 0, leaving about five zeros and ninety-five ones.
 
-The function is `constant` when its two outputs match and `balanced` when they differ. The task is to learn the type, not to print the entire truth table.
+![Numerical example of outcome-flip errors](assets/images/noise_measurement_example.svg)
 
-## 3. An oracle is a black box containing the rule
+An actual run of 100 trials will not always contain exactly five flips. Errors occur probabilistically, so the count varies slightly from run to run.
 
-The oracle contains the hidden function `f`. We cannot inspect its internal work; we count how many times an algorithm queries it.
+## 3. Small errors can accumulate in a long circuit
 
-A deterministic classical method must ask for both `f(0)` and `f(1)` before it can compare them with certainty. One classical query leaves the other output unknown.
-
-The Deutsch circuit queries the oracle once and marks the relationship between the two outputs in phase information.
-
-## 4. The two qubits have different jobs
-
-The first qubit carries the classification. Measuring `0` means constant, while measuring `1` means balanced.
-
-The second qubit is a helper. It lets the oracle turn a function value into a relative sign on the first qubit.
-
-The circuit starts in:
+Let $p$ be the error probability for one operation and $n$ the number of operations. In a very simple model where errors are independent, the probability of seeing no flip is:
 
 $$
-\lvert0\rangle\lvert1\rangle
+P(\text{no flip})=(1-p)^n
 $$
 
-![Deutsch algorithm](assets/images/deutsch_algorithm.svg)
+If the equation feels difficult, keep only this meaning: more operations create more opportunities for at least one error.
 
-## 5. The first H gates prepare both input possibilities
-
-Applying H to both qubits gives the first qubit the possibilities `0` and `1`. It prepares the helper qubit with opposite signs.
-
-Skip the equation if it feels heavy. It only says: “prepare both inputs on the first qubit and prepare the helper to receive a sign.”
+Even with a 1% error rate per operation, this simplified model gives only about a 36.6% chance of passing through one hundred operations without a flip.
 
 $$
-\lvert0\rangle\lvert1\rangle
-\xrightarrow{H\otimes H}
-\frac{\lvert0\rangle+\lvert1\rangle}{\sqrt{2}}
-\otimes
-\frac{\lvert0\rangle-\lvert1\rangle}{\sqrt{2}}
+(1-0.01)^{100}=0.99^{100}\approx0.366
 $$
 
-## 6. The oracle leaves phase markers instead of printing answers
+![A simple model of small errors accumulating](assets/images/noise_accumulation.svg)
 
-The standard oracle action is:
+Errors in real quantum hardware may be correlated and come in several forms. This calculation is an illustration of why a small rate cannot simply be ignored, not a complete prediction of device accuracy.
 
-$$
-U_f\lvert x\rangle\lvert y\rangle
-=\lvert x\rangle\lvert y\oplus f(x)\rangle
-$$
+## 4. Quantum probability and hardware error are different
 
-If the formula is difficult, read it as: “the oracle applies the function value to the helper qubit.”
+Probabilistic quantum measurement is not the same as faulty hardware.
 
-With the helper prepared as above, the function value comes back as a `+` or `-` marker on the first-qubit possibility. This is called **phase kickback**.
+- An ideal equal superposition producing a mixture of 0 and 1 results is **probability belonging to the state**.
+- Preparing $\lvert1\rangle$ but recording some results as 0 is the **hardware error** assumed by this simulation.
 
-$$
-U_f\lvert x\rangle\lvert-\rangle
-=(-1)^{f(x)}\lvert x\rangle\lvert-\rangle
-$$
+If the ideal distribution is already 50-50, flipping some zeros and ones can leave the overall bars looking almost unchanged. A similar histogram does not prove that every individual measurement was correct.
 
-The first-qubit probabilities are still 50:50 immediately after the oracle. Nothing seems different if we only inspect probability bars, but the relative signs now carry the rule information.
+## 5. Noise has several forms
 
-## 7. The final H turns the hidden markers into a result
+The simulation models only flipped measurement outcomes, but real devices face different problems.
 
-The final H recombines the two first-qubit possibilities.
+- **Readout error:** like misreading a thermometer, the detector records 0 as 1 or 1 as 0.
+- **Control error:** like turning a door slightly less or more than 90 degrees, a gate rotates the state by the wrong amount.
+- **Decoherence:** interaction with the environment weakens the phase relationships in a superposition. A collection of aligned spinning tops gradually disturbed in different directions is a rough visual analogy.
 
-- Matching phase markers reinforce `0` and cancel `1`.
-- Opposite phase markers reinforce `1` and cancel `0`.
+These analogies only separate the basic ideas. Real decoherence is not a visible wobble; it is quantum-state information spreading into the environment.
 
-The final measurement therefore means:
+## 6. Why error correction is difficult
 
-$$
-0\Rightarrow\text{constant},\qquad
-1\Rightarrow\text{balanced}
-$$
+Classical computers can reduce errors by copying information and comparing several copies.
 
-Compare the probabilities after the oracle and after the final H in the simulation. This is where an invisible phase relationship becomes visible through interference.
+An unknown qubit state cannot be copied freely, and directly measuring it changes the superposition we want to protect. Quantum error correction therefore distributes relationships across several physical qubits and detects traces of errors without directly reading the protected information itself.
 
-## 8. This tiny example shows an important pattern
-
-The Deutsch problem is a teaching example, not a large practical speedup. It reduces two oracle queries for a deterministic classical method to one quantum query.
-
-Do not stretch that small result into a claim that every quantum program is faster. The important pattern is not “print all answers from superposition.” It is “mark a relationship in phase, then use interference to read it.”
-
-This app treats the one-input-bit Deutsch-Jozsa circuit as the Deutsch algorithm. Larger quantum algorithms reuse the same broad idea: encode useful structure into phase and shape the final measurement with interference.
+This level focuses on distinguishing kinds of noise from ideal probability rather than constructing a full error-correction circuit.

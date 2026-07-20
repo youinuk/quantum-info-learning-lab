@@ -1,51 +1,47 @@
-## 1. One measurement is one piece
+## 1. Interference happens when possibilities meet again
 
-When you measure one qubit, the screen shows one value: 0 or 1. That one value does not reveal the whole original state.
+Level 4 introduced interference through the sequence `H`, `Z`, `H`. This level looks at the same idea more carefully. The key point is that two possibilities can travel separately and then meet again, where they can reinforce or cancel.
 
-Suppose a 50:50 state is measured once and gives 1. That does not mean the state always gives 1. You need to repeat the same preparation many times.
+For example, two water waves that meet in step can make a larger wave. If one wave is up while the other is down, they can weaken each other. Quantum interference is similar in the sense that the sizes and directions of possibilities add.
 
-## 2. Repeated measurement reveals a pattern
+![Double slit viewed as particles and waves](assets/images/double_slit_wavefronts.webp)
 
-With 10 measurements, the result can wobble a lot. With 100 or 1000 measurements, the observed ratio tends to move closer to the original probability.
+The particle-only picture on the left suggests two bands behind the slits. In the wave picture on the right, wavefronts from the two slits overlap and repeatedly reinforce or cancel at different positions.
 
-![Measurement count and statistics](assets/images/level10_sampling_statistics.svg)
+![Double-slit interference intensity across position](assets/images/Doubleslit3Dspectrum.gif)
 
-The important phrase is not "becomes exactly equal." It is "tends to move closer." Probability experiments always keep some fluctuation.
+The double-slit experiment is the classic example of this idea. Light or particles have path possibilities through the two slits, and the screen shows repeating bright and dark bands. Peaks in the second image indicate positions with a larger detection probability, while valleys indicate a smaller probability. These pictures build intuition; the quantum calculation comes from adding probability amplitudes.
 
-## 3. Separate probability from noise
+## 2. Phase is the timing of a possibility
 
-A quantum state having probability is different from a device making errors.
+Phase sounds formal, but at first you can think of it as timing, or how far an arrow has rotated. If two possibilities have the same phase, they add in the same direction. If their phases are opposite, they can cancel.
 
-![Probability and noise comparison](assets/images/level10_noise_vs_probability.svg)
+![Phase examples](assets/images/level10_phase_examples.svg)
 
-Probability belongs to the prepared state. Noise is unwanted disturbance from measurement devices, the environment, or imperfect operations. Mixing these ideas can lead to a wrong interpretation of real data.
+Noise-canceling headphones use a related idea: they add an opposite-shaped sound to reduce unwanted sound. In quantum mechanics, it is not literal sound that adds. Probability amplitudes add.
 
-## 4. More samples do not remove every problem
+## 3. Bright and dark are names for probabilities
 
-Increasing the number of measurements reduces random wobble. But if the device keeps flipping some results, a large experiment can still show a biased pattern.
+In this level's simulation, the two outputs are called `bright` and `dark`. In a light experiment, a bright output is where detection is likely, while a dark output is where detection is unlikely.
 
-For example, suppose the original probability of 1 is 1/2 and we measure 1000 times. Without noise, the ratio of 1 usually stays near 0.5. If the device keeps flipping 10% of the results, individual results still contain errors. Even if the final ratio happens to look close to 0.5, that does not prove there were no errors.
+In a quantum-circuit picture, `bright` is like an outcome that has been amplified, while `dark` is like an outcome that has been canceled. The important pattern appears through repeated measurements, not one measurement.
 
-As another example, if a state should almost always give 1 but the error rate is 20%, then 1000 measurements may still show a ratio near 0.8 rather than 1.0. More samples reduce random wobble, but they do not automatically remove device bias.
+## 4. Algorithms design useful interference
 
-That is why real quantum computers need more than repetition. They also need ways to reduce noise and identify which errors are happening.
+The Deutsch algorithm in the next Level 11 does not print every answer at once. Instead, the oracle leaves sign and phase differences, and the final `H` mixes the paths again so constant and balanced rules lead to different measurement results.
 
-## 5. Interpretation comes before formulas
+![Deutsch algorithm and interference](assets/images/level10_deutsch_interference_bridge.svg)
 
-The most basic formula is the observed ratio.
+Same-sign patterns collect into measurement 0 after the final `H`. Opposite-sign patterns collect into measurement 1. That is the main bridge.
 
-$$
-\hat{p}=\frac{N_1}{N}
-$$
+For example, a circuit can make unhelpful possibilities cancel while helpful information reinforces. That is the basic feeling behind many quantum algorithms.
 
-Here, `N_1` is the number of 1 results, and `N` is the total number of measurements.
+## 5. Use only a short formula
 
-For example, if 1 appears 57 times in 100 measurements, the observed ratio is:
+If the phase difference between two paths is `Delta phi`, this simple model writes the bright probability as:
 
 $$
-\hat{p}=\frac{57}{100}=0.57
+P(\text{bright})=\frac{1+\cos(\Delta\phi)}{2}
 $$
 
-If we repeat the same experiment in several batches, each batch can have a slightly different observed ratio. The mean summarizes the batches, and the range shows how much they wobbled. If the formula feels hard, focus only on the fraction for now. The key idea is to look at repeated patterns, not just one value.
-
-One measurement is one photo. Repeated measurements are an album. Noise is like dust on the camera lens: it can blur the whole picture.
+If the formula feels hard, skip it for now. Focus on the meaning. When `Delta phi = 0`, the bright output grows. When `Delta phi = pi`, the bright output disappears. Middle values split the results.

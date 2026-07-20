@@ -3,7 +3,7 @@ from __future__ import annotations
 import streamlit as st
 
 from core.charts import compact_count_bar, render_fig
-from core.content import load_lesson_markdown, load_level_content, load_resources
+from core.content import BASE_DIR, load_lesson_markdown, load_level_content, load_resources
 from core.i18n import get_lang, t
 from core.lesson_renderer import render_lesson_cards
 from core.navigation import render_level_navigation
@@ -44,6 +44,12 @@ with simulation_tab:
     st.subheader(t("interference_lab_title"))
     st.write(content.get("simulation_intro", ""))
 
+    diagram_path = BASE_DIR / content.get("simulation_diagram", "")
+    if diagram_path.is_file():
+        st.image(str(diagram_path), caption=ui.get("circuit_caption", ""), width=680)
+
+    st.markdown(f"### {ui.get('control_prompt', t('middle_operation'))}")
+
     middle_gate = st.radio(
         t("middle_operation"),
         [t("middle_none"), "Z"],
@@ -69,22 +75,17 @@ with simulation_tab:
     after_middle = st.session_state.get("level4_after_middle")
     final_state = st.session_state.get("level4_final_state")
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.caption(ui.get("start_state", "Start"))
-        st.latex(r"\lvert0\rangle")
-    with col2:
-        st.caption(ui.get("middle_state", "Middle"))
-        if after_middle is None:
-            st.write("-")
-        else:
-            st.latex(qubit_state_latex(after_middle.alpha, after_middle.beta))
-    with col3:
-        st.caption(ui.get("final_state", "Final"))
-        if final_state is None:
-            st.write("-")
-        else:
-            st.latex(qubit_state_latex(final_state.alpha, final_state.beta))
+    middle_latex = "-" if after_middle is None else f"${qubit_state_latex(after_middle.alpha, after_middle.beta)}$"
+    final_latex = "-" if final_state is None else f"${qubit_state_latex(final_state.alpha, final_state.beta)}$"
+    st.markdown(
+        "\n".join(
+            [
+                f"| {ui.get('start_state', 'Start')} | {ui.get('middle_state', 'Middle')} | {ui.get('final_state', 'Final')} |",
+                "|---|---|---|",
+                rf"| $\lvert0\rangle$ | {middle_latex} | {final_latex} |",
+            ]
+        )
+    )
 
     p0 = 0 if final_state is None else round(final_state.probability_zero * 100)
     p1 = 0 if final_state is None else round(final_state.probability_one * 100)
@@ -104,6 +105,9 @@ with simulation_tab:
 
     message_key = "simulation_waiting" if final_state is None else "simulation_hint"
     st.info(content.get(message_key, ""))
+    if final_state is not None:
+        result_key = "result_none" if middle_gate == t("middle_none") else "result_z"
+        st.success(ui.get(result_key, ""))
 
 with resources_tab:
     st.subheader(t("tab_resources"))

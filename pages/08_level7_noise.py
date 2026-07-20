@@ -15,20 +15,20 @@ from core.simulator import simulate_noisy_bit_measurements
 from core.terms_renderer import render_terms
 
 lang = get_lang()
-content = load_level_content("level8", lang)
+content = load_level_content("level7", lang)
 
 
-def clear_level8_results() -> None:
-    st.session_state.pop("level8_result", None)
+def clear_level7_results() -> None:
+    st.session_state.pop("level7_result", None)
 
 
-if st.session_state.get("_active_learning_page") != "level8":
-    clear_level8_results()
-    st.session_state.pop("level8_controls", None)
-    st.session_state["level8_run_index"] = 0
-st.session_state["_active_learning_page"] = "level8"
+if st.session_state.get("_active_learning_page") != "level7":
+    clear_level7_results()
+    st.session_state.pop("level7_controls", None)
+    st.session_state["level7_run_index"] = 0
+st.session_state["_active_learning_page"] = "level7"
 
-st.title(t("level8_title"))
+st.title(t("level7_title"))
 st.write(content.get("goal", ""))
 
 presentation_tab, simulation_tab, resources_tab, quiz_tab = st.tabs(
@@ -44,7 +44,7 @@ NOISE_OPTIONS = {
 }
 
 with presentation_tab:
-    render_lesson_cards(load_lesson_markdown("level8", lang), "level8")
+    render_lesson_cards(load_lesson_markdown("level7", lang), "level7")
     render_terms(content)
     st.success(content.get("key_takeaway", ""))
 
@@ -62,26 +62,26 @@ with simulation_tab:
         shots = st.slider(t("shots"), 10, 5000, 1000, 10)
 
     current_controls = (probability_label, noise_label, int(shots))
-    previous_controls = st.session_state.get("level8_controls")
+    previous_controls = st.session_state.get("level7_controls")
     if previous_controls is not None and previous_controls != current_controls:
-        clear_level8_results()
-    st.session_state["level8_controls"] = current_controls
+        clear_level7_results()
+    st.session_state["level7_controls"] = current_controls
 
     run_col, reset_col = st.columns([1, 1])
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
-        run_index = st.session_state.get("level8_run_index", 0) + 1
-        st.session_state["level8_run_index"] = run_index
-        st.session_state["level8_result"] = simulate_noisy_bit_measurements(
+        run_index = st.session_state.get("level7_run_index", 0) + 1
+        st.session_state["level7_run_index"] = run_index
+        st.session_state["level7_result"] = simulate_noisy_bit_measurements(
             probability_from_label(probability_label),
             NOISE_OPTIONS[noise_label],
             int(shots),
             9000 + run_index,
         )
     if reset_col.button(t("reset_state"), width="stretch"):
-        clear_level8_results()
-        st.session_state["level8_run_index"] = 0
+        clear_level7_results()
+        st.session_state["level7_run_index"] = 0
 
-    result = st.session_state.get("level8_result")
+    result = st.session_state.get("level7_result")
     if result is None:
         rows = [
             {ui.get("case_column", "Case"): t("ideal_result"), ui.get("count_zero_column", "Count 0"): 0, ui.get("count_one_column", "Count 1"): 0},
@@ -121,11 +121,11 @@ with simulation_tab:
 
 with resources_tab:
     st.subheader(t("tab_resources"))
-    for item in load_resources("level8", lang):
+    for item in load_resources("level7", lang):
         render_resource_item(item)
 
 with quiz_tab:
     st.subheader(t("tab_quiz"))
-    render_quiz_items(content.get("quiz", []), "level8")
+    render_quiz_items(content.get("quiz", []), "level7")
 
-render_level_navigation(8)
+render_level_navigation(7)

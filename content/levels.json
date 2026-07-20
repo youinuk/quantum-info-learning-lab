@@ -68,7 +68,8 @@
       "terms": [
         {"용어": "비트", "뜻": "0 또는 1 중 하나의 확정된 값을 담는 정보 단위"},
         {"용어": "큐비트", "뜻": "측정 전에는 0과 1의 가능성을 함께 담을 수 있는 양자정보 단위"},
-        {"용어": "진폭", "뜻": "제곱하면 측정 확률이 되는 수"},
+        {"용어": "브라-켓 표기법", "뜻": "양자 상태를 |ψ⟩처럼 나타내는 표기법. ψ(프사이)는 상태의 이름이며, 이 단계에서는 |0⟩, |1⟩처럼 켓 표기를 사용한다"},
+        {"용어": "진폭", "뜻": "α(알파), β(베타)처럼 각 상태 항에 곱해지며, 크기를 제곱하면 측정 확률이 되는 수"},
         {"용어": "측정", "뜻": "큐비트에서 실제로 0 또는 1 하나의 결과를 얻는 과정"}
       ],
       "quiz": [
@@ -148,7 +149,7 @@
           "question": "측정 직후 상태는 보통 어떻게 표현할까?",
           "options": ["관찰된 결과에 해당하는 |0> 또는 |1>", "항상 원래 중첩 상태 그대로", "확률 숫자 자체"],
           "answer": "관찰된 결과에 해당하는 |0> 또는 |1>",
-          "correct": "정답이다. 이 앱에서는 측정 직후 상태를 관찰 결과 기준 상태로 표시한다.",
+          "correct": "정답이다. 이 앱에서는 측정 직후 상태를 관찰 결과에 해당하는 |0> 또는 |1> 상태로 표시한다.",
           "wrong": "측정은 결과 하나를 관찰하는 과정이다."
         },
         {
@@ -163,7 +164,7 @@
           "options": ["다시 1", "반드시 0", "0과 1이 동시에 표시된다"],
           "answer": "다시 1",
           "correct": "정답이다. 첫 측정 직후 상태가 |1>이 되었으므로 같은 기준의 재측정에서는 1을 기대한다.",
-          "wrong": "측정 직후 상태는 관찰한 결과에 해당하는 기준 상태로 표현한다."
+          "wrong": "측정 직후 상태는 관찰한 결과에 해당하는 |0> 또는 |1> 상태로 표현한다."
         },
         {
           "question": "0과 1의 확률이 각각 1/2인 상태를 1000번 측정해 0이 480번, 1이 520번 나왔다. 가장 알맞은 해석은?",
@@ -183,7 +184,7 @@
       "terms": [
         {"용어": "게이트", "뜻": "큐비트 상태를 바꾸는 연산"},
         {"용어": "X 게이트", "뜻": "|0>과 |1>을 서로 바꾸는 뒤집기 연산"},
-        {"용어": "H 게이트", "뜻": "기준 상태를 50:50 중첩으로 만들거나 중첩을 다시 합치는 연산"},
+        {"용어": "H 게이트", "뜻": "|0> 또는 |1> 상태를 50:50 중첩으로 만들거나 중첩을 다시 합치는 연산"},
         {"용어": "Z 게이트", "뜻": "|1> 쪽 가능성의 부호를 바꾸는 연산"}
       ],
       "quiz": [
@@ -238,10 +239,15 @@
       "simulation_intro": "|0>에서 시작해 H로 중첩을 만들고, 가운데 조작을 바꾼 뒤 다시 H를 적용해 본다.",
       "simulation_waiting": "아직 회로를 실행하지 않았다. 가운데 조작을 고른 뒤 실험 실행을 누른다.",
       "simulation_hint": "가운데에서 아무것도 하지 않으면 H-H가 되어 |0>으로 돌아오고, Z를 넣으면 결과가 |1> 쪽으로 바뀐다.",
+      "simulation_diagram": "assets/images/level4_interference_circuit.svg",
       "simulation_ui": {
         "start_state": "시작 상태",
         "middle_state": "가운데 상태",
-        "final_state": "최종 상태"
+        "final_state": "최종 상태",
+        "circuit_caption": "첫 H가 두 가능성을 만들고, 점선 상자의 I 또는 Z가 위상 관계를 정하며, 마지막 H가 두 가능성을 다시 합친다.",
+        "control_prompt": "점선 상자에 넣을 가운데 조작을 고른다",
+        "result_none": "H-H에서는 두 가능성이 |0> 쪽에서 보강되어 측정 결과 0이 된다.",
+        "result_z": "H-Z-H에서는 Z가 바꾼 부호 때문에 |1> 쪽이 보강되어 측정 결과 1이 된다."
       },
       "terms": [
         {"용어": "간섭", "뜻": "가능성들이 다시 만날 때 서로 더해지거나 지워지는 현상"},
@@ -297,14 +303,15 @@
     "level5": {
       "goal": "목표: 두 큐비트가 만들 수 있는 네 가지 측정 결과와 상태 공간 증가를 이해한다.",
       "terms_title": "두 큐비트를 볼 때 필요한 말",
-      "key_takeaway": "핵심: 큐비트가 하나 늘어날 때마다 가능한 기준 상태 수는 두 배가 된다.",
+      "key_takeaway": "핵심: 큐비트가 하나 늘어날 때마다 가능한 기저 상태 수는 두 배가 된다.",
       "simulation_intro": "두 큐비트를 각각 독립적으로 준비한다고 생각하고, 두 측정 결과가 네 가지 경우로 어떻게 나뉘는지 본다.",
       "simulation_waiting": "아직 확률을 계산하지 않았다. 두 큐비트의 확률을 정한 뒤 실험 실행을 누른다.",
       "simulation_hint": "첫 번째 큐비트와 두 번째 큐비트의 확률을 따로 바꾸면 00, 01, 10, 11의 비율이 함께 바뀐다.",
       "terms": [
         {"용어": "두 큐비트", "뜻": "큐비트 두 개를 함께 다루는 시스템"},
-        {"용어": "기준 상태", "뜻": "00, 01, 10, 11처럼 측정 결과를 이름 붙인 기본 상태"},
-        {"용어": "상태 공간", "뜻": "가능한 기준 상태들을 모두 모아 생각하는 공간"},
+        {"용어": "기저 상태", "뜻": "양자 상태를 표현할 때 기본 좌표처럼 사용하는 상태. 두 큐비트의 계산 기저에서는 |00>, |01>, |10>, |11>이다"},
+        {"용어": "기저 상태 항", "뜻": "중첩을 나타내는 식에 들어 있는 각각의 기저 상태. 문맥이 분명할 때는 간단히 항이라고 부른다"},
+        {"용어": "상태 공간", "뜻": "가능한 기저 상태들을 모두 모아 생각하는 공간"},
         {"용어": "독립", "뜻": "한 큐비트의 결과가 다른 큐비트의 결과를 특별히 묶지 않는 경우"}
       ],
       "quiz": [
@@ -316,7 +323,7 @@
           "wrong": "큐비트 두 개의 값 조합을 모두 떠올려 본다."
         },
         {
-          "question": "큐비트가 하나 늘어날 때 기준 상태 수는 어떻게 변할까?",
+          "question": "큐비트가 하나 늘어날 때 기저 상태 수는 어떻게 변할까?",
           "options": ["두 배가 된다", "하나만 늘어난다", "항상 2개로 유지된다"],
           "answer": "두 배가 된다",
           "correct": "정답이다. 1큐비트는 2개, 2큐비트는 4개, 3큐비트는 8개이다.",
@@ -438,11 +445,19 @@
         }
       ]
     },
-    "level7": {
+    "level11": {
       "goal": "목표: 두 큐비트와 간섭을 이용해 숨은 규칙을 한 번의 오라클 호출로 구분하는 Deutsch 알고리즘을 이해한다.",
       "terms_title": "알고리즘을 볼 때 필요한 말",
       "key_takeaway": "핵심: 오라클은 두 입력의 답을 그대로 출력하지 않는다. 두 답의 관계를 위상에 남기고, 마지막 H가 그 관계를 측정 가능한 0 또는 1로 바꾼다.",
-      "simulation_intro": "A~D 중 하나의 오라클을 고른다. 회로는 규칙표를 미리 열어 보지 않고 첫 번째 큐비트의 측정값만으로 constant와 balanced를 구분한다.",
+      "simulation_intro": "진리표에서 constant와 balanced의 차이를 먼저 확인한 뒤, 오라클을 고르고 회로가 그 차이를 어떻게 읽는지 살펴본다.",
+      "simulation_purpose": "시뮬레이션의 목적은 A~D 규칙을 외우는 것이 아니다. 두 출력이 같은지 다른지라는 관계를 오라클 1회, 위상 표식, 간섭, 측정의 흐름으로 읽는 것이다.",
+      "simulation_steps": [
+        "첫 H 게이트들이 입력 0과 1의 가능성을 함께 준비한다.",
+        "오라클 U_f를 한 번 통과하며 두 함수값의 관계가 + 또는 - 위상 표식으로 남는다.",
+        "마지막 H가 보이지 않던 위상 관계를 측정값 0 또는 1로 바꾼다.",
+        "0이면 constant, 1이면 balanced로 판정한다."
+      ],
+      "simulation_diagram": "assets/images/level11_deutsch_circuit.svg",
       "simulation_hint": "이 실험은 표준 2큐비트 Deutsch 회로를 계산한다. 고전적인 확정 알고리즘은 f(0)과 f(1)을 두 번 물어야 하지만, 이 회로는 오라클 U_f를 한 번만 호출한다.",
       "classification_labels": {
         "constant": "constant (상수형)",
@@ -454,8 +469,25 @@
         {"id": "constant_one", "label": "오라클 C"},
         {"id": "balanced_flip", "label": "오라클 D"}
       ],
+      "truth_table": [
+        {"label": "오라클 A", "f0": 0, "f1": 0, "classification": "constant"},
+        {"label": "오라클 B", "f0": 0, "f1": 1, "classification": "balanced"},
+        {"label": "오라클 C", "f0": 1, "f1": 1, "classification": "constant"},
+        {"label": "오라클 D", "f0": 1, "f1": 0, "classification": "balanced"}
+      ],
       "simulation_ui": {
         "circuit_caption": "첫 번째 큐비트는 규칙의 종류를 읽고, 두 번째 큐비트는 오라클이 위상 표식을 남기도록 돕는다.",
+        "process_title": "회로가 답을 만드는 네 단계",
+        "truth_table_title": "먼저 진리표에서 문제를 확인한다",
+        "rule_column": "숨은 규칙",
+        "type_column": "종류",
+        "method_column": "방법",
+        "query_column": "오라클 호출",
+        "method_note_column": "어떻게 비교하나",
+        "classical_method": "고전적 확정 방법",
+        "classical_method_note": "f(0)과 f(1)을 따로 물어본다",
+        "quantum_method": "Deutsch 회로",
+        "quantum_method_note": "중첩에 U_f를 한 번 적용하고 간섭으로 관계를 읽는다",
         "stage_title": "회로 단계별 관찰",
         "stage_column": "회로 단계",
         "p0_column": "첫 큐비트 P(0)",
@@ -477,7 +509,10 @@
         "phase_column": "위상 표식 (-1)^f(x)",
         "phase_same": "두 위상 표식이 같다. 마지막 H에서 첫 큐비트의 0 쪽이 보강되어 constant로 판정한다.",
         "phase_opposite": "두 위상 표식이 반대다. 마지막 H에서 첫 큐비트의 1 쪽이 보강되어 balanced로 판정한다.",
-        "reveal_title": "오라클의 실제 규칙표 확인"
+        "result_constant": "측정값 {measurement}이 나왔다. 같은 위상 표식이 0 쪽에서 보강되었으므로 {classification} 규칙이다.",
+        "result_balanced": "측정값 {measurement}이 나왔다. 반대 위상 표식이 1 쪽에서 보강되었으므로 {classification} 규칙이다.",
+        "details_title": "확률 변화까지 단계별로 보기",
+        "reveal_title": "선택한 오라클의 실제 진리표 확인"
       },
       "terms": [
         {"용어": "알고리즘", "뜻": "문제를 풀기 위한 정해진 절차"},
@@ -532,7 +567,7 @@
         }
       ]
     },
-    "level8": {
+    "level7": {
       "goal": "목표: 실제 양자컴퓨터에서 노이즈와 오류가 왜 중요한지 이해한다.",
       "terms_title": "노이즈를 볼 때 필요한 말",
       "key_takeaway": "핵심: 양자 실험의 확률성과 장비 오류는 다르며, 노이즈는 측정 통계를 흐리게 만든다.",
@@ -595,7 +630,7 @@
         }
       ]
     },
-    "level9": {
+    "level8": {
       "goal": "목표: 간단한 양자 회로 그림을 왼쪽에서 오른쪽으로 읽는 법을 익힌다.",
       "terms_title": "회로를 볼 때 필요한 말",
       "key_takeaway": "핵심: 회로 그림은 큐비트, 게이트, 측정이 시간 순서로 놓인 지도이다.",
@@ -613,7 +648,7 @@
           "id": "x_gate",
           "label": "X 게이트: 0을 1로 뒤집기",
           "labels": ["0", "1"],
-          "image": "assets/images/level9_x_gate_circuit.svg",
+          "image": "assets/images/level8_x_gate_circuit.svg",
           "diagram": "q0: |0> -- X -- M",
           "reading": "|0>에서 시작해 X를 적용하고 측정한다. X는 계산 기준의 값을 뒤집는다.",
           "result_note": "이상적 결과는 항상 1이다. 가장 단순한 뒤집기 회로이다.",
@@ -625,7 +660,7 @@
           "id": "h_gate",
           "label": "H 게이트: 반반 상태 만들기",
           "labels": ["0", "1"],
-          "image": "assets/images/level9_h_gate_circuit.svg",
+          "image": "assets/images/level8_h_gate_circuit.svg",
           "diagram": "q0: |0> -- H -- M",
           "reading": "|0>에서 시작해 H를 적용하고 측정한다. H는 0과 1의 가능성을 같은 크기로 만든다.",
           "result_note": "반복 측정하면 0과 1이 반반 근처로 나뉜다. 한 번의 측정은 여전히 값 하나만 준다.",
@@ -637,7 +672,7 @@
           "id": "h_then_z",
           "label": "H 다음 Z: 같은 측정 확률, 다른 위상",
           "labels": ["0", "1"],
-          "image": "assets/images/level9_h_z_circuit.svg",
+          "image": "assets/images/level8_h_z_circuit.svg",
           "diagram": "q0: |0> -- H -- Z -- M",
           "reading": "Z는 |1> 부분의 부호를 바꾼다. Z 기준 측정에서는 그래도 0과 1이 반반으로 보인다.",
           "result_note": "확률 막대는 H만 적용한 회로와 같지만, 상태 안의 위상 부호는 다르다.",
@@ -649,7 +684,7 @@
           "id": "bell_pair",
           "label": "Bell 회로: 두 큐비트 연결하기",
           "labels": ["00", "01", "10", "11"],
-          "image": "assets/images/level9_bell_circuit.svg",
+          "image": "assets/images/level8_bell_circuit.svg",
           "diagram": "q0: |0> -- H -- ● -- M\n              |\nq1: |0> ----- X -- M",
           "reading": "먼저 위 큐비트에 H를 적용해 두 가능성을 만든다. 그 다음 CNOT이 두 번째 큐비트를 그 패턴에 연결한다.",
           "result_note": "이상적인 Bell 회로는 00 또는 11만 만든다. 각 큐비트는 무작위처럼 보이지만 두 결과는 서로 맞는다.",
@@ -709,7 +744,7 @@
         }
       ]
     },
-    "level10": {
+    "level9": {
       "goal": "목표: 한 번의 측정값, 반복 측정 통계, 노이즈가 섞인 결과를 구분한다.",
       "terms_title": "측정 통계를 볼 때 필요한 말",
       "key_takeaway": "핵심: 한 번의 측정은 상태 전체를 말하지 않고, 반복 측정은 확률 패턴을 드러내며, 노이즈는 그 패턴을 흐린다.",
@@ -720,7 +755,7 @@
         "3. 노이즈가 있으면 범위뿐 아니라 평균 위치도 원래 확률에서 밀릴 수 있다."
       ],
       "simulation_waiting": "아직 측정하지 않았다. 확률과 오류율을 고른 뒤 실험 실행을 누른다.",
-      "simulation_caption": "Level 8은 노이즈가 한 실험 결과를 어떻게 바꾸는지 본다. 이 단계는 같은 실험을 여러 묶음으로 반복해 표본 수가 흔들림 범위를 어떻게 줄이는지 본다.",
+      "simulation_caption": "Level 7은 노이즈가 한 실험 결과를 어떻게 바꾸는지 본다. 이 단계는 같은 실험을 여러 묶음으로 반복해 표본 수가 흔들림 범위를 어떻게 줄이는지 본다.",
       "result_note": "막대는 30개 실험 묶음의 평균이고, 세로선은 가장 낮은 비율부터 가장 높은 비율까지의 범위이다. 파란색은 노이즈 없는 경우, 붉은색은 노이즈가 섞인 경우이다.",
       "simulation_ui": {
         "shots_column": "Shots",
@@ -782,30 +817,42 @@
         }
       ]
     },
-    "level11": {
+    "level10": {
       "goal": "목표: 위상 차이에 따라 가능성이 보강되거나 상쇄되는 간섭을 이해한다.",
       "terms_title": "간섭을 볼 때 필요한 말",
       "key_takeaway": "핵심: 양자 간섭은 결과가 여러 개 보인다는 뜻이 아니라, 가능성의 방향이 더해져 어떤 결과는 커지고 어떤 결과는 사라지는 현상이다.",
-      "simulation_intro": "두 경로의 위상 차이를 고르고, bright와 dark 출력이 어떻게 달라지는지 반복 측정으로 확인한다.",
+      "simulation_intro": "위상 차이를 0도부터 360도까지 연속으로 바꾸며 이론 확률 곡선과 실제 반복 측정값을 비교한다.",
       "simulation_focus": [
-        "1. 위상이 같으면 bright 쪽이 보강된다.",
-        "2. 위상이 반대면 bright 쪽이 상쇄되고 dark 쪽이 커진다.",
-        "3. 중간 위상에서는 두 출력이 나뉜다."
+        "1. 두 경로의 화살표 각도가 위상 차이를 나타낸다.",
+        "2. 0도와 180도뿐 아니라 그 사이 모든 각도에서 확률이 부드럽게 변한다.",
+        "3. 이론 확률과 유한한 반복 측정 빈도의 차이를 비교한다."
       ],
-      "simulation_waiting": "아직 측정하지 않았다. 위상 차이와 반복 횟수를 고른 뒤 실험 실행을 누른다.",
-      "simulation_caption": "그래프 라벨은 영어로 표시한다. bright는 보강된 출력, dark는 상쇄가 강한 출력으로 생각한다.",
+      "simulation_waiting": "곡선은 이론값을 보여준다. 위상과 반복 횟수를 정한 뒤 실험을 실행하면 실제 측정 빈도와의 차이가 나타난다.",
+      "simulation_caption": "Level 4가 H-H와 H-Z-H 두 특수 경우를 비교했다면, 여기서는 연속적인 위상 전체와 표본 오차까지 살펴본다. 그래프 라벨은 영어로 표시한다.",
       "simulation_ui": {
         "phase_label": "위상 차이",
         "output_column": "Output",
-        "probability_column": "Probability",
-        "count_column": "Count"
+        "theory_column": "Theory",
+        "observed_column": "Observed",
+        "count_column": "Count",
+        "gap_column": "Gap",
+        "advanced_purpose": "심화 목표: 특정 회로 결과를 외우는 대신, 상대 위상이 두 출력의 확률 곡선을 어떻게 만들고 반복 측정이 그 곡선에 얼마나 가까워지는지 확인한다.",
+        "curve_caption": "왼쪽 화살표는 두 경로의 상대 위상, 오른쪽 곡선은 모든 위상에서의 bright/dark 이론 확률이다. 점은 현재 선택한 위상이다.",
+        "comparison_title": "이론 확률과 반복 측정 비교",
+        "phase_metric": "Phase difference",
+        "predicted_bright": "Predicted bright",
+        "observed_bright": "Observed bright",
+        "result_constructive": "{phase}도에서는 두 경로가 같은 방향이라 bright 출력이 완전히 보강된다.",
+        "result_destructive": "180도에서는 두 경로가 반대 방향이라 bright 출력이 상쇄되고 dark가 남는다.",
+        "result_partial": "{phase}도에서는 부분 보강과 부분 상쇄가 함께 일어나 두 출력이 나뉜다.",
+        "sampling_note": "이번 {shots}회 측정에서 bright 빈도와 이론값의 차이는 {gap:.1f} percentage points이다. 반복 횟수를 바꾸어 이 차이가 어떻게 흔들리는지 비교한다."
       },
       "phase_options": [
         {
           "id": "phase_0",
           "label": "0도 · 같은 위상",
           "phase_turns": 0,
-          "image": "assets/images/level11_phase_0.svg",
+          "image": "assets/images/level10_phase_0.svg",
           "reading": "두 가능성이 같은 방향으로 만나 bright 쪽이 커진다.",
           "formula": "P(\\text{bright})=1",
           "result_note": "보강 간섭이다. 이상적으로는 bright만 나온다."
@@ -814,7 +861,7 @@
           "id": "phase_90",
           "label": "90도 · 중간 위상",
           "phase_turns": 0.25,
-          "image": "assets/images/level11_phase_90.svg",
+          "image": "assets/images/level10_phase_90.svg",
           "reading": "두 가능성이 완전히 같지도, 완전히 반대도 아니어서 두 출력이 나뉜다.",
           "formula": "P(\\text{bright})=\\frac{1}{2}",
           "result_note": "중간 위상이다. 반복 측정하면 bright와 dark가 반반 근처로 나온다."
@@ -823,7 +870,7 @@
           "id": "phase_180",
           "label": "180도 · 반대 위상",
           "phase_turns": 0.5,
-          "image": "assets/images/level11_phase_180.svg",
+          "image": "assets/images/level10_phase_180.svg",
           "reading": "두 가능성이 반대 방향으로 만나 bright 쪽이 상쇄된다.",
           "formula": "P(\\text{bright})=0",
           "result_note": "상쇄 간섭이다. 이상적으로는 dark만 나온다."
@@ -832,7 +879,7 @@
           "id": "phase_270",
           "label": "270도 · 다른 중간 위상",
           "phase_turns": 0.75,
-          "image": "assets/images/level11_phase_270.svg",
+          "image": "assets/images/level10_phase_270.svg",
           "reading": "90도와 마찬가지로 두 출력이 나뉘지만, 위상 방향은 다르다.",
           "formula": "P(\\text{bright})=\\frac{1}{2}",
           "result_note": "측정 확률은 90도와 같지만, 위상 방향은 다르다. 나중 회로에서는 이 차이가 중요해질 수 있다."

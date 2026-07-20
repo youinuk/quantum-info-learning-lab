@@ -6,6 +6,10 @@ Measuring two qubits gives four possible outcomes: `00`, `01`, `10`, and `11`. T
 
 ![Two-qubit states](assets/images/two_qubits.svg)
 
+A **basis state** is one of the basic states used as coordinates for describing a quantum state. In the computational basis used here, the two-qubit basis states are $\lvert00\rangle$, $\lvert01\rangle$, $\lvert10\rangle$, and $\lvert11\rangle$.
+
+When a two-qubit state contains several possible outcomes, it can be written as a sum of these basis states. Each basis state appearing in that expression is a **basis-state term**, or simply a **term**. Measurement produces the outcome corresponding to one of them.
+
 ## 2. The state space grows quickly
 
 Each added qubit doubles the number of basis states.

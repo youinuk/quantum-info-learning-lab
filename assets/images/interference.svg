@@ -1,23 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
-  <title id="title">Quantum interference</title>
-  <desc id="desc">A simple diagram comparing H-H and H-Z-H paths.</desc>
-  <rect width="900" height="520" fill="#f7f8fb"/>
-  <text x="450" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#182233">Interference changes the final result</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">H-H and H-Z-H interference comparison</title>
+  <desc id="desc">Two aligned quantum circuits show how the final Hadamard gate turns equal signs into zero and opposite signs into one.</desc>
+  <rect width="900" height="430" fill="#f8fafc"/>
+  <text x="450" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a">H-H / H-Z-H</text>
 
-  <rect x="70" y="130" width="760" height="120" rx="16" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
-  <text x="120" y="178" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1d4ed8">H-H</text>
-  <text x="228" y="178" font-family="Arial, sans-serif" font-size="22" fill="#334155">|0&gt; -> H -> superposition -> H -> |0&gt;</text>
-  <rect x="665" y="156" width="88" height="52" rx="10" fill="#dbeafe" stroke="#2f80ed" stroke-width="3"/>
-  <text x="709" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1d4ed8">|0&gt;</text>
+  <rect x="46" y="76" width="808" height="132" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="46" y="228" width="808" height="132" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
 
-  <rect x="70" y="292" width="760" height="120" rx="16" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
-  <text x="120" y="340" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#7c3aed">H-Z-H</text>
-  <text x="228" y="340" font-family="Arial, sans-serif" font-size="22" fill="#334155">|0&gt; -> H -> superposition -> Z -> H -> |1&gt;</text>
-  <rect x="665" y="318" width="88" height="52" rx="10" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
-  <text x="709" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#6d28d9">|1&gt;</text>
+  <rect x="532" y="62" width="120" height="312" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="8 7"/>
+  <text x="592" y="88" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1d4ed8">INTERFERENCE</text>
 
-  <path d="M154 230 C235 270, 305 270, 386 230" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round"/>
-  <text x="270" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#15803d">adds toward |0&gt;</text>
-  <path d="M154 390 C235 430, 305 430, 386 390" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" stroke-dasharray="9 9"/>
-  <text x="270" y="446" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#b91c1c">sign changes the interference</text>
+  <text x="72" y="118" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#166534">H-H</text>
+  <text x="104" y="159" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="22" fill="#0f172a">|0⟩</text>
+  <line x1="132" y1="151" x2="786" y2="151" stroke="#334155" stroke-width="3"/>
+  <rect x="176" y="118" width="66" height="66" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="209" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#15803d">H</text>
+  <rect x="354" y="122" width="58" height="58" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="383" y="159" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#475569">I</text>
+  <text x="468" y="143" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#166534">+,+</text>
+  <rect x="559" y="118" width="66" height="66" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="592" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1d4ed8">H</text>
+  <rect x="688" y="118" width="66" height="66" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <path d="M702 164 Q721 128 740 164" fill="none" stroke="#991b1b" stroke-width="3"/>
+  <line x1="721" y1="164" x2="721" y2="176" stroke="#991b1b" stroke-width="3"/>
+  <text x="807" y="159" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="25" font-weight="700" fill="#166534">|0⟩</text>
+
+  <text x="72" y="270" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#7c3aed">H-Z-H</text>
+  <text x="104" y="311" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="22" fill="#0f172a">|0⟩</text>
+  <line x1="132" y1="303" x2="786" y2="303" stroke="#334155" stroke-width="3"/>
+  <rect x="176" y="270" width="66" height="66" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="209" y="312" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#15803d">H</text>
+  <rect x="354" y="274" width="58" height="58" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="383" y="311" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#b45309">Z</text>
+  <text x="468" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#7c3aed">+,-</text>
+  <rect x="559" y="270" width="66" height="66" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="592" y="312" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1d4ed8">H</text>
+  <rect x="688" y="270" width="66" height="66" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+  <path d="M702 316 Q721 280 740 316" fill="none" stroke="#991b1b" stroke-width="3"/>
+  <line x1="721" y1="316" x2="721" y2="328" stroke="#991b1b" stroke-width="3"/>
+  <text x="807" y="311" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="25" font-weight="700" fill="#7c3aed">|1⟩</text>
 </svg>

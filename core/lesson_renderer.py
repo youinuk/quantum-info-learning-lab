@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import base64
+import html
 import re
 from pathlib import Path
 
@@ -13,11 +15,17 @@ from core.math_display import inline_kets_to_latex
 
 IMAGE_PATTERN = re.compile(r"^!\[(?P<caption>.*?)\]\((?P<path>.*?)\)\s*$")
 HEADING_PATTERN = re.compile(r"^##\s+(?P<title>.+?)\s*$")
+EXPANDER_PATTERN = re.compile(r"^:::expander\s+(?P<label>.+?)\s*$")
 LESSON_IMAGE_WIDTHS = {
-    "Doubleslit.svg": 420,
-    "Doubleslit3Dspectrum.gif": 320,
-    "double_slit_interference.svg": 640,
+    "Doubleslit.svg": 360,
+    "Doubleslit3Dspectrum.gif": 420,
+    "double_slit_setup.svg": 560,
+    "double_slit_wavefronts.webp": 680,
+    "electron_double_slit_buildup.gif": 680,
+    "double_slit_interference.svg": 680,
+    "level10_deutsch_interference_bridge.svg": 680,
 }
+DEFAULT_LESSON_IMAGE_WIDTH = 680
 
 
 def split_lesson_cards(markdown: str) -> list[dict[str, str]]:
@@ -62,19 +70,48 @@ def render_lesson_markdown(markdown: str) -> None:
             st.markdown(inline_kets_to_latex("\n".join(buffer)))
             buffer.clear()
 
-    for line in markdown.splitlines():
+    lines = markdown.splitlines()
+    line_index = 0
+    while line_index < len(lines):
+        line = lines[line_index]
+        expander_match = EXPANDER_PATTERN.match(line.strip())
+        if expander_match:
+            flush()
+            expander_lines: list[str] = []
+            line_index += 1
+            while line_index < len(lines) and lines[line_index].strip() != ":::":
+                expander_lines.append(lines[line_index])
+                line_index += 1
+            with st.expander(expander_match.group("label")):
+                render_lesson_markdown("\n".join(expander_lines))
+            line_index += 1
+            continue
+
         match = IMAGE_PATTERN.match(line.strip())
         if not match:
             buffer.append(line)
+            line_index += 1
             continue
 
         flush()
         image_path = BASE_DIR / Path(match.group("path"))
         caption = match.group("caption")
         if image_path.exists():
-            width = LESSON_IMAGE_WIDTHS.get(image_path.name, "stretch")
-            st.image(str(image_path), caption=caption or None, width=width)
+            width = LESSON_IMAGE_WIDTHS.get(image_path.name, DEFAULT_LESSON_IMAGE_WIDTH)
+            if image_path.suffix.lower() == ".gif":
+                encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
+                alt = html.escape(caption or image_path.stem, quote=True)
+                st.markdown(
+                    f'<img src="data:image/gif;base64,{encoded}" alt="{alt}" '
+                    f'style="width:{width}px;max-width:100%;height:auto;display:block">',
+                    unsafe_allow_html=True,
+                )
+                if caption:
+                    st.caption(caption)
+            else:
+                st.image(str(image_path), caption=caption or None, width=width)
         else:
             st.warning(t("lesson_image_missing").format(path=image_path))
+        line_index += 1
 
     flush()

@@ -20,9 +20,9 @@
 
 밝은 곳은 가능성이 보강된 곳이고, 어두운 곳은 가능성이 상쇄된 곳이다.
 
-![이중슬릿 실험 장치](assets/images/Doubleslit.svg)
+![이중슬릿 실험 장치](assets/images/double_slit_setup.svg)
 
-![이중슬릿 간섭무늬](assets/images/Doubleslit3Dspectrum.gif)
+![전자가 하나씩 검출되며 간섭무늬가 쌓이는 실제 실험](assets/images/electron_double_slit_buildup.gif)
 
 한 번 검출할 때는 화면에 점 하나만 찍힌다. 하지만 같은 실험을 많이 반복하면 점들이 몰리는 곳과 비는 곳이 생기고, 그 밀도 차이가 간섭무늬가 된다.
 

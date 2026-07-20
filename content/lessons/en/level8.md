@@ -1,39 +1,39 @@
-## 1. Real quantum computers are not perfect
+## 1. A circuit diagram is like a timeline
 
-Earlier levels treated qubits and gates as ideal.
+In a quantum circuit, each horizontal line represents one qubit. The left side is the beginning, and the right side is later. A box on the line is a gate applied at that point.
 
-Real devices are affected by heat, vibration, electromagnetic noise, imperfect control signals, and imperfect measurement devices. These unwanted effects are called noise.
+![H gate circuit](assets/images/level8_h_gate_circuit.svg)
 
-![Noise and errors](assets/images/noise_error.svg)
+For example, starting from `|0>` and applying `X` gives `|1>`. Applying `H` creates a state that can later produce 0 or 1 with equal probability. Circuit diagrams can look formal, but the first rule is simple: read from left to right.
 
-## 2. Noise blurs the answer
+## 2. Measurement is the end of the question
 
-Suppose a state is supposed to produce 1 most of the time.
+Measurement reads a qubit as a visible 0 or 1. Before measurement, a state can carry possibilities. The measurement result itself is one value.
 
-Without noise, the measurement results cluster around 1. If some results flip during measurement, extra 0 results appear.
+One measurement result is not enough to know the whole state. Repeating the same preparation many times reveals the probability pattern. This repeats the main idea from Levels 0, 1, and 2.
 
-This level uses a very simple bit-flip error model. Real quantum errors are more varied, but this model is enough for a first intuition.
+## 3. Two-qubit circuits use two lines together
 
-## 3. Small error rates still matter
+In a two-qubit circuit, read each line separately, but pay special attention to gates such as `CNOT` that connect two lines. The control dot means "this qubit sets the condition." The circled `X` means "flip this target if the condition is met."
 
-An error rate of 1% may sound small.
+A standard example is the Bell circuit.
 
-But long circuits contain many operations. Small errors can accumulate across 100 or 1000 steps.
+![Bell circuit](assets/images/level8_bell_circuit.svg)
 
-That is why quantum computers are judged not only by qubit count, but also by error rates.
+First, `H` on the top qubit creates possibilities for 0 and 1. Then `CNOT` connects the two qubits. At the end, measurement gives only `00` or `11`.
 
-## 4. Error is different from probability
+## 4. Equations are tools for checking meaning
 
-Quantum measurement being probabilistic is not the same as hardware making errors.
+You may see an expression such as this:
 
-Probability belongs to the state itself. Error is an unwanted effect from the device or environment.
+$$
+\frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|11\rangle
+$$
 
-Keeping those ideas separate helps make sense of real quantum experiments.
+If the equation feels hard, skip it for now. The key meaning is that `00` and `11` remain as equal-size possibilities, while `01` and `10` do not appear.
 
-## 5. Why error correction is hard
+## 5. Connecting to real tools
 
-Classical computers can reduce errors by copying information and comparing copies.
+Tools such as Qiskit and Cirq also build circuits. You do not need to memorize code first. Read the circuit diagram first, then match each code line to the part of the circuit it creates.
 
-Quantum information cannot be freely copied, and measurement changes the state. Quantum error correction therefore has to be designed very carefully.
-
-This level only aims to show why noise is a serious problem.
+The goal of this level is circuit literacy, not coding speed. Once you can read circuits, real quantum SDKs feel much less foreign.

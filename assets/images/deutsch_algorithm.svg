@@ -9,8 +9,8 @@
 
   <text x="68" y="186" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">first</text>
   <text x="68" y="296" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0f172a">helper</text>
-  <text x="122" y="186" font-family="Arial, sans-serif" font-size="21" fill="#2563eb">|0&gt;</text>
-  <text x="122" y="296" font-family="Arial, sans-serif" font-size="21" fill="#2563eb">|1&gt;</text>
+  <text x="122" y="186" font-family="Cambria Math, STIX Two Math, serif" font-size="21" fill="#2563eb">|0⟩</text>
+  <text x="122" y="296" font-family="Cambria Math, STIX Two Math, serif" font-size="21" fill="#2563eb">|1⟩</text>
 
   <line x1="166" y1="180" x2="824" y2="180" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
   <line x1="166" y1="290" x2="824" y2="290" stroke="#334155" stroke-width="4" stroke-linecap="round"/>

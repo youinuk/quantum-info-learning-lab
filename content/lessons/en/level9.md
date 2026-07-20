@@ -1,39 +1,51 @@
-## 1. A circuit diagram is like a timeline
+## 1. One measurement is one piece
 
-In a quantum circuit, each horizontal line represents one qubit. The left side is the beginning, and the right side is later. A box on the line is a gate applied at that point.
+When you measure one qubit, the screen shows one value: 0 or 1. That one value does not reveal the whole original state.
 
-![H gate circuit](assets/images/level9_h_gate_circuit.svg)
+Suppose a 50:50 state is measured once and gives 1. That does not mean the state always gives 1. You need to repeat the same preparation many times.
 
-For example, starting from `|0>` and applying `X` gives `|1>`. Applying `H` creates a state that can later produce 0 or 1 with equal probability. Circuit diagrams can look formal, but the first rule is simple: read from left to right.
+## 2. Repeated measurement reveals a pattern
 
-## 2. Measurement is the end of the question
+With 10 measurements, the result can wobble a lot. With 100 or 1000 measurements, the observed ratio tends to move closer to the original probability.
 
-Measurement reads a qubit as a visible 0 or 1. Before measurement, a state can carry possibilities. The measurement result itself is one value.
+![Measurement count and statistics](assets/images/level10_sampling_statistics.svg)
 
-One measurement result is not enough to know the whole state. Repeating the same preparation many times reveals the probability pattern. This repeats the main idea from Levels 0, 1, and 2.
+The important phrase is not "becomes exactly equal." It is "tends to move closer." Probability experiments always keep some fluctuation.
 
-## 3. Two-qubit circuits use two lines together
+## 3. Separate probability from noise
 
-In a two-qubit circuit, read each line separately, but pay special attention to gates such as `CNOT` that connect two lines. The control dot means "this qubit sets the condition." The circled `X` means "flip this target if the condition is met."
+A quantum state having probability is different from a device making errors.
 
-A standard example is the Bell circuit.
+![Probability and noise comparison](assets/images/level10_noise_vs_probability.svg)
 
-![Bell circuit](assets/images/level9_bell_circuit.svg)
+Probability belongs to the prepared state. Noise is unwanted disturbance from measurement devices, the environment, or imperfect operations. Mixing these ideas can lead to a wrong interpretation of real data.
 
-First, `H` on the top qubit creates possibilities for 0 and 1. Then `CNOT` connects the two qubits. At the end, measurement gives only `00` or `11`.
+## 4. More samples do not remove every problem
 
-## 4. Equations are tools for checking meaning
+Increasing the number of measurements reduces random wobble. But if the device keeps flipping some results, a large experiment can still show a biased pattern.
 
-You may see an expression such as this:
+For example, suppose the original probability of 1 is 1/2 and we measure 1000 times. Without noise, the ratio of 1 usually stays near 0.5. If the device keeps flipping 10% of the results, individual results still contain errors. Even if the final ratio happens to look close to 0.5, that does not prove there were no errors.
+
+As another example, if a state should almost always give 1 but the error rate is 20%, then 1000 measurements may still show a ratio near 0.8 rather than 1.0. More samples reduce random wobble, but they do not automatically remove device bias.
+
+That is why real quantum computers need more than repetition. They also need ways to reduce noise and identify which errors are happening.
+
+## 5. Interpretation comes before formulas
+
+The most basic formula is the observed ratio.
 
 $$
-\frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|11\rangle
+\hat{p}=\frac{N_1}{N}
 $$
 
-If the equation feels hard, skip it for now. The key meaning is that `00` and `11` remain as equal-size possibilities, while `01` and `10` do not appear.
+Here, `N_1` is the number of 1 results, and `N` is the total number of measurements.
 
-## 5. Connecting to real tools
+For example, if 1 appears 57 times in 100 measurements, the observed ratio is:
 
-Tools such as Qiskit and Cirq also build circuits. You do not need to memorize code first. Read the circuit diagram first, then match each code line to the part of the circuit it creates.
+$$
+\hat{p}=\frac{57}{100}=0.57
+$$
 
-The goal of this level is circuit literacy, not coding speed. Once you can read circuits, real quantum SDKs feel much less foreign.
+If we repeat the same experiment in several batches, each batch can have a slightly different observed ratio. The mean summarizes the batches, and the range shows how much they wobbled. If the formula feels hard, focus only on the fraction for now. The key idea is to look at repeated patterns, not just one value.
+
+One measurement is one photo. Repeated measurements are an album. Noise is like dust on the camera lens: it can blur the whole picture.

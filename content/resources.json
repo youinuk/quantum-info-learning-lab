@@ -129,7 +129,7 @@
         "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information"
       }
     ],
-    "level7": [
+    "level11": [
       {
         "title": "Qutube · Deutsch-Jozsa 알고리즘 영상과 확인 문제",
         "type": "video_link",
@@ -146,7 +146,7 @@
         "url": "https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/introduction"
       }
     ],
-    "level8": [
+    "level7": [
       {
         "title": "Qutube · 큐비트가 환경 때문에 결맞음을 잃는 과정",
         "type": "video_link",
@@ -163,7 +163,7 @@
         "url": "https://algassert.com/quirk"
       }
     ],
-    "level9": [
+    "level8": [
       {
         "title": "IBM Quantum Composer · 회로를 직접 그려 보는 도구",
         "type": "simulation_link",
@@ -185,7 +185,7 @@
         "url": "https://github.com/quantumlib/Cirq"
       }
     ],
-    "level10": [
+    "level9": [
       {
         "title": "Khan Academy · 확률과 통계 기초",
         "type": "link",
@@ -207,7 +207,7 @@
         "url": "https://algassert.com/quirk"
       }
     ],
-    "level11": [
+    "level10": [
       {
         "title": "PhET · Quantum Wave Interference 시뮬레이션",
         "type": "simulation_link",
@@ -382,7 +382,7 @@
         "url": "https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information"
       }
     ],
-    "level7": [
+    "level11": [
       {
         "title": "Qutube · Deutsch-Jozsa video and review questions",
         "type": "video_link",
@@ -399,7 +399,7 @@
         "url": "https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/introduction"
       }
     ],
-    "level8": [
+    "level7": [
       {
         "title": "Qutube · How a qubit loses coherence to its environment",
         "type": "video_link",
@@ -416,7 +416,7 @@
         "url": "https://algassert.com/quirk"
       }
     ],
-    "level9": [
+    "level8": [
       {
         "title": "IBM Quantum Composer · Build circuits in the browser",
         "type": "simulation_link",
@@ -438,7 +438,7 @@
         "url": "https://github.com/quantumlib/Cirq"
       }
     ],
-    "level10": [
+    "level9": [
       {
         "title": "Khan Academy · Statistics and probability",
         "type": "link",
@@ -460,7 +460,7 @@
         "url": "https://algassert.com/quirk"
       }
     ],
-    "level11": [
+    "level10": [
       {
         "title": "PhET · Quantum Wave Interference simulation",
         "type": "simulation_link",

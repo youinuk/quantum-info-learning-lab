@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Numerical amplitude and probability example</title>
+  <desc id="desc">A state with amplitudes square root of three over two and one half produces probabilities three quarters and one quarter.</desc>
+  <rect width="900" height="430" fill="#f8fafc"/>
+  <rect x="42" y="34" width="816" height="362" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="450" y="86" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="29" fill="#0f172a">|ψ⟩ = (√3/2)|0⟩ + (1/2)|1⟩</text>
+
+  <text x="244" y="140" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="24" fill="#1d4ed8">|√3/2|² = 3/4</text>
+  <rect x="116" y="170" width="256" height="142" rx="8" fill="#e2e8f0"/>
+  <rect x="116" y="205.5" width="256" height="106.5" rx="8" fill="#2563eb"/>
+  <text x="244" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">75%</text>
+  <text x="244" y="348" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="24" fill="#1e3a8a">P(0) = 3/4</text>
+
+  <text x="656" y="140" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="24" fill="#6d28d9">|1/2|² = 1/4</text>
+  <rect x="528" y="170" width="256" height="142" rx="8" fill="#e2e8f0"/>
+  <rect x="528" y="276.5" width="256" height="35.5" rx="8" fill="#7c3aed"/>
+  <text x="656" y="264" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#5b21b6">25%</text>
+  <text x="656" y="348" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="24" fill="#5b21b6">P(1) = 1/4</text>
+</svg>

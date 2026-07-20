@@ -20,20 +20,20 @@ if not hasattr(simulator, "simulate_measurement_series"):
     simulator = importlib.reload(simulator)
 
 lang = get_lang()
-content = load_level_content("level10", lang)
+content = load_level_content("level9", lang)
 
 
-def clear_level10_results() -> None:
-    st.session_state.pop("level10_result", None)
+def clear_level9_results() -> None:
+    st.session_state.pop("level9_result", None)
 
 
-if st.session_state.get("_active_learning_page") != "level10":
-    clear_level10_results()
-    st.session_state.pop("level10_controls", None)
-    st.session_state["level10_run_index"] = 0
-st.session_state["_active_learning_page"] = "level10"
+if st.session_state.get("_active_learning_page") != "level9":
+    clear_level9_results()
+    st.session_state.pop("level9_controls", None)
+    st.session_state["level9_run_index"] = 0
+st.session_state["_active_learning_page"] = "level9"
 
-st.title(t("level10_title"))
+st.title(t("level9_title"))
 st.write(content.get("goal", ""))
 
 presentation_tab, simulation_tab, resources_tab, quiz_tab = st.tabs(
@@ -50,7 +50,7 @@ SHOT_COUNTS = (10, 100, 1000)
 BATCH_COUNT = 30
 
 with presentation_tab:
-    render_lesson_cards(load_lesson_markdown("level10", lang), "level10")
+    render_lesson_cards(load_lesson_markdown("level9", lang), "level9")
     render_terms(content)
     st.success(content.get("key_takeaway", ""))
 
@@ -69,16 +69,16 @@ with simulation_tab:
         noise_label = st.selectbox(t("noise_rate"), list(NOISE_OPTIONS.keys()), index=1)
 
     current_controls = (probability_label, noise_label)
-    previous_controls = st.session_state.get("level10_controls")
+    previous_controls = st.session_state.get("level9_controls")
     if previous_controls is not None and previous_controls != current_controls:
-        clear_level10_results()
-    st.session_state["level10_controls"] = current_controls
+        clear_level9_results()
+    st.session_state["level9_controls"] = current_controls
 
     run_col, reset_col = st.columns([1, 1])
     if run_col.button(t("run_sim"), type="primary", width="stretch"):
-        run_index = st.session_state.get("level10_run_index", 0) + 1
-        st.session_state["level10_run_index"] = run_index
-        st.session_state["level10_result"] = simulator.simulate_measurement_series(
+        run_index = st.session_state.get("level9_run_index", 0) + 1
+        st.session_state["level9_run_index"] = run_index
+        st.session_state["level9_result"] = simulator.simulate_measurement_series(
             probability_from_label(probability_label),
             NOISE_OPTIONS[noise_label],
             SHOT_COUNTS,
@@ -86,10 +86,10 @@ with simulation_tab:
             11000 + run_index,
         )
     if reset_col.button(t("reset_state"), width="stretch"):
-        clear_level10_results()
-        st.session_state["level10_run_index"] = 0
+        clear_level9_results()
+        st.session_state["level9_run_index"] = 0
 
-    result = st.session_state.get("level10_result")
+    result = st.session_state.get("level9_result")
     if result is None:
         rows = [
             {
@@ -155,11 +155,11 @@ with simulation_tab:
 
 with resources_tab:
     st.subheader(t("tab_resources"))
-    for item in load_resources("level10", lang):
+    for item in load_resources("level9", lang):
         render_resource_item(item)
 
 with quiz_tab:
     st.subheader(t("tab_quiz"))
-    render_quiz_items(content.get("quiz", []), "level10")
+    render_quiz_items(content.get("quiz", []), "level9")
 
-render_level_navigation(10)
+render_level_navigation(9)

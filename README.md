@@ -1,6 +1,6 @@
 # Quantum Info Learning Lab
 
-고등학생과 일반 학습자를 위한 Streamlit 기반 양자정보 학습 앱이다. 비트와 확률에서 출발해 큐비트, 측정, 게이트, 간섭, 얽힘, 간단한 양자 알고리즘, 노이즈까지 단계적으로 다룬다.
+고등학생과 일반 학습자를 위한 Streamlit 기반 양자정보 학습 앱이다. 비트와 확률에서 출발해 큐비트, 측정, 게이트, 간섭, 얽힘, 노이즈, 회로 읽기, 측정 통계, 간섭 심화, 간단한 양자 알고리즘까지 단계적으로 다룬다.
 
 기본 사용 환경은 PC/태블릿 최적화다. 모바일에서는 확인과 가벼운 체험이 가능하도록 호환성을 유지한다.
 
@@ -38,11 +38,11 @@ conda run -n quantum_lab pytest -q
 - Level 4: 간섭
 - Level 5: 두 큐비트
 - Level 6: 얽힘
-- Level 7: 간단한 양자 알고리즘
-- Level 8: 노이즈와 오류
-- Level 9: 회로를 읽는 법
-- Level 10: 측정과 통계
-- Level 11: 간섭 심화
+- Level 7: 노이즈와 오류
+- Level 8: 회로를 읽는 법
+- Level 9: 측정과 통계
+- Level 10: 간섭 심화
+- Level 11: 간단한 양자 알고리즘
 - Level 12: 얽힘과 정보의 한계
 - Photon Heist: 빛의 직진, 반사, 굴절을 다루는 HTML5 퍼즐 게임
 
@@ -54,6 +54,7 @@ conda run -n quantum_lab pytest -q
 - 레벨 목표, 용어, 퀴즈 등 구조화 데이터: `content/levels.json`, `content/levels_en.json`
 - 자료실 링크: `content/resources.json`
 - 로컬 이미지: `assets/images/`
+- 외부 미디어 출처와 라이선스: `docs/media_attributions.md`
 - Photon Heist 게임 파일: `games/photon_heist/`
 
 ## 검증

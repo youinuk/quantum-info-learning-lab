@@ -27,6 +27,29 @@ def test_every_level_has_terms_and_core_learning_content() -> None:
                 assert all(str(value).strip() for value in term.values())
 
 
+def test_level5_introduces_basis_state_and_basis_state_term() -> None:
+    expected_terms = {
+        "ko": {"기저 상태", "기저 상태 항"},
+        "en": {"basis state", "basis-state term"},
+    }
+
+    for lang in ("ko", "en"):
+        content = load_level_content("level5", lang)
+        lesson = (
+            ROOT / "content" / "lessons" / lang / "level5.md"
+        ).read_text(encoding="utf-8")
+        term_names = {next(iter(term.values())) for term in content["terms"]}
+
+        assert expected_terms[lang] <= term_names
+        assert all(term in lesson for term in expected_terms[lang])
+
+    korean_sources = (
+        (ROOT / "content" / "levels.json").read_text(encoding="utf-8")
+        + (ROOT / "content" / "lessons" / "ko" / "level5.md").read_text(encoding="utf-8")
+    )
+    assert "기준 상태" not in korean_sources
+
+
 def test_translation_keys_match_between_languages() -> None:
     assert set(TRANSLATIONS["ko"]) == set(TRANSLATIONS["en"])
 
@@ -85,7 +108,7 @@ def test_loaded_structured_content_contains_no_ascii_ket_endings() -> None:
 
 def test_circuit_card_images_exist() -> None:
     for lang in ("ko", "en"):
-        content = load_level_content("level9", lang)
+        content = load_level_content("level8", lang)
         for option in content["circuit_options"]:
             image = option.get("image")
             assert image
@@ -94,11 +117,22 @@ def test_circuit_card_images_exist() -> None:
 
 def test_phase_option_images_exist() -> None:
     for lang in ("ko", "en"):
-        content = load_level_content("level11", lang)
+        content = load_level_content("level10", lang)
         for option in content["phase_options"]:
             image = option.get("image")
             assert image
             assert (ROOT / image).is_file()
+
+
+def test_level10_simulation_exposes_continuous_phase_comparison() -> None:
+    for lang in ("ko", "en"):
+        content = load_level_content("level10", lang)
+        ui = content["simulation_ui"]
+
+        assert "theory_column" in ui
+        assert "observed_column" in ui
+        assert "gap_column" in ui
+        assert "advanced_purpose" in ui
 
 
 def test_simulation_diagram_images_exist() -> None:

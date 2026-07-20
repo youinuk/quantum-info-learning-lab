@@ -15,11 +15,11 @@ LEVEL_PAGES = [
     "pages/05_level4_interference.py",
     "pages/06_level5_two_qubits.py",
     "pages/07_level6_entanglement.py",
-    "pages/08_level7_algorithms.py",
-    "pages/09_level8_noise.py",
-    "pages/11_level9_circuit_reading.py",
-    "pages/12_level10_measurement_statistics.py",
-    "pages/13_level11_interference_depth.py",
+    "pages/08_level7_noise.py",
+    "pages/09_level8_circuit_reading.py",
+    "pages/11_level9_measurement_statistics.py",
+    "pages/12_level10_interference_depth.py",
+    "pages/13_level11_algorithms.py",
     "pages/14_level12_entanglement_limits.py",
 ]
 

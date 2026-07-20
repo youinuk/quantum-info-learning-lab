@@ -67,6 +67,7 @@
     "terms": [
       {"Term": "bit", "Meaning": "A unit of information with one definite value, 0 or 1"},
       {"Term": "qubit", "Meaning": "A quantum information unit that can carry possibilities for 0 and 1 before measurement"},
+      {"Term": "bra-ket notation", "Meaning": "Notation such as |ψ⟩ for a quantum state; ψ (psi) names the state, and this level uses kets such as |0⟩ and |1⟩"},
       {"Term": "amplitude", "Meaning": "A number whose squared size gives a measurement probability"},
       {"Term": "measurement", "Meaning": "The process of getting one actual result, 0 or 1, from a qubit"}
     ],
@@ -237,10 +238,15 @@
     "simulation_intro": "Start from |0>, create a superposition with H, choose a middle operation, then apply H again.",
     "simulation_waiting": "The circuit has not run yet. Choose the middle operation, then run the experiment.",
     "simulation_hint": "Doing nothing in the middle gives H-H and returns to |0>. Adding Z changes the final result toward |1>.",
+    "simulation_diagram": "assets/images/level4_interference_circuit.svg",
     "simulation_ui": {
       "start_state": "Start state",
       "middle_state": "Middle state",
-      "final_state": "Final state"
+      "final_state": "Final state",
+      "circuit_caption": "The first H creates two possibilities, I or Z in the dashed box sets their phase relationship, and the final H recombines them.",
+      "control_prompt": "Choose the middle operation for the dashed box",
+      "result_none": "In H-H, the two possibilities reinforce output |0>, so the measurement is 0.",
+      "result_z": "In H-Z-H, the sign changed by Z makes the possibilities reinforce output |1>, so the measurement is 1."
     },
     "terms": [
       {"Term": "interference", "Meaning": "Possibilities adding or canceling when they meet again"},
@@ -302,7 +308,8 @@
     "simulation_hint": "Changing the first and second qubit probabilities changes the ratios of 00, 01, 10, and 11 together.",
     "terms": [
       {"Term": "two qubits", "Meaning": "A system containing two qubits"},
-      {"Term": "basis state", "Meaning": "A basic named outcome such as 00, 01, 10, or 11"},
+      {"Term": "basis state", "Meaning": "A basic coordinate-like state used to describe a quantum state; the two-qubit computational basis contains |00>, |01>, |10>, and |11>"},
+      {"Term": "basis-state term", "Meaning": "One basis state appearing as a term in a superposition expression; it can be shortened to term when the context is clear"},
       {"Term": "state space", "Meaning": "The set of possible basis states considered together"},
       {"Term": "independent", "Meaning": "A case where one qubit's result does not specially determine the other's"}
     ],
@@ -437,11 +444,19 @@
       }
     ]
   },
-  "level7": {
+  "level11": {
     "goal": "Goal: Understand how a two-qubit Deutsch circuit uses one oracle query and interference to classify a hidden rule.",
     "terms_title": "Terms for algorithms",
     "key_takeaway": "Key idea: the oracle does not print both answers. It marks their relationship in phase, and the final H turns that relationship into a measurable 0 or 1.",
-    "simulation_intro": "Choose one black-box oracle from A to D. The circuit classifies it as constant or balanced without opening its truth table first.",
+    "simulation_intro": "First use the truth table to see the difference between constant and balanced, then choose an oracle and follow how the circuit reads that difference.",
+    "simulation_purpose": "The goal is not to memorize rules A to D. It is to follow how the relation between two outputs becomes one oracle query, phase markers, interference, and finally a measurement.",
+    "simulation_steps": [
+      "The first H gates prepare the input-0 and input-1 possibilities together.",
+      "One pass through U_f leaves the relation between the function values as + or - phase markers.",
+      "The final H converts that hidden phase relation into measurement 0 or 1.",
+      "Measurement 0 means constant; measurement 1 means balanced."
+    ],
+    "simulation_diagram": "assets/images/level11_deutsch_circuit.svg",
     "simulation_hint": "This lab calculates the standard two-qubit Deutsch circuit. A deterministic classical method must ask for both f(0) and f(1), while this circuit calls the oracle U_f once.",
     "classification_labels": {
       "constant": "constant",
@@ -453,8 +468,25 @@
       {"id": "constant_one", "label": "Oracle C"},
       {"id": "balanced_flip", "label": "Oracle D"}
     ],
+    "truth_table": [
+      {"label": "Oracle A", "f0": 0, "f1": 0, "classification": "constant"},
+      {"label": "Oracle B", "f0": 0, "f1": 1, "classification": "balanced"},
+      {"label": "Oracle C", "f0": 1, "f1": 1, "classification": "constant"},
+      {"label": "Oracle D", "f0": 1, "f1": 0, "classification": "balanced"}
+    ],
     "simulation_ui": {
       "circuit_caption": "The first qubit carries the classification. The second helper qubit lets the oracle mark phase information.",
+      "process_title": "Four steps that produce the answer",
+      "truth_table_title": "Start with the truth table for the problem",
+      "rule_column": "Hidden rule",
+      "type_column": "Type",
+      "method_column": "Method",
+      "query_column": "Oracle queries",
+      "method_note_column": "How it compares",
+      "classical_method": "Deterministic classical method",
+      "classical_method_note": "Ask for f(0) and f(1) separately",
+      "quantum_method": "Deutsch circuit",
+      "quantum_method_note": "Apply U_f once to a superposition and read the relation through interference",
       "stage_title": "Circuit stages",
       "stage_column": "Circuit stage",
       "p0_column": "First-qubit P(0)",
@@ -476,7 +508,10 @@
       "phase_column": "Phase marker (-1)^f(x)",
       "phase_same": "The two phase markers match. The final H reinforces first-qubit result 0, so the oracle is constant.",
       "phase_opposite": "The phase markers differ. The final H reinforces first-qubit result 1, so the oracle is balanced.",
-      "reveal_title": "Reveal the oracle truth table"
+      "result_constant": "Measurement {measurement} appeared. Matching phase markers reinforced output 0, so this is a {classification} rule.",
+      "result_balanced": "Measurement {measurement} appeared. Opposite phase markers reinforced output 1, so this is a {classification} rule.",
+      "details_title": "Show probability changes at every circuit stage",
+      "reveal_title": "Show the selected oracle truth table"
     },
     "terms": [
       {"Term": "algorithm", "Meaning": "A planned procedure for solving a problem"},
@@ -531,7 +566,7 @@
       }
     ]
   },
-  "level8": {
+  "level7": {
     "goal": "Goal: Understand why noise and errors matter in real quantum computers.",
     "terms_title": "Terms for noise",
     "key_takeaway": "Key idea: quantum probability and hardware error are different; noise blurs measurement statistics.",
@@ -594,7 +629,7 @@
       }
     ]
   },
-  "level9": {
+  "level8": {
     "goal": "Goal: Learn how to read simple quantum circuit diagrams from left to right.",
     "terms_title": "Circuit reading terms",
     "key_takeaway": "Key idea: a circuit diagram is a timeline of qubits, gates, and measurement.",
@@ -612,7 +647,7 @@
         "id": "x_gate",
         "label": "X gate: flip 0 to 1",
         "labels": ["0", "1"],
-        "image": "assets/images/level9_x_gate_circuit.svg",
+        "image": "assets/images/level8_x_gate_circuit.svg",
         "diagram": "q0: |0> -- X -- M",
         "reading": "Start from |0>, apply X, then measure. X flips the computational-basis value.",
         "result_note": "The ideal result is always 1. This is the quantum-circuit version of a simple flip.",
@@ -624,7 +659,7 @@
         "id": "h_gate",
         "label": "H gate: make a 50:50 state",
         "labels": ["0", "1"],
-        "image": "assets/images/level9_h_gate_circuit.svg",
+        "image": "assets/images/level8_h_gate_circuit.svg",
         "diagram": "q0: |0> -- H -- M",
         "reading": "Start from |0>, apply H, then measure. H prepares equal-size possibilities for 0 and 1.",
         "result_note": "Repeated measurements split around 0 and 1. One run still gives only one value.",
@@ -636,7 +671,7 @@
         "id": "h_then_z",
         "label": "H then Z: same Z probabilities, different phase",
         "labels": ["0", "1"],
-        "image": "assets/images/level9_h_z_circuit.svg",
+        "image": "assets/images/level8_h_z_circuit.svg",
         "diagram": "q0: |0> -- H -- Z -- M",
         "reading": "Z changes the sign of the |1> part. A Z-basis measurement still sees 0 and 1 half the time.",
         "result_note": "The probability bars match the H-only circuit, but the phase sign is different.",
@@ -648,7 +683,7 @@
         "id": "bell_pair",
         "label": "Bell circuit: connect two qubits",
         "labels": ["00", "01", "10", "11"],
-        "image": "assets/images/level9_bell_circuit.svg",
+        "image": "assets/images/level8_bell_circuit.svg",
         "diagram": "q0: |0> -- H -- ● -- M\n              |\nq1: |0> ----- X -- M",
         "reading": "H creates two possibilities on the first qubit. CNOT then connects the second qubit to that pattern.",
         "result_note": "The ideal Bell circuit gives only 00 or 11. The two results match, even though each side looks random.",
@@ -708,7 +743,7 @@
       }
     ]
   },
-  "level10": {
+  "level9": {
     "goal": "Goal: Separate one measurement result, repeated-measurement statistics, and noisy readout.",
     "terms_title": "Terms for measurement statistics",
     "key_takeaway": "Key idea: one measurement does not reveal the whole state; repeated measurements reveal probability patterns; noise can blur those patterns.",
@@ -719,7 +754,7 @@
       "3. With noise, both the range and the average position can move away from the original probability."
     ],
     "simulation_waiting": "No measurement has been made yet. Choose the probability and error rate, then run the experiment.",
-    "simulation_caption": "Level 8 shows how noise changes one experiment. This level repeats many batches to show how sample size changes the wobble range.",
+    "simulation_caption": "Level 7 shows how noise changes one experiment. This level repeats many batches to show how sample size changes the wobble range.",
     "result_note": "Each bar is the mean of 30 experiment batches. The vertical line runs from the lowest ratio to the highest ratio. Blue is ideal readout, and red is noisy readout.",
     "simulation_ui": {
       "shots_column": "Shots",
@@ -781,30 +816,42 @@
       }
     ]
   },
-  "level11": {
+  "level10": {
     "goal": "Goal: Understand how phase difference can make possibilities reinforce or cancel.",
     "terms_title": "Terms for interference",
     "key_takeaway": "Key idea: quantum interference does not mean every result appears; it means possibility directions add so some outcomes grow and others disappear.",
-    "simulation_intro": "Choose the phase difference between two paths, then use repeated measurement to see how bright and dark outputs change.",
+    "simulation_intro": "Sweep the phase difference continuously from 0 to 360 degrees, then compare the theoretical probability curve with repeated measurements.",
     "simulation_focus": [
-      "1. Same phase reinforces the bright output.",
-      "2. Opposite phase cancels the bright output and grows the dark output.",
-      "3. Middle phases split the two outputs."
+      "1. The angle between two arrows represents the relative phase of the paths.",
+      "2. Probability changes smoothly at every angle, not only at 0 and 180 degrees.",
+      "3. Compare the theoretical probability with finite-shot measurement frequency."
     ],
-    "simulation_waiting": "No measurement has been made yet. Choose a phase difference and trial count, then run the experiment.",
-    "simulation_caption": "Graph labels are in English. Treat bright as the reinforced output and dark as the output where cancellation is strong.",
+    "simulation_waiting": "The curve shows the theoretical values. Choose a phase and shot count, then run the experiment to reveal the finite-sample difference.",
+    "simulation_caption": "Level 4 compared the two special H-H and H-Z-H cases. This lab explores the full continuous phase range and sampling error.",
     "simulation_ui": {
       "phase_label": "Phase difference",
       "output_column": "Output",
-      "probability_column": "Probability",
-      "count_column": "Count"
+      "theory_column": "Theory",
+      "observed_column": "Observed",
+      "count_column": "Count",
+      "gap_column": "Gap",
+      "advanced_purpose": "Advanced goal: instead of memorizing two circuit outcomes, observe how relative phase creates the full output-probability curve and how repeated measurements approach it.",
+      "curve_caption": "The arrows show relative phase; the curves show theoretical bright/dark probabilities for every phase. The dots mark the current selection.",
+      "comparison_title": "Theory versus repeated measurement",
+      "phase_metric": "Phase difference",
+      "predicted_bright": "Predicted bright",
+      "observed_bright": "Observed bright",
+      "result_constructive": "At {phase} degrees, the paths point together and fully reinforce the bright output.",
+      "result_destructive": "At 180 degrees, the paths point oppositely, canceling bright and leaving dark.",
+      "result_partial": "At {phase} degrees, partial reinforcement and cancellation split the two outputs.",
+      "sampling_note": "With {shots} measurements, the bright frequency differs from theory by {gap:.1f} percentage points. Change the shot count and compare how this gap fluctuates."
     },
     "phase_options": [
       {
         "id": "phase_0",
         "label": "0 degrees · same phase",
         "phase_turns": 0,
-        "image": "assets/images/level11_phase_0.svg",
+        "image": "assets/images/level10_phase_0.svg",
         "reading": "The two possibilities meet in the same direction, so the bright output grows.",
         "formula": "P(\\text{bright})=1",
         "result_note": "This is constructive interference. Ideally, only bright appears."
@@ -813,7 +860,7 @@
         "id": "phase_90",
         "label": "90 degrees · middle phase",
         "phase_turns": 0.25,
-        "image": "assets/images/level11_phase_90.svg",
+        "image": "assets/images/level10_phase_90.svg",
         "reading": "The possibilities are neither fully aligned nor fully opposite, so the two outputs split.",
         "formula": "P(\\text{bright})=\\frac{1}{2}",
         "result_note": "This is an intermediate phase. Repeated measurements land near half bright and half dark."
@@ -822,7 +869,7 @@
         "id": "phase_180",
         "label": "180 degrees · opposite phase",
         "phase_turns": 0.5,
-        "image": "assets/images/level11_phase_180.svg",
+        "image": "assets/images/level10_phase_180.svg",
         "reading": "The two possibilities meet in opposite directions, so the bright output cancels.",
         "formula": "P(\\text{bright})=0",
         "result_note": "This is destructive interference. Ideally, only dark appears."
@@ -831,7 +878,7 @@
         "id": "phase_270",
         "label": "270 degrees · another middle phase",
         "phase_turns": 0.75,
-        "image": "assets/images/level11_phase_270.svg",
+        "image": "assets/images/level10_phase_270.svg",
         "reading": "Like 90 degrees, the outputs split, but the phase direction is different.",
         "formula": "P(\\text{bright})=\\frac{1}{2}",
         "result_note": "The measurement probabilities match 90 degrees, but the phase direction differs. That can matter in a later circuit."

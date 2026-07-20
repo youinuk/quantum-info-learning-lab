@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HANGUL = re.compile(r"[가-힣]")
-EXPECTED_CARD_COUNTS = [4, 6, 5, 5, 6, 5, 8, 8, 5, 5, 5, 5, 5]
+EXPECTED_CARD_COUNTS = [4, 7, 5, 5, 6, 5, 8, 6, 5, 5, 5, 8, 5]
 IMAGE_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 
 
@@ -13,8 +13,8 @@ def test_korean_and_english_lessons_have_matching_card_counts():
         korean = (ROOT / "content" / "lessons" / "ko" / f"level{level}.md").read_text(encoding="utf-8")
         english = (ROOT / "content" / "lessons" / "en" / f"level{level}.md").read_text(encoding="utf-8")
 
-        assert korean.count("## ") == expected_count
-        assert english.count("## ") == expected_count
+        assert len(re.findall(r"^## ", korean, flags=re.MULTILINE)) == expected_count
+        assert len(re.findall(r"^## ", english, flags=re.MULTILINE)) == expected_count
         assert not HANGUL.search(english)
 
 

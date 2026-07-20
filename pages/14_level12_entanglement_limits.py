@@ -55,7 +55,7 @@ with simulation_tab:
     if diagram:
         diagram_path = BASE_DIR / diagram
         if diagram_path.is_file():
-            st.image(str(diagram_path), caption=ui.get("diagram_caption", ""), width="stretch")
+            st.image(str(diagram_path), caption=ui.get("diagram_caption", ""), width=760)
 
     st.info(ui.get("message_attempt", ""))
 

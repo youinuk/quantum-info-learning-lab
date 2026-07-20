@@ -7,10 +7,10 @@
   <rect x="280" y="135" width="160" height="120" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="4"/>
   <rect x="470" y="135" width="160" height="120" rx="16" fill="#f3ecff" stroke="#8b5cf6" stroke-width="4"/>
   <rect x="660" y="135" width="160" height="120" rx="16" fill="#fff1f2" stroke="#f43f5e" stroke-width="4"/>
-  <text x="170" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#1d4ed8">|00&gt;</text>
-  <text x="360" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#4338ca">|01&gt;</text>
-  <text x="550" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#6d28d9">|10&gt;</text>
-  <text x="740" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#be123c">|11&gt;</text>
+  <text x="170" y="207" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="38" font-weight="700" fill="#1d4ed8">|00⟩</text>
+  <text x="360" y="207" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="38" font-weight="700" fill="#4338ca">|01⟩</text>
+  <text x="550" y="207" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="38" font-weight="700" fill="#6d28d9">|10⟩</text>
+  <text x="740" y="207" text-anchor="middle" font-family="Cambria Math, STIX Two Math, serif" font-size="38" font-weight="700" fill="#be123c">|11⟩</text>
   <rect x="144" y="336" width="612" height="46" rx="23" fill="#ffffff" stroke="#cfd6e4" stroke-width="2"/>
   <text x="450" y="366" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#334155">Each extra qubit doubles the number of basis states.</text>
   <text x="450" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#64748b">1 qubit: 2 states   |   2 qubits: 4 states   |   3 qubits: 8 states</text>

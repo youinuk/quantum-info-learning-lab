@@ -22,9 +22,9 @@ Bright bands show reinforced possibilities. Dark bands show canceled possibiliti
 
 In this app, we use H and Z gates as a tiny qubit version of the same idea.
 
-![Double-slit setup](assets/images/Doubleslit.svg)
+![Double-slit setup](assets/images/double_slit_setup.svg)
 
-![Double-slit interference spectrum](assets/images/Doubleslit3Dspectrum.gif)
+![Electron detections building into an interference pattern](assets/images/electron_double_slit_buildup.gif)
 
 One detection gives only one dot on the screen. Repeating the same experiment many times creates dense and sparse regions, and that density pattern becomes the interference pattern.
 

@@ -24,16 +24,16 @@ For publication release, replace commit hashes with a versioned release tag and 
 | EXP-G01 | Single-qubit gate transformations | 3 | `pages/04_level3_gates.py` | `apply_single_qubit_gate` | Ch. 5 | `fig_exp_g01_gate_transformations` | public |
 | EXP-G02 | Two-gate return experiments | 3 | `pages/04_level3_gates.py` | `apply_single_qubit_gate` | Ch. 5 | `fig_exp_g02_two_gate_returns` | public |
 | EXP-I01 | H-H versus H-Z-H interference | 4 | `pages/05_level4_interference.py` | `apply_single_qubit_gate` | Ch. 6, Ch. 7 | `fig_ch06_hidden_phase_concept`, `fig_ch06_recombination_flow` | public |
-| EXP-I02 | Constructive/destructive amplitude comparison | 4, 11 | `pages/05_level4_interference.py`, `pages/13_level11_interference_depth.py` | symbolic derivation / checked values | Ch. 6, Ch. 7 | `tab_ch06_amplitude_probability` | public |
-| EXP-I03 | Variable phase-difference interference | 11 | `pages/13_level11_interference_depth.py` | `simulate_phase_interference` | Ch. 6, Ch. 7 | `fig_ch06_phase_sweep` | public |
+| EXP-I02 | Constructive/destructive amplitude comparison | 4, 10 | `pages/05_level4_interference.py`, `pages/12_level10_interference_depth.py` | symbolic derivation / checked values | Ch. 6, Ch. 7 | `tab_ch06_amplitude_probability` | public |
+| EXP-I03 | Variable phase-difference interference | 10 | `pages/12_level10_interference_depth.py` | `simulate_phase_interference` | Ch. 6, Ch. 7 | `fig_ch06_phase_sweep` | public |
 | EXP-TQ01 | Independent two-qubit joint distribution | 5 | `pages/06_level5_two_qubits.py` | `independent_two_qubit_distribution` | Ch. 8 | `fig_exp_tq01_joint_distribution` | public |
 | EXP-ENT01 | Product, classical mixture, and Bell state in Z/X bases | 6 | `pages/07_level6_entanglement.py` | `simulate_two_basis_correlations` | Ch. 9 | `fig_exp_ent01_basis_compare` | public |
-| EXP-ALG01 | Deutsch oracle classification | 7 | `pages/08_level7_algorithms.py` | `run_deutsch_one_bit` | Ch. 7, Ch. 11 | `fig_exp_alg01_deutsch_stages` | public |
-| EXP-N01 | Symmetric outcome-flip noise | 8 | `pages/09_level8_noise.py` | `simulate_noisy_bit_measurements` | Ch. 12 | `fig_exp_n01_outcome_flip` | public |
-| EXP-CIR01 | Circuit-card reading | 9 | `pages/11_level9_circuit_reading.py` | `simulate_named_circuit` | Ch. 5, Ch. 8, Ch. 11 | `fig_exp_cir01_cards` | public |
-| EXP-CIR02 | Measurement-placement comparison | 9 | `pages/11_level9_circuit_reading.py` | `simulate_named_circuit` | Ch. 5 | `fig_exp_cir02_measurement_placement` | public |
-| EXP-STAT01 | 10/100/1000-shot comparison | 10 | `pages/12_level10_measurement_statistics.py` | `simulate_measurement_series` | Ch. 2, Ch. 4 | `fig_exp_stat01_shot_comparison` | public |
-| EXP-STAT02 | Sampling and noise comparison | 10 | `pages/12_level10_measurement_statistics.py` | `simulate_measurement_series` | Ch. 2, Ch. 12 | `fig_exp_stat02_noise_sampling` | public |
+| EXP-ALG01 | Deutsch oracle classification | 11 | `pages/13_level11_algorithms.py` | `run_deutsch_one_bit` | Ch. 7, Ch. 11 | `fig_exp_alg01_deutsch_stages` | public |
+| EXP-N01 | Symmetric outcome-flip noise | 7 | `pages/08_level7_noise.py` | `simulate_noisy_bit_measurements` | Ch. 12 | `fig_exp_n01_outcome_flip` | public |
+| EXP-CIR01 | Circuit-card reading | 8 | `pages/09_level8_circuit_reading.py` | `simulate_named_circuit` | Ch. 5, Ch. 8, Ch. 11 | `fig_exp_cir01_cards` | public |
+| EXP-CIR02 | Measurement-placement comparison | 8 | `pages/09_level8_circuit_reading.py` | `simulate_named_circuit` | Ch. 5 | `fig_exp_cir02_measurement_placement` | public |
+| EXP-STAT01 | 10/100/1000-shot comparison | 9 | `pages/11_level9_measurement_statistics.py` | `simulate_measurement_series` | Ch. 2, Ch. 4 | `fig_exp_stat01_shot_comparison` | public |
+| EXP-STAT02 | Sampling and noise comparison | 9 | `pages/11_level9_measurement_statistics.py` | `simulate_measurement_series` | Ch. 2, Ch. 12 | `fig_exp_stat02_noise_sampling` | public |
 | EXP-ENT02 | Local data versus paired joint data | 12 | `pages/14_level12_entanglement_limits.py` | `simulate_entanglement_limit` | Ch. 9, Ch. 10 | `fig_exp_ent02_local_joint` | public |
 | EXP-ENT03 | Same-basis and different-basis comparison | 12 | `pages/14_level12_entanglement_limits.py` | `simulate_entanglement_limit` | Ch. 10 | `fig_exp_ent03_basis_pairs` | public |
 | EXP-EC01 | One-bit versus three-bit repetition | 13 | `TBD_LEVEL13` | `TBD` | Ch. 12 | `fig_exp_ec01_repetition` | planned |

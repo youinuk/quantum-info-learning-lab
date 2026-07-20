@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -48,6 +50,67 @@ def compact_count_bar(
             va="bottom",
             fontsize=9,
         )
+    fig.tight_layout()
+    return fig
+
+
+def phase_interference_sweep_chart(phase_degrees: float):
+    """Show relative phase vectors and the full bright/dark probability sweep."""
+    phase_radians = math.radians(phase_degrees)
+    degrees = list(range(361))
+    bright = [(1 + math.cos(math.radians(value))) / 2 for value in degrees]
+    dark = [1 - value for value in bright]
+    current_bright = (1 + math.cos(phase_radians)) / 2
+    current_dark = 1 - current_bright
+
+    fig, (phase_ax, curve_ax) = plt.subplots(1, 2, figsize=(7.2, 3.0), dpi=140)
+
+    circle = plt.Circle((0, 0), 1, fill=False, color="#cbd5e1", linewidth=1.2, linestyle="--")
+    phase_ax.add_patch(circle)
+    phase_ax.arrow(0, 0, 0.88, 0, width=0.025, head_width=0.12, head_length=0.12, color="#2563eb", length_includes_head=True)
+    phase_ax.arrow(
+        0,
+        0,
+        0.88 * math.cos(phase_radians),
+        0.88 * math.sin(phase_radians),
+        width=0.025,
+        head_width=0.12,
+        head_length=0.12,
+        color="#f59e0b",
+        length_includes_head=True,
+    )
+    phase_ax.text(0.55, -0.18, "path A", color="#1d4ed8", fontsize=9)
+    phase_ax.text(
+        0.58 * math.cos(phase_radians),
+        0.58 * math.sin(phase_radians) + 0.12,
+        "path B",
+        color="#b45309",
+        fontsize=9,
+        ha="center",
+    )
+    phase_ax.set_title(f"Relative phase: {phase_degrees:.0f} deg", fontsize=10, pad=8)
+    phase_ax.set_xlim(-1.2, 1.2)
+    phase_ax.set_ylim(-1.2, 1.2)
+    phase_ax.set_aspect("equal")
+    phase_ax.axis("off")
+
+    curve_ax.plot(degrees, bright, color="#2563eb", linewidth=2.2, label="bright")
+    curve_ax.plot(degrees, dark, color="#f43f5e", linewidth=2.2, label="dark")
+    curve_ax.axvline(phase_degrees, color="#334155", linewidth=1.2, linestyle="--")
+    curve_ax.scatter([phase_degrees], [current_bright], color="#2563eb", s=42, zorder=3)
+    curve_ax.scatter([phase_degrees], [current_dark], color="#f43f5e", s=42, zorder=3)
+    curve_ax.set_title("Probability across phase", fontsize=10, pad=8)
+    curve_ax.set_xlabel("phase difference (deg)", fontsize=9)
+    curve_ax.set_ylabel("probability", fontsize=9)
+    curve_ax.set_xlim(0, 360)
+    curve_ax.set_ylim(0, 1.05)
+    curve_ax.set_xticks([0, 90, 180, 270, 360])
+    curve_ax.tick_params(labelsize=8)
+    curve_ax.grid(alpha=0.2)
+    curve_ax.spines["top"].set_visible(False)
+    curve_ax.spines["right"].set_visible(False)
+    curve_ax.legend(frameon=False, fontsize=8, ncols=2, loc="upper center")
+
     fig.tight_layout()
     return fig
 

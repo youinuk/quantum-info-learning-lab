@@ -13,9 +13,14 @@
    version="1.0"
    width="514"
    height="467"
+   viewBox="0 0 514 467"
+   role="img"
+   aria-labelledby="title desc"
    id="svg3536"
    inkscape:version="0.48.2 r9819"
    sodipodi:docname="Doubleslit.svg">
+  <title id="title">Double-slit wave experiment</title>
+  <desc id="desc">Circular waves pass through two openings and overlap to form an interference pattern.</desc>
   <metadata
      id="metadata3201">
     <rdf:RDF>
